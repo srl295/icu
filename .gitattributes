@@ -1,0 +1,71 @@
+* text=auto !eol
+src/com/ibm/data/misc/english.dict -text svneol=native#application/octet-stream
+src/com/ibm/demo/calendar/package.html svneol=native#text/html
+src/com/ibm/demo/holiday/package.html svneol=native#text/html
+src/com/ibm/demo/package.html svneol=native#text/html
+src/com/ibm/demo/rbbi/package.html svneol=native#text/html
+src/com/ibm/demo/rbnf/package.html svneol=native#text/html
+src/com/ibm/demo/translit/demo.html svneol=native#text/html
+src/com/ibm/demo/translit/package.html svneol=native#text/html
+src/com/ibm/math/package.html svneol=native#text/html
+src/com/ibm/test/bnf/package.html svneol=native#text/html
+src/com/ibm/test/calendar/package.html svneol=native#text/html
+src/com/ibm/test/compression/package.html svneol=native#text/html
+src/com/ibm/test/normalizer/package.html svneol=native#text/html
+src/com/ibm/test/package.html svneol=native#text/html
+src/com/ibm/test/rbbi/package.html svneol=native#text/html
+src/com/ibm/test/rbnf/package.html svneol=native#text/html
+src/com/ibm/test/search/package.html svneol=native#text/html
+src/com/ibm/test/translit/package.html svneol=native#text/html
+src/com/ibm/text/components/package.html svneol=native#text/html
+src/com/ibm/text/package.html svneol=native#text/html
+src/com/ibm/text/resources/Transliterator_Bengali_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Devanagari_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Fullwidth_Halfwidth.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Gujarati_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Gurmukhi_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Han_Pinyin.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Hiragana_Katakana.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Bengali.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Devanagari.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Gujarati.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Gurmukhi.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Kannada.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Malayalam.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Oriya.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Tamil.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_InterIndic_Telugu.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Kanji_English.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Kanji_OnRomaji.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Kannada_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_KeyboardEscape_Latin1.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Latin_Arabic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Latin_Cyrillic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Latin_Devanagari.utf8.txt -text
+src/com/ibm/text/resources/Transliterator_Latin_Greek.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Latin_Hebrew.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Latin_Jamo.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Latin_Kana.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Malayalam_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Oriya_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_StraightQuotes_CurlyQuotes.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Tamil_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_Telugu_InterIndic.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/Transliterator_UnicodeName_UnicodeChar.utf8.txt -text svneol=unset#application/octet-stream
+src/com/ibm/text/resources/package.html svneol=native#text/html
+src/com/ibm/text/resources/thai_dict -text
+src/com/ibm/text/unames.dat -text
+src/com/ibm/text/uprops.dat -text
+src/com/ibm/tools/compression/package.html svneol=native#text/html
+src/com/ibm/tools/normalizer/package.html svneol=native#text/html
+src/com/ibm/util/package.html svneol=native#text/html
+src/com/ibm/util/resources/package.html svneol=native#text/html
+src/data/holidays_jp.ucs -text svneol=native#application/octet-stream
+src/data/thai6.ucs -text
+src/data/unicode/Draft-TestSuite.txt -text svneol=unset#application/octet-stream
+*.jar filter=lfs diff=lfs merge=lfs -text
+*.dat filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.gz filter=lfs diff=lfs merge=lfs -text
+*.bz2 filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
