@@ -1,0 +1,51 @@
+* text=auto !eol
+data/charBE.brk -text
+data/charLE.brk -text
+data/lineBE.brk -text
+data/lineLE.brk -text
+data/line_thBE.brk -text
+data/line_thLE.brk -text
+data/sentBE.brk -text
+data/sentLE.brk -text
+data/thaidict.brk -text
+data/unidata/Draft-TestSuite.txt -text svneol=unset#application/octet-stream
+data/wordBE.brk -text
+data/wordLE.brk -text
+data/word_thBE.brk -text
+data/word_thLE.brk -text
+docs/BreakIterator.html svneol=native#text/html
+docs/BreakIteratorGrafik.gif svneol=native#unset
+docs/Collate.html svneol=native#text/html
+docs/boundCL.html svneol=native#text/html
+docs/candcpp.html svneol=native#text/html
+docs/cintltst.html svneol=native#text/html
+docs/codeConv.html svneol=native#text/html
+docs/codestds.html svneol=native#text/html
+docs/collateCl.html svneol=native#text/html
+docs/collflow.gif -text
+docs/errorCod.html svneol=native#text/html
+docs/formatCl.html svneol=native#text/html
+docs/intltest.html svneol=native#text/html
+docs/message.html svneol=native#text/html
+docs/mutex.html svneol=native#text/html
+docs/nameConv.html svneol=native#text/html
+docs/number.html svneol=native#text/html
+docs/supp_loc.html svneol=native#text/html
+docs/tzClasses.html svneol=native#text/html
+docs/udata.html svneol=native#text/html
+docs/utilCL.html svneol=native#text/html
+/license.html svneol=native#text/html
+/readme.html svneol=native#text/html
+source/samples/translit/U0080.pdf -text
+source/samples/ucnv/data01.ut8 -text svneol=unset#application/octet-stream
+source/samples/ucnv/data02.bin -text svneol=unset#application/octet-stream
+source/test/testdata/en_US.uni -text
+source/test/testdata/importtest.bin -text
+source/test/testdata/uni-text.txt -text
+source/tools/makeconv/gb18030/gb18030.html svneol=native#text/html
+*.jar filter=lfs diff=lfs merge=lfs -text
+*.dat filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.gz filter=lfs diff=lfs merge=lfs -text
+*.bz2 filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
