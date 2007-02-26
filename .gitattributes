@@ -82,12 +82,16 @@ src/com/ibm/icu/dev/tool/docs/icu4j341.api.gz -text svneol=unset#application/gzi
 src/com/ibm/icu/dev/tool/docs/icu4j342.api.gz -text svneol=unset#application/gzip
 src/com/ibm/icu/dev/tool/docs/icu4j343.api.gz -text svneol=unset#application/gzip
 src/com/ibm/icu/dev/tool/rbbi/readme.html svneol=native#text/html
+src/com/ibm/icu/impl/DateNumberFormat.java -text
+src/com/ibm/icu/impl/ICUCache.java -text
+src/com/ibm/icu/impl/SimpleCache.java -text
 src/com/ibm/icu/impl/data/icudata.jar -text svneol=unset#application/java-archive
 src/com/ibm/icu/impl/data/package.html svneol=native#text/html
 src/com/ibm/icu/impl/data/th.brk -text
 src/com/ibm/icu/lang/package.html svneol=native#text/html
 src/com/ibm/icu/math/package.html svneol=native#text/html
 src/com/ibm/icu/text/package.html svneol=native#text/html
+src/com/ibm/icu/util/CalendarServiceShim.java -text
 src/com/ibm/icu/util/package.html svneol=native#text/html
 src/com/ibm/richtext/awtui/package.html svneol=native#text/html
 src/com/ibm/richtext/demo/package.html svneol=native#text/html
