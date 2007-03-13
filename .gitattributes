@@ -1,6 +1,7 @@
 * text=auto !eol
 /APIChangeReport.html svneol=native#text/html
 /build.xml svneol=native#text/xml
+/eclipseFragmentArgs.txt -text
 /ee.foundation.jar -text svneol=unset#application/java-archive
 /license.html svneol=native#text/html
 /readme.html svneol=native#text/html
