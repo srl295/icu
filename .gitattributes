@@ -3,6 +3,8 @@
 /build.xml svneol=native#text/xml
 /eclipseFragmentArgs.txt -text
 /ee.foundation.jar -text svneol=unset#application/java-archive
+/jvmcfg.properties -text
+/jvmcfg_ibm_1.4_AIX.properties -text
 /license.html svneol=native#text/html
 /readme.html svneol=native#text/html
 src/com/ibm/icu/charset/package.html svneol=native#text/html
