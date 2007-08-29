@@ -20,7 +20,6 @@ src/com/ibm/icu/dev/data/rbbi/english.dict -text svneol=native#application/octet
 src/com/ibm/icu/dev/data/testdata.jar -text svneol=unset#application/java-archive
 src/com/ibm/icu/dev/data/thai6.ucs -text
 src/com/ibm/icu/dev/demo/calendar/package.html svneol=native#text/html
-src/com/ibm/icu/dev/demo/chart/UnicodeChart.css svneol=native#text/css
 src/com/ibm/icu/dev/demo/holiday/package.html svneol=native#text/html
 src/com/ibm/icu/dev/demo/impl/package.html svneol=native#text/html
 src/com/ibm/icu/dev/demo/rbbi/package.html svneol=native#text/html
