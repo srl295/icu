@@ -8,13 +8,9 @@
 eclipseProjectMisc/initSrc.launch -text
 eclipseProjectMisc/normSrc.launch -text
 /ee.foundation.jar -text svneol=unset#application/java-archive
-/license.html -text
+/license.html svneol=native#text/html
 /preprocessor.txt -text
 /readme.html svneol=native#text/html
-src/com/ibm/icu/charset/CharsetISCII.java -text
-src/com/ibm/icu/charset/CharsetUTF16BE.java -text
-src/com/ibm/icu/charset/CharsetUTF32BE.java -text
-src/com/ibm/icu/charset/CharsetUTF7.java -text
 src/com/ibm/icu/charset/package.html svneol=native#text/html
 src/com/ibm/icu/dev/data/rbbi/english.dict -text svneol=native#application/octet-stream
 src/com/ibm/icu/dev/data/testdata.jar -text svneol=unset#application/java-archive
@@ -114,7 +110,6 @@ src/com/ibm/icu/dev/test/calendar/package.html svneol=native#text/html
 src/com/ibm/icu/dev/test/charsetdet/CharsetDetectionTests.xml svneol=native#text/xml
 src/com/ibm/icu/dev/test/compression/package.html svneol=native#text/html
 src/com/ibm/icu/dev/test/duration/DataReadWriteTest.java -text
-src/com/ibm/icu/dev/test/duration/ICUDurationTest.java -text
 src/com/ibm/icu/dev/test/duration/LanguageTestRoot.java -text
 src/com/ibm/icu/dev/test/duration/PeriodBuilderFactoryTest.java -text
 src/com/ibm/icu/dev/test/duration/PeriodBuilderTest.java -text
@@ -154,9 +149,6 @@ src/com/ibm/icu/dev/test/duration/testdata/testdata_zh_Hant_HK.txt -text
 src/com/ibm/icu/dev/test/format/DataDrivenFormatTest.java -text
 src/com/ibm/icu/dev/test/normalizer/package.html svneol=native#text/html
 src/com/ibm/icu/dev/test/package.html svneol=native#text/html
-src/com/ibm/icu/dev/test/perf/DateFormatPerformanceTest.java -text
-src/com/ibm/icu/dev/test/perf/DecimalFormatPerformanceTest.java -text
-src/com/ibm/icu/dev/test/perf/converterperf.pl -text
 src/com/ibm/icu/dev/test/perf/data/collation/TestNames_Asian.txt -text svneol=unset#application/octet-stream
 src/com/ibm/icu/dev/test/perf/data/collation/TestNames_Chinese.txt -text svneol=unset#application/octet-stream
 src/com/ibm/icu/dev/test/perf/data/collation/TestNames_Japanese.txt -text svneol=unset#application/octet-stream
@@ -178,13 +170,6 @@ src/com/ibm/icu/dev/test/perf/data/conversion/hindi.txt svneol=native#text/html%
 src/com/ibm/icu/dev/test/perf/data/conversion/japanese.txt svneol=native#text/html%3B+charset%3DUTF-8
 src/com/ibm/icu/dev/test/perf/data/conversion/korean.txt svneol=native#text/html%3B+charset%3DUTF-8
 src/com/ibm/icu/dev/test/perf/data/conversion/s-chinese.txt svneol=native#text/html%3B+charset%3DUTF-8
-src/com/ibm/icu/dev/test/perf/dateformatperf.pl -text
-src/com/ibm/icu/dev/test/perf/decimalformatperf.pl -text
-src/com/ibm/icu/dev/test/perf/normalizationperf_r_b.pl -text
-src/com/ibm/icu/dev/test/perf/normalizationperf_r_l.pl -text
-src/com/ibm/icu/dev/test/perf/rbbiperf_r.pl -text
-src/com/ibm/icu/dev/test/perf/ucharacterperf_r.pl -text
-src/com/ibm/icu/dev/test/perf/unicodesetperf_r.pl -text
 src/com/ibm/icu/dev/test/rbbi/package.html svneol=native#text/html
 src/com/ibm/icu/dev/test/rbbi/rbbitst.txt -text svneol=unset#application/octet-stream
 src/com/ibm/icu/dev/test/search/package.html svneol=native#text/html
@@ -218,7 +203,6 @@ src/com/ibm/icu/dev/test/serializable/data/ICU_3.6/com.ibm.icu.util.SimpleTimeZo
 src/com/ibm/icu/dev/test/serializable/data/ICU_3.6/com.ibm.icu.util.TimeZone.dat -text
 src/com/ibm/icu/dev/test/serializable/data/ICU_3.6/com.ibm.icu.util.ULocale.dat -text
 src/com/ibm/icu/dev/test/serializable/data/ICU_3.6/com.ibm.icu.util.UResourceTypeMismatchException.dat -text
-src/com/ibm/icu/dev/test/timezone/TimeZoneRuleTest.java -text
 src/com/ibm/icu/dev/test/translit/package.html svneol=native#text/html
 src/com/ibm/icu/dev/test/util/CalendarFieldsSet.java -text
 src/com/ibm/icu/dev/test/util/DateTimeStyleSet.java -text
@@ -226,7 +210,6 @@ src/com/ibm/icu/dev/test/util/DebugUtilities.java -text
 src/com/ibm/icu/dev/test/util/DebugUtilitiesData.java -text
 src/com/ibm/icu/dev/test/util/DebugUtilitiesTest.java -text
 src/com/ibm/icu/dev/test/util/FieldsSet.java -text
-src/com/ibm/icu/dev/test/util/PrettyPrinter.java -text
 src/com/ibm/icu/dev/tool/compression/package.html svneol=native#text/html
 src/com/ibm/icu/dev/tool/docs/icu4j28.api.gz -text svneol=unset#application/gzip
 src/com/ibm/icu/dev/tool/docs/icu4j30.api.gz -text svneol=unset#application/gzip
@@ -238,21 +221,7 @@ src/com/ibm/icu/dev/tool/docs/icu4j343.api.gz -text svneol=unset#application/gzi
 src/com/ibm/icu/dev/tool/docs/icu4j36.api.gz -text
 src/com/ibm/icu/dev/tool/docs/icu4j38.api.gz -text
 src/com/ibm/icu/dev/tool/rbbi/readme.html svneol=native#text/html
-src/com/ibm/icu/dev/tool/timezone/ICUZDump.java -text
-src/com/ibm/icu/dev/tool/tzu/CLILoader.java -text
-src/com/ibm/icu/dev/tool/tzu/DirectorySearch.txt -text
-src/com/ibm/icu/dev/tool/tzu/GUILoader.java -text
-src/com/ibm/icu/dev/tool/tzu/ICUFile.java -text
-src/com/ibm/icu/dev/tool/tzu/ICUJarFinder.java -text
-src/com/ibm/icu/dev/tool/tzu/ICUTZUMain.java -text
-src/com/ibm/icu/dev/tool/tzu/IncludePath.java -text
-src/com/ibm/icu/dev/tool/tzu/Logger.java -text
-src/com/ibm/icu/dev/tool/tzu/PathComponent.java -text
-src/com/ibm/icu/dev/tool/tzu/PathModel.java -text
-src/com/ibm/icu/dev/tool/tzu/ResultComponent.java -text
-src/com/ibm/icu/dev/tool/tzu/ResultModel.java -text
-src/com/ibm/icu/dev/tool/tzu/SourceModel.java -text
-src/com/ibm/icu/dev/tool/tzu/icu.css -text svneol=unset#text/css
+src/com/ibm/icu/dev/tool/tzu/icu.css svneol=native#text/css
 src/com/ibm/icu/dev/tool/tzu/icu.gif -text
 src/com/ibm/icu/dev/tool/tzu/readme.html svneol=native#text/html
 src/com/ibm/icu/dev/tool/tzu/runicutzu.bat -text
@@ -261,13 +230,9 @@ src/com/ibm/icu/dev/tool/tzu/runicutzu.sh -text
 src/com/ibm/icu/dev/tool/tzu/runicutzuenv.bat -text
 src/com/ibm/icu/dev/tool/tzu/runicutzuenv.cmd -text
 src/com/ibm/icu/dev/tool/tzu/runicutzuenv.sh -text
-src/com/ibm/icu/impl/ICUCache.java -text
-src/com/ibm/icu/impl/RelativeDateFormat.java -text
-src/com/ibm/icu/impl/SimpleCache.java -text
 src/com/ibm/icu/impl/data/icudata.jar -text svneol=unset#application/java-archive
 src/com/ibm/icu/impl/data/package.html svneol=native#text/html
 src/com/ibm/icu/impl/data/th.brk -text
-src/com/ibm/icu/impl/duration/BasicDurationFormat.java -text
 src/com/ibm/icu/impl/duration/BasicDurationFormatter.java -text
 src/com/ibm/icu/impl/duration/BasicDurationFormatterFactory.java -text
 src/com/ibm/icu/impl/duration/BasicPeriodBuilderFactory.java -text
@@ -316,19 +281,6 @@ src/com/ibm/icu/lang/package.html svneol=native#text/html
 src/com/ibm/icu/math/package.html svneol=native#text/html
 src/com/ibm/icu/text/DurationFormat.java -text
 src/com/ibm/icu/text/package.html svneol=native#text/html
-src/com/ibm/icu/util/AnnualTimeZoneRule.java -text
-src/com/ibm/icu/util/BasicTimeZone.java -text
-src/com/ibm/icu/util/CalendarServiceShim.java -text
-src/com/ibm/icu/util/DateTimeRule.java -text
-src/com/ibm/icu/util/IndianCalendar.java -text
-src/com/ibm/icu/util/InitialTimeZoneRule.java -text
-src/com/ibm/icu/util/RuleBasedTimeZone.java -text
-src/com/ibm/icu/util/TaiwanCalendar.java -text
-src/com/ibm/icu/util/TimeArrayTimeZoneRule.java -text
-src/com/ibm/icu/util/TimeZoneRule.java -text
-src/com/ibm/icu/util/TimeZoneTransition.java -text
-src/com/ibm/icu/util/UResourceBundleIterator.java -text
-src/com/ibm/icu/util/VTimeZone.java -text
 src/com/ibm/icu/util/package.html svneol=native#text/html
 src/com/ibm/richtext/awtui/package.html svneol=native#text/html
 src/com/ibm/richtext/demo/package.html svneol=native#text/html
