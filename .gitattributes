@@ -3,6 +3,7 @@
 /readme.html svneol=native#text/html
 source/data/build.xml svneol=native#text/xml
 source/data/icu-config.xml svneol=native#text/xml
+source/data/misc/metazoneInfo.txt -text
 source/data/xml/brkitr/en.xml svneol=native#text/xml
 source/data/xml/brkitr/en_US.xml svneol=native#text/xml
 source/data/xml/brkitr/en_US_POSIX.xml svneol=native#text/xml
