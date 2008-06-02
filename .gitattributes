@@ -32,6 +32,7 @@ src/com/ibm/icu/dev/eclipse/features/com.ibm.icu/.project -text
 src/com/ibm/icu/dev/eclipse/features/com.ibm.icu/build.properties -text
 src/com/ibm/icu/dev/eclipse/features/com.ibm.icu/feature.xml -text
 src/com/ibm/icu/dev/eclipse/misc/about_icu.html svneol=native#text/html
+src/com/ibm/icu/dev/eclipse/misc/about_icu_base.html svneol=native#text/html
 src/com/ibm/icu/dev/eclipse/pdebuild/allElements.xml -text
 src/com/ibm/icu/dev/eclipse/pdebuild/build.properties -text
 src/com/ibm/icu/dev/eclipse/pdebuild/customTargets.xml -text
