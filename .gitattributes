@@ -3,6 +3,7 @@
 .externalToolBuilders/icu4j_Resources.launch svneol=native#text/xml
 /.project -text
 /APIChangeReport.html svneol=native#text/html
+/APIChangeReport_401.html svneol=native#text/html
 /build.xml svneol=native#text/xml
 /eclipseFragment.txt -text
 eclipseProjectMisc/initSrc.launch -text
