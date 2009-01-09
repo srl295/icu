@@ -3,6 +3,7 @@
 .externalToolBuilders/icu4j_Resources.launch svneol=native#text/xml
 /.project -text
 /APIChangeReport.html svneol=native#text/html
+/APIChangeReport_401.html svneol=native#text/html
 /build.xml svneol=native#text/xml
 /eclipseFragment.txt -text
 eclipseProjectMisc/initSrc.launch -text
@@ -52,6 +53,7 @@ src/com/ibm/icu/dev/eclipse/features/com.ibm.icu.jse4/feature.xml -text
 src/com/ibm/icu/dev/eclipse/features/com.ibm.icu/.project -text
 src/com/ibm/icu/dev/eclipse/features/com.ibm.icu/build.properties -text
 src/com/ibm/icu/dev/eclipse/features/com.ibm.icu/feature.xml -text
+src/com/ibm/icu/dev/eclipse/misc/ICUConfig.properties -text
 src/com/ibm/icu/dev/eclipse/misc/about_icu.html svneol=native#text/html
 src/com/ibm/icu/dev/eclipse/misc/about_icu_base.html svneol=native#text/html
 src/com/ibm/icu/dev/eclipse/pdebuild/allElements.xml -text
@@ -246,6 +248,7 @@ src/com/ibm/icu/dev/tool/docs/icu4j343.api.gz -text svneol=unset#application/gzi
 src/com/ibm/icu/dev/tool/docs/icu4j36.api.gz -text
 src/com/ibm/icu/dev/tool/docs/icu4j38.api.gz -text
 src/com/ibm/icu/dev/tool/docs/icu4j381.api.gz -text
+src/com/ibm/icu/dev/tool/docs/icu4j400.api.gz -text
 src/com/ibm/icu/dev/tool/rbbi/readme.html svneol=native#text/html
 src/com/ibm/icu/dev/tool/tzu/icu.css svneol=native#text/css
 src/com/ibm/icu/dev/tool/tzu/icu.gif -text
