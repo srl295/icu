@@ -7,7 +7,6 @@
 /eclipseFragment.txt -text
 eclipseProjectMisc/initSrc.launch -text
 eclipseProjectMisc/normSrc.launch -text
-/ee.foundation.jar -text svneol=unset#application/java-archive
 /license.html svneol=native#text/html
 localespi/.classpath -text
 localespi/.externalToolBuilders/localespi_jar.launch -text
