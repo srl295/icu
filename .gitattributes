@@ -1,5 +1,6 @@
 * text=auto !eol
 /APIChangeReport.html svneol=native#text/html
+/APIChangeReport441.html svneol=native#text/html
 /build.properties -text
 /build.xml svneol=native#text/xml
 demos/manifest.stub -text
