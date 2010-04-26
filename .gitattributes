@@ -34,11 +34,9 @@ main/classes/core/.classpath -text
 main/classes/core/.project -text
 main/classes/core/.settings/org.eclipse.jdt.core.prefs -text
 main/classes/core/manifest.stub -text
-main/classes/core/src/com/ibm/icu/impl/BMPSet.java -text
 main/classes/core/src/com/ibm/icu/impl/IterableComparator.java svneol=native#text/plain
 main/classes/core/src/com/ibm/icu/impl/MultiComparator.java svneol=native#text/plain
 main/classes/core/src/com/ibm/icu/impl/Row.java svneol=native#text/plain
-main/classes/core/src/com/ibm/icu/impl/UnicodeSetStringSpan.java -text
 main/classes/core/src/com/ibm/icu/impl/data/package.html svneol=native#text/html
 main/classes/core/src/com/ibm/icu/impl/duration/impl/data/index.txt svneol=native#text/plain
 main/classes/core/src/com/ibm/icu/lang/package.html svneol=native#text/html
@@ -136,7 +134,6 @@ main/tests/core/src/com/ibm/icu/dev/test/duration/testdata/testdata_zh_Hant.txt 
 main/tests/core/src/com/ibm/icu/dev/test/duration/testdata/testdata_zh_Hant_HK.txt svneol=native#text/plain
 main/tests/core/src/com/ibm/icu/dev/test/format/NumberFormatTestCases.txt svneol=native#text/plain
 main/tests/core/src/com/ibm/icu/dev/test/format/TimeZoneAliases.txt svneol=native#text/plain
-main/tests/core/src/com/ibm/icu/dev/test/lang/UnicodeSetStringSpanTest.java -text
 main/tests/core/src/com/ibm/icu/dev/test/normalizer/package.html svneol=native#text/html
 main/tests/core/src/com/ibm/icu/dev/test/rbbi/package.html svneol=native#text/html
 main/tests/core/src/com/ibm/icu/dev/test/rbbi/rbbitst.txt svneol=native#text/plain
