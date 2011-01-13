@@ -1,6 +1,7 @@
 * text=auto !eol
 /APIChangeReport.html svneol=native#text/html
 /APIChangeReport441.html svneol=native#text/html
+/APIChangeReport442.html svneol=native#text/html
 /icu4c.css -text
 /license.html svneol=native#text/html
 /readme.html svneol=native#text/html
