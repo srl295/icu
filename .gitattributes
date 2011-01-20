@@ -45,9 +45,12 @@ demos/src/com/ibm/icu/dev/demo/translit/resources/Transliterator_Han_Pinyin.txt 
 demos/src/com/ibm/icu/dev/demo/translit/resources/Transliterator_Kanji_English.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 demos/src/com/ibm/icu/dev/demo/translit/resources/Transliterator_Kanji_OnRomaji.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 demos/src/com/ibm/icu/dev/demo/translit/thai_test.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+eclipse-build/eclipse_mod_classes.txt -text
+eclipse-build/eclipse_mod_test_classes.txt -text
 eclipse-build/misc/about_icu.html svneol=native#text/html
 eclipse-build/misc/about_icu_base.html svneol=native#text/html
 eclipse-build/plugins.template/com.ibm.icu.tests/META-INF/MANIFEST.MF -text
+eclipse-build/plugins.template/com.ibm.icu.tests/plugin.properties -text
 eclipse-build/plugins.template/com.ibm.icu.tests/src/com/ibm/icu/tests/UnitTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 eclipse-build/plugins.template/com.ibm.icu/META-INF/MANIFEST.MF -text
 main/classes/charset/.classpath -text
