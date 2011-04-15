@@ -560,6 +560,7 @@ source/data/curr/zh_TW.txt svneol=native#text/plain
 source/data/curr/zu.txt svneol=native#text/plain
 source/data/icu-config.xml svneol=native#text/xml
 source/data/icu4j-readme.txt svneol=native#text/plain
+source/data/in/icudt44l.dat -text
 source/data/in/nfc.nrm -text
 source/data/in/nfkc.nrm -text
 source/data/in/nfkc_cf.nrm -text
