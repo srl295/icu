@@ -237,6 +237,7 @@ source/data/coll/kk_KZ.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/coll/kl.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/coll/kl_GL.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/coll/km.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/coll/km_KH.txt -text
 source/data/coll/kn.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/coll/kn_IN.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/coll/ko.txt svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -621,7 +622,7 @@ source/data/curr/sr_Cyrl_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/curr/sr_Latn.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/curr/sr_Latn_BA.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/curr/sr_Latn_CS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
-source/data/curr/sr_Latn_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/curr/sr_Latn_ME.txt -text
 source/data/curr/sr_Latn_RS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/curr/sr_Latn_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/curr/sr_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -903,7 +904,7 @@ source/data/lang/sr_Cyrl_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/lang/sr_Latn.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/lang/sr_Latn_BA.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/lang/sr_Latn_CS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
-source/data/lang/sr_Latn_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/lang/sr_Latn_ME.txt -text
 source/data/lang/sr_Latn_RS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/lang/sr_Latn_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/lang/sr_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -1528,6 +1529,7 @@ source/data/rbnf/cs.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/rbnf/cy.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/rbnf/da.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/rbnf/de.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/rbnf/ee.txt -text
 source/data/rbnf/el.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/rbnf/en.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/rbnf/eo.txt svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -1805,7 +1807,7 @@ source/data/region/sr_Cyrl_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/region/sr_Latn.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/region/sr_Latn_BA.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/region/sr_Latn_CS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
-source/data/region/sr_Latn_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/region/sr_Latn_ME.txt -text
 source/data/region/sr_Latn_RS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/region/sr_Latn_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/region/sr_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -2364,13 +2366,19 @@ source/data/zone/en.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/en_AU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/en_CA.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/en_GB.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/zone/en_GU.txt -text
+source/data/zone/en_HK.txt -text
+source/data/zone/en_IN.txt -text
 source/data/zone/en_NZ.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/zone/en_PK.txt -text
 source/data/zone/en_RH.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/zone/en_SG.txt -text
 source/data/zone/en_ZA.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/en_ZW.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/eo.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/es.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/es_419.txt svneol=native#text/plain
+source/data/zone/es_AR.txt -text
 source/data/zone/et.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/eu.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/ewo.txt svneol=native#text/plain
@@ -2526,7 +2534,7 @@ source/data/zone/sr_Cyrl_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/sr_Latn.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/sr_Latn_BA.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/sr_Latn_CS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
-source/data/zone/sr_Latn_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+source/data/zone/sr_Latn_ME.txt -text
 source/data/zone/sr_Latn_RS.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/sr_Latn_YU.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 source/data/zone/sr_ME.txt svneol=native#text/plain%3Bcharset%3Dutf-8
