@@ -109,6 +109,7 @@ main/classes/core/src/com/ibm/icu/impl/MultiComparator.java svneol=native#text/p
 main/classes/core/src/com/ibm/icu/impl/Row.java svneol=native#text/plain
 main/classes/core/src/com/ibm/icu/impl/data/package.html svneol=native#text/html
 main/classes/core/src/com/ibm/icu/impl/duration/impl/data/index.txt svneol=native#text/plain
+main/classes/core/src/com/ibm/icu/impl/locale/ParseStatus.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/classes/core/src/com/ibm/icu/lang/package.html svneol=native#text/html
 main/classes/core/src/com/ibm/icu/math/package.html svneol=native#text/html
 main/classes/core/src/com/ibm/icu/text/Transform.java svneol=native#text/plain
