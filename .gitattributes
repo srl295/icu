@@ -1,5 +1,6 @@
 * text=auto !eol
 /APIChangeReport.html svneol=native#text/html
+as_is/bomlist.py -text
 /icu4c.css -text svneol=unset#text/css
 /license.html svneol=native#text/html
 /readme.html svneol=native#text/html
