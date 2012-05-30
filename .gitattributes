@@ -11,6 +11,7 @@ eclipseProjectMisc/normSrc.launch -text
 /license.html svneol=native#text/html
 /preprocessor.txt -text
 /readme.html svneol=native#text/html
+src/com/ibm/icu/ICUConfig.properties -text
 src/com/ibm/icu/charset/package.html svneol=native#text/html
 src/com/ibm/icu/dev/data/rbbi/english.dict -text svneol=native#application/octet-stream
 src/com/ibm/icu/dev/data/testdata.jar -text svneol=unset#application/java-archive
@@ -224,6 +225,8 @@ src/com/ibm/icu/dev/tool/tzu/runicutzu.sh -text
 src/com/ibm/icu/dev/tool/tzu/runicutzuenv.bat -text
 src/com/ibm/icu/dev/tool/tzu/runicutzuenv.cmd -text
 src/com/ibm/icu/dev/tool/tzu/runicutzuenv.sh -text
+src/com/ibm/icu/impl/ICUConfig.java svneol=native#text/plain%3Bcharset%3Dutf-8
+src/com/ibm/icu/impl/JavaTimeZone.java svneol=native#text/plain%3Bcharset%3Dutf-8
 src/com/ibm/icu/impl/data/icudata.jar -text svneol=unset#application/java-archive
 src/com/ibm/icu/impl/data/package.html svneol=native#text/html
 src/com/ibm/icu/impl/data/th.brk -text
