@@ -639,7 +639,6 @@ main/shared/data/icudata.jar -text svneol=unset#application/java-archive
 main/shared/data/icutzdata.jar -text svneol=unset#application/java-archive
 main/shared/data/testdata.jar -text svneol=unset#application/java-archive
 main/shared/licenses/license.html svneol=native#text/html
-main/shared/licenses/unicode-license.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/charset/.classpath -text
 main/tests/charset/.project -text
 main/tests/charset/.settings/org.eclipse.core.resources.prefs -text
