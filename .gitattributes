@@ -3167,7 +3167,6 @@ source/tools/pkgdata/pkgdata.vcxproj -text
 source/tools/pkgdata/pkgdata.vcxproj.filters -text
 source/tools/toolutil/toolutil.vcxproj -text
 source/tools/tzcode/readme.txt svneol=native#text/plain
-/unicode-license.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 *.jar filter=lfs diff=lfs merge=lfs -text
 *.dat filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
