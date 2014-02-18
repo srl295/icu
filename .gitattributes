@@ -44,6 +44,7 @@ demos/src/com/ibm/icu/dev/demo/translit/resources/Transliterator_Han_Pinyin.txt 
 demos/src/com/ibm/icu/dev/demo/translit/resources/Transliterator_Kanji_English.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 demos/src/com/ibm/icu/dev/demo/translit/resources/Transliterator_Kanji_OnRomaji.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 demos/src/com/ibm/icu/dev/demo/translit/thai_test.txt svneol=native#text/plain%3Bcharset%3Dutf-8
+eclipse-build/build-local.properties.template -text
 eclipse-build/features.template/com.ibm.icu.base/.project -text
 eclipse-build/features.template/com.ibm.icu.base/build.properties -text
 eclipse-build/misc/about_icu.html svneol=native#text/html
