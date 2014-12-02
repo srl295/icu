@@ -112,4 +112,3 @@ for library in dependencies.libraries:
   out.write("\n")
 
 print "# Wrote to   %s" % pathsFile
-
