@@ -1403,8 +1403,9 @@ samples/src/com/ibm/icu/samples/text/messagepattern/MiniMessageFormatter.java sv
 samples/src/com/ibm/icu/samples/text/pluralformat/PluralFormatSample.java svneol=native#text/plain%3Bcharset%3Dutf-8
 samples/src/com/ibm/icu/samples/util/timescale/PivotDemo.java svneol=native#text/plain%3Bcharset%3Dutf-8
 samples/src/com/ibm/icu/samples/util/timezone/BasicTimeZoneExample.java svneol=native#text/plain%3Bcharset%3Dutf-8
-/stylesheet.css svneol=native#text/css
+/stylesheet6.css svneol=native#text/css
 /stylesheet7.css svneol=native#text/css
+/stylesheet8.css -text
 tools/build/README.txt svneol=native#text/plain%3Bcharset%3Dutf-8
 tools/build/icu4j48.api3.gz -text
 tools/build/icu4j49.api3.gz -text
