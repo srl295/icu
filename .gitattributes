@@ -3,7 +3,7 @@
 /LICENSE svneol=native#text/plain%3Bcharset%3Dutf-8
 /icu4c.css -text svneol=unset#text/css
 /license.html svneol=native#text/html%3Bcharset%3Dutf-8
-/readme.html svneol=native#text/html
+/readme.html svneol=native#text/html%3Bcharset%3Dutf-8
 source/aclocal.m4 -text
 source/allinone/icucheck.bat -text
 source/common/rbbirpt.txt svneol=native#text/plain
