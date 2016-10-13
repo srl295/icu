@@ -676,9 +676,9 @@ main/tests/core/src/com/ibm/icu/dev/test/bidi/TestReorderArabicMathSymbols.java 
 main/tests/core/src/com/ibm/icu/dev/test/bidi/TestReorderRunsOnly.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/bidi/TestReorderingMode.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/bidi/TestStreaming.java svneol=native#text/plain%3Bcharset%3Dutf-8
-main/tests/core/src/com/ibm/icu/dev/test/bigdec/DiagBigDecimal.java svneol=native#text/plain%3Bcharset%3Dutf-8
+main/tests/core/src/com/ibm/icu/dev/test/bigdec/DiagBigDecimalTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/calendar/AstroTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
-main/tests/core/src/com/ibm/icu/dev/test/calendar/CalendarRegression.java svneol=native#text/plain%3Bcharset%3Dutf-8
+main/tests/core/src/com/ibm/icu/dev/test/calendar/CalendarRegressionTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/calendar/CalendarTestFmwk.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/calendar/ChineseTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/calendar/ChineseTestCase.java svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -763,7 +763,7 @@ main/tests/core/src/com/ibm/icu/dev/test/format/IntlTestSimpleDateFormatAPI.java
 main/tests/core/src/com/ibm/icu/dev/test/format/ListFormatterTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/format/MeasureUnitTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/format/MessagePatternUtilTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
-main/tests/core/src/com/ibm/icu/dev/test/format/MessageRegression.java svneol=native#text/plain%3Bcharset%3Dutf-8
+main/tests/core/src/com/ibm/icu/dev/test/format/MessageRegressionTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/format/NumberFormatRegistrationTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/format/NumberFormatRegressionTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/format/NumberFormatRoundTripTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
@@ -1248,7 +1248,7 @@ main/tests/core/src/com/ibm/icu/dev/test/timescale/TimeScaleMonkeyTest.java svne
 main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneAliasTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneBoundaryTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneOffsetLocalTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
-main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneRegression.java svneol=native#text/plain%3Bcharset%3Dutf-8
+main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneRegressionTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneRuleTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/timezone/TimeZoneTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
 main/tests/core/src/com/ibm/icu/dev/test/util/BytesTrieTest.java svneol=native#text/plain%3Bcharset%3Dutf-8
