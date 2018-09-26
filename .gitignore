@@ -998,3 +998,4 @@ tools/unicode/c/genuca/x64
 tools/unicode/c/genuca/x86
 tools/unicode/c/icudefs.txt
 tools/unicodetools/com/ibm/rbm/lib
+*.pyc
