@@ -64,7 +64,7 @@ def _ReadObjFile(root_path, library_name, obj_name):
     # 'DW.ref.__gxx_personality_v0'.
     # '__dso_handle' belongs to __cxa_atexit().
     if (name.startswith("__cxa") or "__cxxabi" in name or "__gxx" in name or
-        name == "__dso_handle"):
+        name == "__dso_handle" or name.startswith("___cxa")):
       _ignored_symbols.add(name)
       continue
     type = fields[2].strip()
