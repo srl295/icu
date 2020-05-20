@@ -521,7 +521,7 @@ runTests ( const TestNode *root )
     ON_LINE=FALSE; /* just in case */
 
     if(knownList != NULL) {
-      if( udbg_knownIssue_print(knownList) ) {
+      if( udbg_knownIssue_print(knownList, NO_KNOWN) && !NO_KNOWN ) {
         fprintf(stdout, "(To run suppressed tests, use the -K option.) \n\n");
       }
       udbg_knownIssue_close(knownList);
@@ -700,14 +700,12 @@ static UBool vlog_knownIssue(const char *ticket, const char *pattern, va_list ap
     char buf[2048];
     UBool firstForTicket;
     UBool firstForWhere;
-
-    if(NO_KNOWN) return FALSE;
     if(pattern==NULL) pattern="";
 
     vsprintf(buf, pattern, ap);
     knownList = udbg_knownIssue_open(knownList, ticket, gTestName, buf,
                                      &firstForTicket, &firstForWhere);
-
+    if(NO_KNOWN) return FALSE;
     if(firstForTicket || firstForWhere) {
       log_info("(Known issue %s) %s\n", ticket, buf);
     } else {

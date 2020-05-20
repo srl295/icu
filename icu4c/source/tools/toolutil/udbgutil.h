@@ -116,6 +116,7 @@ U_CAPI void udbg_writeIcuInfo(FILE *f);
 /**
  * Open (or reopen) a 'known issue' table.
  * @param ptr pointer to 'table'. Opaque.
+ * @param where failure location
  * @return new or existing ptr
  */
 U_CAPI void *udbg_knownIssue_openU(void *ptr, const char *ticket, char *where, const UChar *msg, UBool *firstForTicket,
@@ -125,17 +126,27 @@ U_CAPI void *udbg_knownIssue_openU(void *ptr, const char *ticket, char *where, c
 /**
  * Open (or reopen) a 'known issue' table.
  * @param ptr pointer to 'table'. Opaque.
+ * @param where failure location
  * @return new or existing ptr
  */
 U_CAPI void *udbg_knownIssue_open(void *ptr, const char *ticket, char *where, const char *msg, UBool *firstForTicket,
                                    UBool *firstForWhere);
 
 /**
+ * Record a failure. This is to detect known issues that are not failures.
+ * @param ptr pointer to 'table'. Opaque.
+ * @param where failure location.
+ * @return new or existing ptr. May be null if ptr is null.
+ */                               
+U_CAPI void *udbg_knownIssue_markFailure(void *ptr, const char *where);
+
+/**
  * Print 'known issue' table, to std::cout.
  * @param ptr pointer from udbg_knownIssue
+ * @param checkForFailure true if expected all known issues to fail
  * @return TRUE if there were any issues.
  */
-U_CAPI UBool udbg_knownIssue_print(void *ptr);
+U_CAPI UBool udbg_knownIssue_print(void *ptr, UBool checkForFailure);
 
 /**
  * Close 'known issue' table.

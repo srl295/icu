@@ -818,6 +818,13 @@ UBool IntlTest::runTestLoop( char* testname, char* par, char *baseName )
                     errorList += " ";
                 }
                 errorList += name;
+                // if(!noKnownIssues) {
+                    char fullpath[2048];
+                    strcpy(fullpath, basePath);
+                    strcat(fullpath, currName);
+                    printf("@@@@@ %s\n", fullpath);
+                    knownList = udbg_knownIssue_markFailure(knownList, currName);
+                // }
                 errorList += "\n";
                 lastTestFailed = TRUE;
             }
@@ -1007,14 +1014,12 @@ UBool IntlTest::logKnownIssue(const char *ticket) {
 }
 
 UBool IntlTest::logKnownIssue(const char *ticket, const UnicodeString &msg) {
-  if(noKnownIssues) return FALSE;
-
-  char fullpath[2048];
-  strcpy(fullpath, basePath);
-  strcat(fullpath, currName);
   UnicodeString msg2 = msg;
   UBool firstForTicket = TRUE, firstForWhere = TRUE;
-  knownList = udbg_knownIssue_openU(knownList, ticket, fullpath, msg2.getTerminatedBuffer(), &firstForTicket, &firstForWhere);
+  printf("basePath=%s, currName=%s\n", basePath, currName);
+  knownList = udbg_knownIssue_openU(knownList, ticket, currName, msg2.getTerminatedBuffer(), &firstForTicket, &firstForWhere);
+
+  if(noKnownIssues) return FALSE; // Record known issue, but do not print.
 
   msg2 = UNICODE_STRING_SIMPLE("(Known issue ") +
       UnicodeString(ticket, -1, US_INV) + UNICODE_STRING_SIMPLE(") ") + msg;
@@ -1109,7 +1114,7 @@ void IntlTest::printErrors()
 UBool IntlTest::printKnownIssues()
 {
   if(knownList != NULL) {
-    udbg_knownIssue_print(knownList);
+    udbg_knownIssue_print(knownList, noKnownIssues);
     udbg_knownIssue_close(knownList);
     return TRUE;
   } else {
@@ -1538,7 +1543,7 @@ main(int argc, char* argv[])
     }
 
     fprintf(stdout, "\n--------------------------------------\n");
-    if( major.printKnownIssues() ) {
+    if( major.printKnownIssues() && !noKnownIssues ) {
       fprintf(stdout, " To run suppressed tests, use the -K option. \n");
     }
     if (major.getErrors() == 0) {

@@ -613,19 +613,28 @@ public:
   ~KnownIssues();
   void add(const char *ticket, const char *where, const UChar *msg, UBool *firstForTicket, UBool *firstForWhere);
   void add(const char *ticket, const char *where, const char *msg, UBool *firstForTicket, UBool *firstForWhere);
-  UBool print();
+  void markFailure(const std::string &where);
+  UBool print(UBool checkForFailure);
 private:
   std::map< std::string,
             std::map < std::string, std::set < std::string > > > fTable;
+  /**
+   * Set of "where" locations.
+   */
+  std::set<std::string> fFailuresWhere;
 };
 
 KnownIssues::KnownIssues()
-  : fTable()
+  : fTable(), fFailuresWhere()
 {
 }
 
 KnownIssues::~KnownIssues()
 {
+}
+
+void KnownIssues::markFailure(const std::string& where) {
+  fFailuresWhere.insert(where);
 }
 
 /**
@@ -693,7 +702,7 @@ void KnownIssues::add(const char *ticketStr, const char *where, const char *msg,
   fTable[ticket][where].insert(str);
 }
 
-UBool KnownIssues::print()
+UBool KnownIssues::print(UBool checkForFailure)
 {
   if(fTable.empty()) {
     return FALSE;
@@ -715,6 +724,9 @@ UBool KnownIssues::print()
     for( std::map< std::string, std::set < std::string > >::iterator ii = (*i).second.begin();
          ii != (*i).second.end();
          ii++ ) {
+      if (checkForFailure && fFailuresWhere.find((*ii).first) == fFailuresWhere.end()) {
+        std::cout << "   DID NOT FAIL: ";
+      }
       std::cout << "  " << (*ii).first << std::endl;
       for ( std::set < std::string >::iterator iii = (*ii).second.begin();
             iii != (*ii).second.end();
@@ -750,12 +762,23 @@ U_CAPI void *udbg_knownIssue_open(void *ptr, const char *ticket, char *where, co
   return static_cast<void*>(t);
 }
 
-U_CAPI UBool udbg_knownIssue_print(void *ptr) {
+U_CAPI void *udbg_knownIssue_markFailure(void *ptr, const char *where) {
+  KnownIssues *t = static_cast<KnownIssues*>(ptr);
+  if(t==NULL) {
+    t = new KnownIssues();
+  }
+
+  t->markFailure(where);
+
+  return static_cast<void*>(t);
+}
+
+U_CAPI UBool udbg_knownIssue_print(void *ptr, UBool checkForFailure) {
   KnownIssues *t = static_cast<KnownIssues*>(ptr);
   if(t==NULL) {
     return FALSE;
   } else {
-    t->print();
+    t->print(checkForFailure);
     return TRUE;
   }
 }
