@@ -142,7 +142,7 @@ public:
     IntlTest();
     // TestLog has a virtual destructor.
 
-    virtual UBool runTest( char* name = NULL, char* par = NULL, char *baseName = NULL); // not to be overidden
+    UBool runTest( char* name = NULL, char* par = NULL, char *baseName = NULL); // not to be overidden
 
     virtual UBool setVerbose( UBool verbose = TRUE );
     virtual UBool setNoErrMsg( UBool no_err_msg = TRUE );
@@ -321,9 +321,18 @@ public:
     UBool assertEquals(const UnicodeString& message,
         const std::vector<std::string>& expected, const std::vector<std::string>& actual);
 
-    virtual void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ); // overide !
+    /**
+     * This function is called in a loop to run all tests.
+     * 
+     * @param index  This is called with an index of 0, 1, etc.
+     * @param exec If true, do execute the test. If false, just collect the 'name'
+     * @param name Out parameter. The function should set this to the subtests’ name,
+     * or set it to "" if no more tests.
+     * @param par ??
+     */
+    virtual void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ) = 0;
 
-    virtual UBool runTestLoop( char* testname, char* par, char *baseName );
+    UBool runTestLoop( char* testname, char* par, char *baseName );
 
     virtual int32_t IncErrorCount( void );
 
@@ -365,14 +374,16 @@ protected:
 
     // used for collation result reporting, defined here for convenience
 
-    static UnicodeString &prettify(const UnicodeString &source, UnicodeString &target);
-    static UnicodeString prettify(const UnicodeString &source, UBool parseBackslash=FALSE);
     // digits=-1 determines the number of digits automatically
     static UnicodeString &appendHex(uint32_t number, int32_t digits, UnicodeString &target);
     static UnicodeString toHex(uint32_t number, int32_t digits=-1);
     static inline UnicodeString toHex(int32_t number, int32_t digits=-1) {
         return toHex((uint32_t)number, digits);
     }
+public:
+    static UnicodeString &prettify(const UnicodeString &source, UnicodeString &target);
+    static UnicodeString prettify(const UnicodeString &source, UBool parseBackslash=FALSE);
+
 
 public:
     static void setICU_DATA();       // Set up ICU_DATA if necessary.

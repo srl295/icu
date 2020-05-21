@@ -724,20 +724,6 @@ UBool IntlTest::runTest( char* name, char* par, char *baseName )
     return rval;
 }
 
-// call individual tests, to be overridden to call implementations
-void IntlTest::runIndexedTest( int32_t /*index*/, UBool /*exec*/, const char* & /*name*/, char* /*par*/ )
-{
-    // to be overridden by a method like:
-    /*
-    switch (index) {
-        case 0: name = "First Test"; if (exec) FirstTest( par ); break;
-        case 1: name = "Second Test"; if (exec) SecondTest( par ); break;
-        default: name = ""; break;
-    }
-    */
-    this->errln("*** runIndexedTest needs to be overridden! ***");
-}
-
 
 UBool IntlTest::runTestLoop( char* testname, char* par, char *baseName )
 {

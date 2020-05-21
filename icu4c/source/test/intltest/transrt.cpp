@@ -328,7 +328,7 @@ void AbbreviatedUnicodeSetIterator::loadRange(int32_t myRange) {
 // RTTest Interface
 //--------------------------------------------------------------------
 
-class RTTest : public IntlTest {
+class RTTest /* : public IntlTest*/ {
 
     // PrintWriter out;
 
@@ -365,6 +365,8 @@ public:
               UBool     quick,
               Legal* adoptedLegal,
               int32_t density = 100);
+
+    virtual const char* getTestDataPath(UErrorCode& err);
 
 private:
 
@@ -417,6 +419,10 @@ RTTest::RTTest(const UnicodeString& transliteratorIDStr) {
 }
 
 RTTest::~RTTest() {
+}
+
+const char* RTTest::getTestDataPath(UErrorCode& /*err*/) {
+    return NULL; // no path
 }
 
 void RTTest::setErrorLimit(int32_t limit) {
@@ -573,8 +579,8 @@ void RTTest::test2(UBool quickRt, int32_t density) {
     if ((Transliterator *)sourceToTarget == NULL) {
         parent->dataerrln("FAIL: createInstance(" + transliteratorID +
                    ") returned NULL. Error: " + u_errorName(status)
-                   + "\n\tpreContext : " + prettify(parseError.preContext) 
-                   + "\n\tpostContext : " + prettify(parseError.postContext));
+                   + "\n\tpreContext : " + IntlTest::prettify(parseError.preContext) 
+                   + "\n\tpostContext : " + IntlTest::prettify(parseError.postContext));
         
                 return;
     }
@@ -582,8 +588,8 @@ void RTTest::test2(UBool quickRt, int32_t density) {
     if ((Transliterator *)targetToSource == NULL) {
         parent->errln("FAIL: " + transliteratorID +
                    ".createInverse() returned NULL. Error:" + u_errorName(status)          
-                   + "\n\tpreContext : " + prettify(parseError.preContext) 
-                   + "\n\tpostContext : " + prettify(parseError.postContext));
+                   + "\n\tpreContext : " + IntlTest::prettify(parseError.preContext) 
+                   + "\n\tpostContext : " + IntlTest::prettify(parseError.postContext));
         return;
     }
 

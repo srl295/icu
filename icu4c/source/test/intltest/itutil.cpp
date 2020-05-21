@@ -200,9 +200,9 @@ void ErrorCodeTest::TestSubclass() {
     }
 }
 
-class IcuTestErrorCodeTestHelper : public IntlTest {
+class IcuTestErrorCodeTestHelper : public TestLog {
   public:
-    void errln( const UnicodeString &message ) U_OVERRIDE {
+    virtual void errln( const UnicodeString &message ) U_OVERRIDE {
         test->assertFalse("Already saw an error", seenError);
         seenError = TRUE;
         test->assertEquals("Message for Error", expectedErrln, message);
@@ -211,13 +211,21 @@ class IcuTestErrorCodeTestHelper : public IntlTest {
         }
     }
 
-    void dataerrln( const UnicodeString &message ) U_OVERRIDE {
+    virtual void dataerrln( const UnicodeString &message ) U_OVERRIDE {
         test->assertFalse("Already saw an error", seenError);
         seenError = TRUE;
         test->assertEquals("Message for Error", expectedErrln, message);
         if (!expectedDataErr) {
             test->errln("Got data error, but expected non-data error");
         }
+    }
+
+    virtual void logln (const UnicodeString & /*message*/ ) U_OVERRIDE {
+        test->errln("Got an unexpected logln!");
+    }
+
+    virtual const char* getTestDataPath(UErrorCode& err) U_OVERRIDE {
+        return test->getTestDataPath(err);
     }
 
     IntlTest* test;
