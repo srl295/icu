@@ -161,7 +161,7 @@ void TestFormatSmallClasses::test_FieldPosition( void )
 
 }
 
-void test_Formattable( void )
+void TestFormatSmallClasses::test_Formattable( void )
 {
     UErrorCode status = U_ZERO_ERROR;
     Formattable* ftp = new Formattable();
