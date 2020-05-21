@@ -24,6 +24,11 @@ class TestFormatSmallClasses: public IntlTest {
      *    Formattable in test_Formattable().
      **/    
     void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL );
+    private:
+        void test_ParsePosition();
+        void test_FieldPosition();
+        void test_Formattable();
+        void test_FieldPosition_example();
 };
 
 #endif

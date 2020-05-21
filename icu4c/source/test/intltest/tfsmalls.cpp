@@ -28,7 +28,7 @@
     return ok;
 }*/
 
-void test_ParsePosition( void )
+void TestFormatSmallClasses::test_ParsePosition( void )
 {
     ParsePosition* pp1 = new ParsePosition();
     if (pp1 && (pp1->getIndex() == 0)) {
@@ -78,7 +78,7 @@ void test_ParsePosition( void )
 
 #include "unicode/decimfmt.h"
 
-void test_FieldPosition_example( void )
+void TestFormatSmallClasses::test_FieldPosition_example( void )
 {
     //***** no error detection yet !!!!!!!
     //***** this test is for compiler checks and visual verification only.
@@ -115,7 +115,7 @@ void test_FieldPosition_example( void )
 
 }
 
-void test_FieldPosition( void )
+void TestFormatSmallClasses::test_FieldPosition( void )
 {
 
     FieldPosition fp( 7 );
