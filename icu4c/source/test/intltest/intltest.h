@@ -142,7 +142,12 @@ public:
     IntlTest();
     // TestLog has a virtual destructor.
 
-    UBool runTest( char* name = NULL, char* par = NULL, char *baseName = NULL); // not to be overidden
+    /**
+     * @param name
+     * @param params
+     * @param baseName
+     */
+    UBool runTest( char* name = NULL, char* params = NULL, char *baseName = NULL); // not to be overidden
 
     virtual UBool setVerbose( UBool verbose = TRUE );
     virtual UBool setNoErrMsg( UBool no_err_msg = TRUE );
@@ -328,17 +333,25 @@ public:
      * @param exec If true, do execute the test. If false, just collect the 'name'
      * @param name Out parameter. The function should set this to the subtests’ name,
      * or set it to "" if no more tests.
-     * @param par ??
+     * @param params test parameters
      */
-    virtual void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ) = 0;
+    virtual void runIndexedTest( int32_t index, UBool exec, const char* &name, char* params = NULL ) = 0;
 
-    UBool runTestLoop( char* testname, char* par, char *baseName );
+    /**
+     * Run all subtests in this test.
+     */
+    UBool runTestLoop( char* testname, char* params, char *baseName );
 
     virtual int32_t IncErrorCount( void );
 
     virtual int32_t IncDataErrorCount( void );
 
-    virtual UBool callTest( IntlTest& testToBeCalled, char* par );
+    /**
+     * Call this to invoke a subtest as part of a test.
+     * @param testToBeCalled this is the subtest
+     * @param par Pass this along from the parent invocation
+     */
+    UBool callTest( IntlTest& testToBeCalled, char* par );
 
 
     UBool       verbose;
