@@ -16,11 +16,11 @@ jobs:
         run: ant -noinput releaseCLDR -f icu4j/build.xml
       - name: deploy it
         run: |
-          echo ref ${GITHUB_REF}
-          echo last $(echo ${GITHUB_REF} | cut -d/ -f3 | tr . _)
+          MYVERSION=$(echo ${GITHUB_REF} | cut -d/ -f3 | tr . _)
+          echo Github Ref ${GITHUB_REF} @ ${GITHUB_SHA}, version ${MYVERSION}
           mvn deploy:deploy-file -DgroupId=com.ibm.icu \
             -DartifactId=icu4j \
-            -Dversion=0.0.0-${GITHUB_SHA} \
+            -Dversion=0.0.0-${MYVERSION} \
             -Dpackaging=jar \
             -Dfile=icu4j/release_cldr/icu4j.jar \
             -Dsources=icu4j/release_cldr/icu4j-src.jar \
@@ -28,7 +28,7 @@ jobs:
             -Durl=https://maven.pkg.github.com/srl295/icu
           mvn deploy:deploy-file -DgroupId=com.ibm.icu \
             -DartifactId=utilities \
-            -Dversion=0.0.0-${GITHUB_SHA} \
+            -Dversion=0.0.0-${MYVERSION} \
             -Dpackaging=jar \
             -Dfile=icu4j/release_cldr/utilities.jar \
             -Dsources=icu4j/release_cldr/utilities-src.jar \
@@ -36,3 +36,5 @@ jobs:
             -Durl=https://maven.pkg.github.com/srl295/icu
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# Note: can use 0.0.0-${GITHUB_SHA} as the version for hash-based.
+# i.e. build on every commit
