@@ -23,19 +23,17 @@ jobs:
             -DartifactId=icu4j \
             -Dversion=0.0.0-${GITHUB_SHA} \
             -Dpackaging=jar \
-            -Dfile=icu4j/icu4j.jar \
+            -Dfile=icu4j/release_cldr/icu4j.jar \
+            -Dsources=icu4j/release_cldr/icu4j-src.jar \
             -DrepositoryId=github \
             -Durl=https://maven.pkg.github.com/srl295/icu
           mvn deploy:deploy-file -DgroupId=com.ibm.icu \
             -DartifactId=utilities \
             -Dversion=0.0.0-${GITHUB_SHA} \
             -Dpackaging=jar \
-            -Dfile=icu4j/out/cldr_util/lib/utilities.jar \
+            -Dfile=icu4j/release_cldr/utilities.jar \
+            -Dsources=icu4j/release_cldr/utilities-src.jar \
             -DrepositoryId=github \
             -Durl=https://maven.pkg.github.com/srl295/icu
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Publish package
-      #   run: mvn -B deploy
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
