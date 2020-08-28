@@ -17,6 +17,16 @@ jobs:
           java-version: 1.8
       - name: icu4j ant releaseCLDR
         run: ant -noinput releaseCLDR -f icu4j/build.xml
+      - name: deploy it
+        run: |
+          mvn deploy:deploy-file -DgroupId=com.ibm.icu \
+            -DartifactId=icu4j \
+            -Dversion=0.0.0-${GITHUB_SHA} \
+            -Dpackaging=jar \
+            -Dfile=icu4j/icu4j.jar \
+            -DrepositoryId=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Publish package
       #   run: mvn -B deploy
       #   env:
