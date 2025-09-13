@@ -549,7 +549,7 @@ de{
                 GyMMMd{"d. MMM y G"}
                 GyMd{"dd.MM.y G"}
                 H{"HH 'Uhr'"}
-                Hv{"HH 'h' v"}
+                Hv{"HH 'Uhr' v"}
                 MEd{"E, d.M."}
                 MMMEd{"E, d. MMM"}
                 MMMMEd{"E, d. MMMM"}
@@ -567,6 +567,7 @@ de{
                 hms{"h:mm:ss a"}
                 hmsv{"h:mm:ss a v"}
                 hmv{"h:mm a v"}
+                hv{"h 'Uhr' a v"}
                 yM{"M/y"}
                 yMEd{"E, d.M.y"}
                 yMM{"MM/y"}
