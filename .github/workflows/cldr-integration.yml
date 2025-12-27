@@ -169,7 +169,8 @@ jobs:
           git config user.email 'srloomis@unicode.org'
           git add source/data
           git commit -am 'ICU-00000 integration from CLDR'
-          git push -f origin srl295/auto-cldr-update
+          git checkout -b srl295/auto-cldr-update
+          git push --set-upstream -f origin srl295/auto-cldr-update 
   # clang release build with some options to enforce useful constraints.
   # Includes dependency checker on an in-source, optimized build.
   # Includes checking @draft etc. API tags vs. ifndef guards like
