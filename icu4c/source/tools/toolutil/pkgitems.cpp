@@ -126,7 +126,7 @@ private:
  * assemble the target item name from the source item name, an ID
  * and a suffix
  */
-static void 
+static void
 makeTargetName(const char *itemName, const char *id, int32_t idLength, const char *suffix,
                char *target, int32_t capacity,
                UErrorCode *pErrorCode) {
@@ -160,7 +160,7 @@ makeTargetName(const char *itemName, const char *id, int32_t idLength, const cha
     memcpy(target+treeLength+idLength, suffix, suffixLength+1); // +1 includes the terminating NUL
 }
 
-static void 
+static void
 checkIDSuffix(const char *itemName, const char *id, int32_t idLength, const char *suffix,
               CheckDependency check, void *context,
               UErrorCode *pErrorCode) {
@@ -172,7 +172,7 @@ checkIDSuffix(const char *itemName, const char *id, int32_t idLength, const char
 }
 
 /* assemble the target item name from the item's parent item name */
-static void 
+static void
 checkParent(const char *itemName, CheckDependency check, void *context,
             UErrorCode *pErrorCode) {
     const char *itemID, *parent, *parentLimit, *suffix;
@@ -449,7 +449,6 @@ ures_enumDependencies(const char *itemName, const UDataInfo *pInfo,
 
 // get dependencies from conversion tables --------------------------------- ***
 
-#if !UCONFIG_NO_CONVERSION
 /* code adapted from ucnv_swap() */
 static void
 ucnv_enumDependencies(const UDataSwapper *ds,
@@ -457,6 +456,7 @@ ucnv_enumDependencies(const UDataSwapper *ds,
                       const uint8_t *inBytes, int32_t length,
                       CheckDependency check, void *context,
                       UErrorCode *pErrorCode) {
+#if !UCONFIG_NO_CONVERSION
     uint32_t staticDataSize;
 
     const UConverterStaticData *inStaticData;
@@ -551,6 +551,10 @@ ucnv_enumDependencies(const UDataSwapper *ds,
             checkIDSuffix(itemName, baseName, -1, ".cnv", check, context, pErrorCode);
         }
     }
+#else
+    fprintf(stderr, "icupkg/ucnv_enumDependencies(): UCONFIG_NO_CONVERSION=1, can't swap %s", itemName);
+    exit(U_UNSUPPORTED_ERROR);
+#endif /* UCONFIG_NO_CONVERSION */
 }
 
 // ICU data formats -------------------------------------------------------- ***
@@ -640,6 +644,5 @@ Package::enumDependencies(Item *pItem, void *context, CheckDependency check) {
         }
     }
 }
-#endif /* UCONFIG_NO_CONVERSION */
 
 U_NAMESPACE_END

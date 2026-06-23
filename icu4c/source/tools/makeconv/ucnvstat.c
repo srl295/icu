@@ -20,6 +20,7 @@
 #include "toolutil.h"
 #include "ucnv_bld.h"
 
+#if !UCONFIG_NO_CONVERSION
 
 static const UConverterStaticData _SBCSStaticData={
     sizeof(UConverterStaticData),
@@ -70,3 +71,4 @@ const UConverterStaticData *ucnv_converterStaticData[UCNV_NUMBER_OF_SUPPORTED_CO
     /* LMBCS */ NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
 };
 
+#endif /* UCONFIG_NO_CONVERSION*/

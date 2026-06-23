@@ -18,6 +18,10 @@
 
 #include <stdio.h>
 #include "unicode/utypes.h"
+#include "unicode/uconfig.h"
+
+#if !UCONFIG_NO_CONVERSION
+
 #include "cstring.h"
 #include "cmemory.h"
 #include "unewdata.h"
@@ -1574,3 +1578,5 @@ MBCSWrite(NewConverter *cnvData, const UConverterStaticData *staticData,
     return top;
 }
 U_CDECL_END
+
+#endif /* UCONFIG_NO_CONVERSION*/

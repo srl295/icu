@@ -19,6 +19,10 @@
 
 #include <stdio.h>
 #include "unicode/putil.h"
+#include "unicode/uconfig.h"
+
+#if !UCONFIG_NO_CONVERSION
+
 #include "unicode/ucnv_err.h"
 #include "charstr.h"
 #include "ucnv_bld.h"
@@ -197,8 +201,13 @@ static UOption options[]={
     UOPTION_SOURCEDIR,
 };
 
+#endif /* UCONFIG_NO_CONVERSION */
 int main(int argc, char* argv[])
 {
+#if !UCONFIG_NO_CONVERSION
+    fprintf(stderr, "UCONFIG_NO_CONVERSION=1");
+    return 1;
+#else /* UCONFIG_NO_CONVERSION */
     ConvData data;
     char cnvName[UCNV_MAX_FULL_FILE_NAME_LENGTH];
 
@@ -417,7 +426,12 @@ int main(int argc, char* argv[])
     }
 
     return err;
+
+#endif /* UCONFIG_NO_CONVERSION */
 }
+
+
+#if !UCONFIG_NO_CONVERSION
 
 static void
 getPlatformAndCCSIDFromName(const char *name, int8_t *pPlatform, int32_t *pCCSID) {
@@ -855,6 +869,8 @@ createConverter(ConvData *data, const char *converterName, UErrorCode *pErrorCod
         cleanupConvData(&baseData);
     }
 }
+
+#endif /* UCONFIG_NO_CONVERSION */
 
 /*
  * Hey, Emacs, please set the following:

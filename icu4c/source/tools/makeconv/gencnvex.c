@@ -16,6 +16,9 @@
 *   created by: Markus W. Scherer
 */
 
+#if !UCONFIG_NO_CONVERSION
+
+
 #include <stdbool.h>
 #include <stdio.h>
 #include "unicode/utypes.h"
@@ -74,7 +77,7 @@ typedef struct CnvExtData {
 NewConverter *
 CnvExtOpen(UCMFile *ucm) {
     CnvExtData *extData;
-    
+
     extData=(CnvExtData *)uprv_malloc(sizeof(CnvExtData));
     if(extData==NULL) {
         printf("out of memory\n");
@@ -1084,3 +1087,5 @@ CnvExtAddTable(NewConverter *cnvData, UCMTable *table, UConverterStaticData *sta
         makeToUTable(extData, table) &&
         makeFromUTable(extData, table);
 }
+
+#endif /* UCONFIG_NO_CONVERSION*/
