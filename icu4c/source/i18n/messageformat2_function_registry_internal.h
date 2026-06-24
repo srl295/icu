@@ -84,7 +84,7 @@ static constexpr std::u16string_view YEAR = u"year";
       per https://github.com/unicode-org/message-format-wg/blob/main/spec/registry.md
       as of https://github.com/unicode-org/message-format-wg/releases/tag/LDML45-alpha
     */
-    class StandardFunctions {
+    class U_I18N_API_CLASS StandardFunctions { // TODO: had to export StandardFunctions
         friend class MessageFormatter;
 
         public:
@@ -98,6 +98,8 @@ static constexpr std::u16string_view YEAR = u"year";
                                              std::u16string_view optionName,
                                              UErrorCode& errorCode);
 
+// TODO: ICU-23424 had to make this public to be callable
+public:
         class DateTime;
         class DateTimeValue;
 

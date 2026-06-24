@@ -272,7 +272,7 @@ namespace message2 {
             Locale locale;
             UMFBidiOption dir;
             UnicodeString id;
-
+public: // TODO ICU-23424 had to make this public so FunctionContext is constructable
             FunctionContext(const Locale& loc, UMFBidiOption d, UnicodeString i)
                 : locale(loc), dir(d), id(i) {}
     }; // class FunctionContext

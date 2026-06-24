@@ -13,6 +13,8 @@
 #include "unicode/gregocal.h"
 #include "unicode/messageformat2.h"
 #include "messageformat2test.h"
+// TODO ICU-23424: had to include internal .h to be able to chain load internal functions
+#include "messageformat2_function_registry_internal.h"
 
 using namespace icu::message2;
 
@@ -31,6 +33,7 @@ TestMessageFormat2::runIndexedTest(int32_t index, UBool exec,
     TESTCASE_AUTO(testLowLoneSurrogate);
     TESTCASE_AUTO(testLoneSurrogateInQuotedLiteral);
     TESTCASE_AUTO(dataDrivenTests);
+    TESTCASE_AUTO(testSetFormatLocale);
     TESTCASE_AUTO_END;
 }
 
@@ -477,6 +480,234 @@ void TestMessageFormat2::dataDrivenTests() {
     IcuTestErrorCode errorCode(*this, "jsonTests");
 
     jsonTestsFromFiles(errorCode);
+}
+
+namespace EnFunctionTest {
+
+// //TODO: This function is duplicated from messageformat2test_custom.cpp
+// // but should it be a library function?
+// static UnicodeString getStringOption(const FunctionOptionsMap &opt, const UnicodeString &k) {
+//     if (opt.count(k) == 0) {
+//         return {};
+//     }
+//     UErrorCode localErrorCode = U_ZERO_ERROR;
+//     const message2::FunctionValue *optVal = opt.at(k);
+//     if (optVal == nullptr) {
+//         return {};
+//     }
+//     const UnicodeString &formatted = optVal->formatToString(localErrorCode);
+//     if (U_SUCCESS(localErrorCode)) {
+//         return formatted;
+//     }
+//     const UnicodeString &original = optVal->unwrap().getString(localErrorCode);
+//     if (U_SUCCESS(localErrorCode)) {
+//         return original;
+//     }
+//     return {};
+// }
+
+// //TODO: This function is duplicated from messageformat2test_custom.cpp
+// // but should it be a library function?
+// static bool hasStringOption(const FunctionOptionsMap &opt, const UnicodeString &k,
+//                             const UnicodeString &v) {
+//     return getStringOption(opt, k) == v;
+// }
+// class EnDateValue : public FunctionValue {
+//     public:
+//     UnicodeString formatToString(UErrorCode&) const override;
+//     EnDateValue();
+//     virtual ~EnDateValue();
+//     private:
+//     friend class EnDateFunction;
+
+//     UnicodeString formattedString;
+//     EnDateValue(const FunctionValue&, const FunctionOptions&, UErrorCode&);
+// }; // class EnDateValue
+
+
+// UnicodeString EnDateValue::formatToString(UErrorCode& status) const {
+//     (void) status;
+//     return formattedString;
+// }
+// EnDateValue::~EnDateValue() {}
+
+
+// EnDateValue::EnDateValue(const FunctionValue& arg,
+//                                  const FunctionOptions& options,
+//                                  UErrorCode& errorCode) {
+//     if (U_FAILURE(errorCode)) {
+//         return;
+//     }
+//     innerValue = arg.unwrap();
+//     opts = options;
+
+//     const icu::message2::Formattable* toFormat = &innerValue;
+//     if (U_FAILURE(errorCode)) {
+//         errorCode = U_MF_OPERAND_MISMATCH_ERROR;
+//         return;
+//     }
+
+//     // FunctionOptionsMap opt = opts.getOptions();
+
+//     // bool useFormal = hasStringOption(opt, "formality", "formal");
+//     // UnicodeString length = getStringOption(opt, "length");
+//     // if (length.length() == 0) {
+//     //     length = "short";
+//     // }
+
+//     const FormattableObject* fp = toFormat->getObject(errorCode);
+//     if (errorCode == U_ILLEGAL_ARGUMENT_ERROR) {
+//         errorCode = U_MF_FORMATTING_ERROR;
+//         return;
+//     }
+
+//     if (fp == nullptr || fp->tag() != u"person") {
+//         errorCode = U_MF_FORMATTING_ERROR;
+//         return;
+//     }
+//     const icu::message2::Formattable* p = static_cast<const icu::message2::Formattable*>(fp);
+
+//     p->
+
+//     if (length == "long") {
+//         formattedString += title;
+//         formattedString += " ";
+//         formattedString += firstName;
+//         formattedString += " ";
+//         formattedString += lastName;
+//     } else if (length == "medium") {
+//         if (useFormal) {
+//             formattedString += firstName;
+//             formattedString += " ";
+//             formattedString += lastName;
+//         } else {
+//             formattedString += title;
+//             formattedString += " ";
+//             formattedString += firstName;
+//         }
+//     } else if (useFormal) {
+//         // Default to "short" length
+//         formattedString += title;
+//         formattedString += " ";
+//         formattedString += lastName;
+//     } else {
+//         formattedString += firstName;
+//     }
+// }
+class EnDateFunction : public Function {
+  public:
+    EnDateFunction(UErrorCode& status);
+    LocalPointer<FunctionValue> call(const FunctionContext &, const FunctionValue &,
+                                     const FunctionOptions &, UErrorCode &) override;
+    virtual ~EnDateFunction();
+
+  private:
+    LocalPointer<Function> delegate;
+};
+
+EnDateFunction::EnDateFunction(UErrorCode& status)
+: delegate(icu::message2::StandardFunctions::DateTime::date(status)) {
+
+}
+
+LocalPointer<FunctionValue> EnDateFunction::call(const FunctionContext &context,
+                                                 const FunctionValue &arg,
+                                                 const FunctionOptions &opts,
+                                                 UErrorCode &errorCode) {
+    (void)context;
+
+    if (U_FAILURE(errorCode)) {
+        return LocalPointer<FunctionValue>();
+    }
+    FunctionContext enContext(Locale::getEnglish(), context.getDirection(), context.getID());
+
+    return delegate->call(enContext, arg, opts, errorCode);
+}
+
+EnDateFunction::~EnDateFunction() {}
+} // namespace EnFunctionTest
+
+
+void TestMessageFormat2::testSetFormatLocale() {
+    IcuTestErrorCode errorCode(*this, "testSetFormatLocale");
+    UParseError parseError;
+
+    std::map<UnicodeString, icu::message2::Formattable> argsBuilder;
+    argsBuilder["count"] = message2::Formattable((int64_t)13);
+    argsBuilder["name"] = message2::Formattable("US");
+    argsBuilder["birthday"] = message2::Formattable("1776-07-04");
+    icu::message2::MessageArguments args(argsBuilder, errorCode);
+        UnicodeString expectedResult(u"PASS 13 @ 7/4/76");
+
+    const UnicodeString orig_pattern(
+        u""
+        ".input {$count :number} .input {$name :string} .input {$birthday :date}\n"
+        ".match $count\n"
+        "many {{PASS {$count} @ {$birthday :date style=short}}}\n"
+        "* {{FAIL wrong bucket {$count} @ {$birthday :date style=short}}}\n");
+
+    {
+        // try with a modified pattern
+        // build the function registry
+        icu::message2::MFFunctionRegistry::Builder builder(errorCode);
+        MFFunctionRegistry functionRegistry =
+            builder
+                .adoptFunction(data_model::FunctionName("en_date"),
+                               new EnFunctionTest::EnDateFunction(errorCode), errorCode)
+                .build();
+
+        UnicodeString modified_pattern = orig_pattern;
+        modified_pattern.findAndReplace(u":date", u":en_date");
+        icu::message2::MessageFormatter mf =
+            MessageFormatter::Builder(errorCode)
+                .setErrorHandlingBehavior(MessageFormatter::U_MF_BEST_EFFORT)
+                .setPattern(modified_pattern, parseError, errorCode)
+                .setFunctionRegistry(functionRegistry)
+                .setLocale(Locale("pl"))
+                .build(errorCode);
+
+        if (errorCode.errIfFailureAndReset("build")) {
+            errln("UParseError = %d:%d", parseError.line, parseError.offset);
+            return;
+        }
+
+        UnicodeString result = mf.formatToString(args, errorCode);
+        if (errorCode.errIfFailureAndReset("formatToString")) {
+            return;
+        }
+        assertEquals("testSetFormatLocale", expectedResult, result);
+
+    }
+    {
+        // try with the original pattern
+        // build the function registry
+        icu::message2::MFFunctionRegistry::Builder builder(errorCode);
+        MFFunctionRegistry functionRegistry =
+            builder
+                .adoptFunction(data_model::FunctionName("date"), // override
+                               new EnFunctionTest::EnDateFunction(errorCode), errorCode)
+                .build();
+
+        icu::message2::MessageFormatter mf =
+            MessageFormatter::Builder(errorCode)
+                .setErrorHandlingBehavior(MessageFormatter::U_MF_BEST_EFFORT)
+                .setPattern(orig_pattern, parseError, errorCode)
+                .setFunctionRegistry(functionRegistry)
+                .setLocale(Locale("pl"))
+                .build(errorCode);
+
+        if (errorCode.errIfFailureAndReset("build")) {
+            errln("UParseError = %d:%d", parseError.line, parseError.offset);
+            return;
+        }
+
+        UnicodeString result = mf.formatToString(args, errorCode);
+        if (errorCode.errIfFailureAndReset("formatToString")) {
+            return;
+        }
+        assertEquals("testSetFormatLocale", expectedResult, result);
+
+    }
 }
 
 TestCase::~TestCase() {}
