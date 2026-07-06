@@ -461,7 +461,7 @@ namespace message2 {
         [[nodiscard]] InternalValue evalLiteral(const UnicodeString&, const data_model::Literal&, UErrorCode&) const;
         [[nodiscard]] UnicodeString& bidiIsolate(UMFBidiOption, UMFDirectionality, UnicodeString&) const;
         void formatPattern(MessageContext&, Environment&, const data_model::Pattern&, UErrorCode&, UnicodeString&) const;
-        FunctionContext makeFunctionContext(const FunctionOptions&) const;
+        FunctionContext makeFunctionContext(const FunctionOptions&, const FunctionName&) const;
         [[nodiscard]] InternalValue& apply(Environment&, const FunctionName&, InternalValue&, FunctionOptions&&,
                                            MessageContext&, UErrorCode&) const;
         [[nodiscard]] InternalValue& evalExpression(const UnicodeString&, Environment&, const data_model::Expression&, MessageContext&, UErrorCode&) const;

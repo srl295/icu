@@ -266,15 +266,63 @@ namespace message2 {
              * @deprecated This API is for technology preview only.
              */
             U_I18N_API const UnicodeString& getID() const { return id; }
+
+            /**
+             * Returns the original called function name from this context.
+             *
+             * @return The function name, as registered, used for this function
+             *
+             * @internal ICU 79 technology preview
+             * @deprecated This API is for technology preview only.
+             */
+            U_I18N_API const FunctionName& getCalledFunctionName() const { return calledFunction; }
+
+            /**
+             * Returns a new context with the specified locale.
+             *
+             * @return a new locale
+             *
+             * @internal ICU 79 technology preview
+             * @deprecated This API is for technology preview only.
+             */
+            U_I18N_API FunctionContext withLocale(const Locale& loc) const {
+                return FunctionContext(loc, getDirection(), getID(), standardFunctions, getCalledFunctionName());
+            }
+
+            /**
+             * Returns a pointer to a standard function.
+             * This function may only be used within the implementation of call()
+             * The returned pointer is invalid once this FunctionContext goes out of scope.
+             * A U_INVALID_PARAMETER is setif the requested function is not one of
+             * the standard functions.
+             *
+             * @param name the name of the standard function, such as "datetime" or "number"
+             * @return pointer to the standard function, or nullptr
+             *
+             * @internal ICU 79 technology preview
+             * @deprecated This API is for technology preview only.
+             */
+            U_I18N_API Function *getStandardFunction(const FunctionName &name,
+                                                     UErrorCode &errorCode) const {
+                if (U_FAILURE(errorCode)) return nullptr;
+                Function *p = standardFunctions.getFunction(name);
+                if (p == nullptr) {
+                    errorCode = U_ILLEGAL_ARGUMENT_ERROR;
+                }
+                return p;
+            }
+
         private:
             friend class MessageFormatter;
 
             Locale locale;
             UMFBidiOption dir;
             UnicodeString id;
+            const MFFunctionRegistry& standardFunctions;
+            const FunctionName& calledFunction;
 
-            FunctionContext(const Locale& loc, UMFBidiOption d, UnicodeString i)
-                : locale(loc), dir(d), id(i) {}
+            FunctionContext(const Locale& loc, UMFBidiOption d, UnicodeString i, const MFFunctionRegistry& fns, const FunctionName& calledFn)
+                : locale(loc), dir(d), id(i), standardFunctions(fns), calledFunction(calledFn) {}
     }; // class FunctionContext
 
     class FunctionValue;
@@ -464,7 +512,7 @@ namespace message2 {
              * @internal ICU 79 technology preview
              * @deprecated This API is for technology preview only.
              */
-            U_I18N_API virtual const UnicodeString& getFunctionName() const { return functionName; }
+            U_I18N_API virtual const FunctionName& getFunctionName() const { return functionName; }
             /**
              * Returns a fallback string that can be used as output
              * if processing this function results in an error.
@@ -505,7 +553,7 @@ namespace message2 {
              * @internal ICU 79 technology preview
              * @deprecated This API is for technology preview only.
              */
-            UnicodeString functionName;
+            FunctionName functionName;
             /**
              * Fallback string that can be used if a later function encounters
              * an error when processing this FunctionValue.
