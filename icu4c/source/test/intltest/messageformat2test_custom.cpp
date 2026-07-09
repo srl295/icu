@@ -285,7 +285,7 @@ static bool hasStringOption(const FunctionOptionsMap& opt,
 LocalPointer<FunctionValue> PersonNameFunction::call(const FunctionContext& context,
                                                      const FunctionValue& arg,
                                                      const FunctionOptions& opts,
-                                                     UErrorCode& errorCode) {
+                                                     UErrorCode& errorCode) const {
     (void) context;
 
     if (U_FAILURE(errorCode)) {
@@ -404,7 +404,7 @@ LocalPointer<FunctionValue>
 GrammarCasesFunction::call(const FunctionContext& context,
                            const FunctionValue& arg,
                            const FunctionOptions& opts,
-                           UErrorCode& errorCode) {
+                           UErrorCode& errorCode) const {
     (void) context;
 
     if (U_FAILURE(errorCode)) {
@@ -535,7 +535,7 @@ LocalPointer<FunctionValue>
 ListFunction::call(const FunctionContext& context,
                    const FunctionValue& arg,
                    const FunctionOptions& opts,
-                   UErrorCode& errorCode) {
+                   UErrorCode& errorCode) const {
     if (U_FAILURE(errorCode)) {
         return LocalPointer<FunctionValue>();
     }
@@ -711,7 +711,7 @@ LocalPointer<FunctionValue>
 ResourceManager::call(const FunctionContext&,
                       const FunctionValue& arg,
                       const FunctionOptions& options,
-                      UErrorCode& errorCode) {
+                      UErrorCode& errorCode) const {
     if (U_FAILURE(errorCode)) {
         return LocalPointer<FunctionValue>();
     }
@@ -878,7 +878,7 @@ LocalPointer<FunctionValue>
 NounFunction::call(const FunctionContext&,
                    const FunctionValue& arg,
                    const FunctionOptions& opts,
-                   UErrorCode& errorCode) {
+                   UErrorCode& errorCode) const {
     if (U_FAILURE(errorCode)) {
         return LocalPointer<FunctionValue>();
     }
@@ -938,7 +938,7 @@ LocalPointer<FunctionValue>
 AdjectiveFunction::call(const FunctionContext&,
                         const FunctionValue& arg,
                         const FunctionOptions& opts,
-                        UErrorCode& errorCode) {
+                        UErrorCode& errorCode) const {
     if (U_FAILURE(errorCode)) {
         return LocalPointer<FunctionValue>();
     }
@@ -1014,7 +1014,7 @@ void TestMessageFormat2::testSingleEvaluation(IcuTestErrorCode& errorCode) {
 
     MFFunctionRegistry customRegistry(MFFunctionRegistry::Builder(errorCode)
                                       .adoptFunction(FunctionName("counter"),
-                                                     new CounterFunction(),
+                                                     new CounterFunction(errorCode),
                                                      errorCode)
                                       .build());
     UnicodeString name = "name";
@@ -1032,25 +1032,33 @@ void TestMessageFormat2::testSingleEvaluation(IcuTestErrorCode& errorCode) {
     TestUtils::runTestCase(*this, test, errorCode);
 }
 
+CounterFunction::CounterFunction(UErrorCode& errorCode) {
+    if (U_FAILURE(errorCode)) {
+        return;
+    }
+    Counter* c = new Counter();
+    count = LocalPointer(c, errorCode);
+}
+
 LocalPointer<FunctionValue>
 CounterFunction::call(const FunctionContext&,
                       const FunctionValue& arg,
                       const FunctionOptions& opts,
-                      UErrorCode& errorCode) {
+                      UErrorCode& errorCode) const {
     if (U_FAILURE(errorCode)) {
         return LocalPointer<FunctionValue>();
     }
 
     LocalPointer<FunctionValue>
-        v(new CounterFunctionValue(count, arg, std::move(opts), errorCode));
+        v(new CounterFunctionValue(count.getAlias(), arg, std::move(opts), errorCode));
     if (!v.isValid()) {
         errorCode = U_MEMORY_ALLOCATION_ERROR;
     }
-    count++;
+    count->increment();
     return v;
 }
 
-CounterFunctionValue::CounterFunctionValue(int32_t& c,
+CounterFunctionValue::CounterFunctionValue(Counter* c,
                                            const FunctionValue&,
                                            const FunctionOptions&,
                                            UErrorCode&) : count(c) {
@@ -1062,7 +1070,7 @@ UnicodeString CounterFunctionValue::formatToString(UErrorCode& status) const {
         return {};
     }
     number::UnlocalizedNumberFormatter nf = number::NumberFormatter::with();
-    number::FormattedNumber formattedNumber = nf.locale("en-US").formatInt(count, status);
+    number::FormattedNumber formattedNumber = nf.locale("en-US").formatInt(count->get(), status);
     return formattedNumber.toString(status);
 }
 

@@ -276,7 +276,7 @@ namespace message2 {
         return standardMFFunctionRegistry.hasFunction(functionName);
     }
 
-    Function*
+    const Function*
     MessageFormatter::lookupFunction(const FunctionName& functionName,
                                      UErrorCode& status) const {
         NULL_ON_ERROR(status);
@@ -286,7 +286,7 @@ namespace message2 {
         }
         if (hasCustomMFFunctionRegistry()) {
             const MFFunctionRegistry& customMFFunctionRegistry = getCustomMFFunctionRegistry();
-            Function* function = customMFFunctionRegistry.getFunction(functionName);
+            const Function* function = customMFFunctionRegistry.getFunction(functionName);
             if (function != nullptr) {
                 return function;
             }

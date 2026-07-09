@@ -50,9 +50,8 @@ namespace message2 {
 
     public:
         /**
-         * Looks up a function by the name of the function. The result is non-const,
-         * since functions may have local state. Returns the result by pointer
-         * rather than by reference since it can fail.
+         * Looks up a function by the name of the function.
+         * Returns the result by pointer rather than by reference since it can fail.
          *
          * @param functionName Name of the desired function.
          * @return A pointer to the function registered under `functionName`, or null
@@ -62,7 +61,7 @@ namespace message2 {
          * @internal ICU 79 technology preview
          * @deprecated This API is for technology preview only.
          */
-        Function* getFunction(const FunctionName& functionName) const;
+        const Function* getFunction(const FunctionName& functionName) const;
         /**
          * Looks up a function by a type tag. This method gets the name of the default formatter registered
          * for that type. If no formatter was explicitly registered for this type, it returns false.
@@ -304,7 +303,7 @@ namespace message2 {
             virtual LocalPointer<FunctionValue> call(const FunctionContext& context,
                                                      const FunctionValue& operand,
                                                      const FunctionOptions& options,
-                                                     UErrorCode& status) = 0;
+                                                     UErrorCode& status) const = 0;
             /**
              * Destructor.
              *

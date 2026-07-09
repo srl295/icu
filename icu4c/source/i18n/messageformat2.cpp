@@ -254,7 +254,7 @@ static UnicodeString reserialize(const UnicodeString& s) {
     UnicodeString fallbackStr = functionFallback(rand, functionName);
 
     // Look up the function name
-    Function* function = lookupFunction(functionName, status);
+    const Function* function = lookupFunction(functionName, status);
 
     if (U_FAILURE(status)) { // Handle unknown function
         // Set error and use the fallback value
