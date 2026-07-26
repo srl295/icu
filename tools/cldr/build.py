@@ -191,7 +191,7 @@ def main() -> int:
   elif cmd.build_prereqs:
     build_prereqs()
   elif cmd.build:
-    biuld()
+    build()
   else:
     parser.print_help()
   return 0
