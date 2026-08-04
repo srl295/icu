@@ -2346,4 +2346,35 @@ public class RbnfTest extends CoreTestFmwk {
 
         doParsingTest(formatter, lpTestData, true);
     }
+
+    @Test
+    public void Test23407NullDereferenceREAD() {
+        // This is "garbage" from a fuzzer run. We test that the code does not crash.
+        String fuzzstr = "x0x:>%䀾>Ā;%䀾:>;>;;<0<<>";
+        try {
+            RuleBasedNumberFormat rbfmt = new RuleBasedNumberFormat(fuzzstr, Locale.US);
+            rbfmt.parse(fuzzstr);
+        } catch (IllegalArgumentException | ParseException e) {
+            // Expected exception or parse failure is fine, but not others like NPE.
+        }
+    }
+
+    @Test
+    public void TestNumeratorSubstitutionOverflow() {
+        // This test case comes from a fuzzer (Bug 471607891).
+        // The goal is to make sure that the code does not loop infinitely or throw unexpected
+        // exceptions (like NullPointerException) with invalid/extreme inputs,
+        // rather than looking for a particular result value.
+        String rulesStr =
+                "> \u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+                        + "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+                        + "\u0001a;x0x:>%a>a;%a:a;>;\u00024<;<<<a\u0089;"
+                        + "\u0010a\u0000\u0300<<<\u0003>;\u0000;\u001faz>;a;>;\u00024<;<<<Ya";
+        try {
+            RuleBasedNumberFormat rbfmt = new RuleBasedNumberFormat(rulesStr, Locale.US);
+            rbfmt.parse(rulesStr);
+        } catch (IllegalArgumentException | ParseException e) {
+            // Expected exception or parse failure is fine, but not others like NPE.
+        }
+    }
 }

@@ -279,10 +279,10 @@ We had the following HTML on the main download page for ICU 4.8M1 = 4.7.1:
 
 ## Upload Release Source / Binaries
 
-Download Directories are located at, for example,
-`icu-project.org:/home/htdocs/ex/files/icu4c/4.4.2`
-corresponding to <http://download.icu-project.org/ex/files/icu4c/4.4.2/>
-Look at previous releases for an example.
+Modern ICU releases (starting with version 56.1, released on April 30, 2020)
+are available on GitHub: <https://github.com/unicode-org/icu/releases>.
+
+For older ICU releases see <https://unicode-org.github.io/icu/download/>.
 
 ### Java Source/Bin
 
@@ -339,7 +339,7 @@ That new flow overlaps with _"Using the output from the build bots"_ below.
 
 *   Manual process:
     *   Build with MSVC x64 Release. (See the ICU
-        [readme.html](https://github.com/unicode-org/icu/main/blob/icu4c/readme.html)
+        [readme.html](https://github.com/unicode-org/icu/blob/main/icu4c/readme.html)
         file for details).
     *   Open a command prompt.
         ```
@@ -357,7 +357,7 @@ That new flow overlaps with _"Using the output from the build bots"_ below.
 *   Using the output from the build bots:
     *   Navigate to the GitHub page for the commits on the
         `maint/maint-<version>` branch.
-        *   Ex: https://github.com/unicode-org/icu/commits/maint/maint-64
+        *   Ex: <https://github.com/unicode-org/icu/commits/maint/maint-64>
     *   Click on the green check mark (✔) on the most recent/last commit. (It
         might be a red X if the builds failed, hopefully not).
         *   This will open up a pop-up with links to various CI builds.
@@ -471,7 +471,7 @@ binaries.
 3.  Click on the "gear" icon.
 4.  Update the URL field with the new URL.
     1.  For example: The ICU4C 63.1 Binaries URL was:
-        <http://apps.icu-project.org/icu-jsp/downloadSection.jsp?ver=63.1&base=c&svn=release-63-1>
+        <https://github.com/unicode-org/icu/releases/tag/release-63-1>
 
 #### Check the ICU public site for the new release
 
@@ -522,8 +522,8 @@ Note that updating ICU4C demos online requires Gcloud access.
 
 ### Online information update
 
-Collation and [comparison](../../../../charts/comparison/index.md) charts need
-to be updated. See [charts/Performance & Size](../../../../charts/index.md).
+Collation and [comparison](https://icu.unicode.org/charts/comparison) charts need
+to be updated. See [charts/Performance & Size](https://icu.unicode.org/charts).
 
 ### Old sensitive tickets
 
@@ -581,9 +581,9 @@ Jira.
 ## Update readme
 
 Update [ICU4C
-readme.html](https://github.com/unicode-org/icu/main/icu4c/readme.html)
+readme.html](https://github.com/unicode-org/icu/blob/main/icu4c/readme.html)
 and [ICU4J
-readme.html](https://github.com/unicode-org/icu/main/icu4j/readme.html)
+readme.html](https://github.com/unicode-org/icu/blob/main/icu4j/readme.html)
 before every milestone (GA / RC / Milestone-N). Make sure the following items
 are up to date.
 

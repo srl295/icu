@@ -8,15 +8,12 @@
  */
 package com.ibm.icu.dev.test.rbbi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import com.ibm.icu.dev.test.CoreTestFmwk;
+import com.ibm.icu.dev.test.lang.UnicodeSetTest.ShakespeareanSymbolTable;
 import com.ibm.icu.impl.RBBIDataWrapper;
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.RuleBasedBreakIterator;
+import com.ibm.icu.text.UnicodeSet;
 import com.ibm.icu.util.CodePointTrie;
 import com.ibm.icu.util.ULocale;
 import java.text.CharacterIterator;
@@ -1234,6 +1231,196 @@ public class RBBITest extends CoreTestFmwk {
             assertEquals("following" + idx, fns.expectedFollow(idx), bi.following(idx));
             idx = fns.randomStringIndex();
             assertEquals("preceding" + idx, fns.expectedPreceding(idx), bi.preceding(idx));
+        }
+    }
+
+    /** Tests some rule sets that require the lookaheads to occupy different slots. */
+    @Test
+    public void TestLookaheadPolychromy() {
+
+        // The first lookahead must occupy a different slot from the other two, because after
+        // encountering x y two different break positions can be returned depending on the third
+        // character: the graph of lookahead reachability is a cherry (🍒, the first one with an
+        // edge from the other two, the last two with no edge between each other).  Its chromatic
+        // number is 2.
+        final var lookaheadCherry =
+                new RuleBasedBreakIterator(
+                        ""
+                                + "[x] / [wy]   [z];"
+                                + "[x]   [y]  / [t];"
+                                + "[x]   [w]  / [u];"
+                                + ".*;");
+        assertEquals(
+                "lookaheadCherry chromatic number",
+                2,
+                lookaheadCherry.fRData.fFTable.fLookAheadResultsSize
+                        - lookaheadCherry.fRData.ACCEPTING_UNCONDITIONAL
+                        - 1);
+        for (final var textAndFirstSegment :
+                new String[][] {
+                    // If lookaheads 1 and 2 use the same slot, 2 stomps over 1 and we get xy
+                    // instead of x here.
+                    {"xyz", "x"},
+                    // If lookaheads 1 and 3 use the same slot, 3 stomps over 1 and we get xw
+                    // instead of x here.
+                    {"xwz", "x"},
+                    {"xyt", "xy"},
+                    {"xwt", "xwt"},
+                    {"xyu", "xyu"},
+                    {"xwu", "xw"},
+                }) {
+            String text = textAndFirstSegment[0];
+            String firstSegment = textAndFirstSegment[1];
+            lookaheadCherry.setText(text);
+            final var actual = text.substring(0, lookaheadCherry.next());
+            if (!actual.equals(firstSegment))
+                errln(
+                        "First segment of "
+                                + text
+                                + " with lookaheadCherry: expected "
+                                + firstSegment
+                                + ", got "
+                                + actual);
+        }
+        // The state that accepts lookahead 1 is reachable from those that set lookaheads 2 and 3,
+        // and the state that accepts lookahead 2 is reachable from the one that sets lookahead 3:
+        // the graph of lookaheads is a triangle, its chromatic number is 3; the lookaheads all need
+        // different slots.
+        final var lookaheadTriangle =
+                new RuleBasedBreakIterator(
+                        ""
+                                + "[x] / [y]   [z]    [1];"
+                                + "[x]   [y] / [z]    [2];"
+                                + "[x]   [y]   [z] /  [3];"
+                                + ".*;");
+        assertEquals(
+                "lookaheadTriangle chromatic number",
+                3,
+                lookaheadTriangle.fRData.fFTable.fLookAheadResultsSize
+                        - lookaheadTriangle.fRData.ACCEPTING_UNCONDITIONAL
+                        - 1);
+        for (final var textAndFirstSegment :
+                new String[][] {
+                    {"xyz1", "x"},
+                    {"xyz2", "xy"},
+                    {"xyz3", "xyz"},
+                    {"xyzn", "xyzn"},
+                }) {
+            String text = textAndFirstSegment[0];
+            String firstSegment = textAndFirstSegment[1];
+            lookaheadTriangle.setText(text);
+            final var actual = text.substring(0, lookaheadTriangle.next());
+            if (!actual.equals(firstSegment))
+                errln(
+                        "First segment of "
+                                + text
+                                + " with lookaheadTriangle: expected "
+                                + firstSegment
+                                + ", got "
+                                + actual);
+        }
+        // Consecutive lookaheads must occupy different slots ; the graph of lookahead reachability
+        // is a path graph.  Its chromatic number is 2.
+        final var lookaheadPath =
+                new RuleBasedBreakIterator(
+                        ""
+                                + "[x]  / [y]   [z]   [1];"
+                                + "[x]?   [y] / [z]   [2];"
+                                + "[y]   [z] / [t]   [1];"
+                                + "[y]   [z]   [t] / [2];"
+                                + ".*;");
+        assertEquals(
+                "lookaheadPath chromatic number",
+                2,
+                lookaheadPath.fRData.fFTable.fLookAheadResultsSize
+                        - lookaheadPath.fRData.ACCEPTING_UNCONDITIONAL
+                        - 1);
+        for (final var textAndFirstSegment :
+                new String[][] {
+                    {"xyz1", "x"},
+                    {"xyz2", "xy"},
+                    {"yz2", "y"},
+                    {"yzt1", "yz"},
+                    {"yzt2", "yzt"},
+                }) {
+            String text = textAndFirstSegment[0];
+            String firstSegment = textAndFirstSegment[1];
+            lookaheadPath.setText(text);
+            final var actual = text.substring(0, lookaheadPath.next());
+            if (!actual.equals(firstSegment))
+                errln(
+                        "First segment of "
+                                + text
+                                + " with lookaheadPath: expected "
+                                + firstSegment
+                                + ", got "
+                                + actual);
+        }
+    }
+
+    @Test
+    public void TestCustomProperties() {
+        final var shakespeareanSymbolTable = new ShakespeareanSymbolTable();
+        final var s = new UnicodeSet();
+        shakespeareanSymbolTable.applyPropertyAlias("Name", "Theſeus", s);
+        final String theseus = Character.toString(s.charAt(0));
+        s.clear();
+        shakespeareanSymbolTable.applyPropertyAlias("Name", "Hippolita", s);
+        final String hippolyta = Character.toString(s.charAt(0));
+        s.clear();
+        shakespeareanSymbolTable.applyPropertyAlias("Name", "Moth", s);
+        final String moth = Character.toString(s.charAt(0));
+        final var it =
+                new RuleBasedBreakIterator(
+                        "[\\N{Theſeus}] [\\N{Hippolita}]; .;", shakespeareanSymbolTable);
+        it.setText(moth + theseus + hippolyta + moth);
+        assertEquals("First break", it.next(), 1);
+        assertEquals("Second break", it.next(), 3);
+        // Check that we only get the properties from the XSymbolTable, not the variables.
+        try {
+            new RuleBasedBreakIterator(
+                    "[$AMidsummerNightsDream] [$AMidsummerNightsDream]; .;",
+                    shakespeareanSymbolTable);
+            errln(
+                    "Expected IllegalArgumentException to be thrown: "
+                            + "$AMidsummerNightsDream should not be defined");
+        } catch (IllegalArgumentException e) {
+            // 1020F is U_BRK_MALFORMED_SET (not visible from here).
+            assertEquals(
+                    "Exception message",
+                    "Error " + 0x1020F + " at line 1 column 1",
+                    e.getMessage());
+        }
+        try {
+            new RuleBasedBreakIterator(
+                    "$AMidsummerNightsDream $AMidsummerNightsDream; .;", shakespeareanSymbolTable);
+            errln(
+                    "Expected IllegalArgumentException to be thrown: "
+                            + "$AMidsummerNightsDream should not be defined");
+        } catch (IllegalArgumentException e) {
+            // 1020A is U_BRK_UNDEFINED_VARIABLE (not visible from here).
+            assertEquals(
+                    "Exception message",
+                    "Error " + 0x1020A + " at line 1 column 24",
+                    e.getMessage());
+        }
+    }
+
+    @Test
+    public void TestBug23449() {
+        StringBuilder rules = new StringBuilder();
+        int length = 3600;
+        for (int i = 0; i < length; ++i) {
+            rules.append("[a]");
+        }
+        rules.append(";");
+
+        try {
+            new RuleBasedBreakIterator(rules.toString());
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // Expected
+            assertEquals("Exception message", "The input is too long", e.getMessage());
         }
     }
 }

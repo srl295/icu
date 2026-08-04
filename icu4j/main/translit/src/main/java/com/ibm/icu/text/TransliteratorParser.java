@@ -190,6 +190,22 @@ class TransliteratorParser {
             return variableNames.get(name);
         }
 
+        @Override
+        public UnicodeSet lookupSet(String name) {
+            final char[] value = variableNames.get(name);
+            if (value == null || value.length != 1) {
+                return null;
+            }
+            final int i = value[0] - curData.variablesBase;
+            if (0 <= i && i < variablesVector.size()) {
+                final var result = variablesVector.get(i);
+                if (result instanceof UnicodeSet) {
+                    return (UnicodeSet) result;
+                }
+            }
+            return null;
+        }
+
         /** Implement SymbolTable API. */
         @Override
         public UnicodeMatcher lookupMatcher(int ch) {

@@ -29,6 +29,7 @@ import com.ibm.icu.impl.breakiter.UnhandledBreakEngine;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.lang.UProperty;
 import com.ibm.icu.lang.UScript;
+import com.ibm.icu.text.UnicodeSet.XSymbolTable;
 import com.ibm.icu.util.CodePointTrie;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -135,10 +136,25 @@ public class RuleBasedBreakIterator extends BreakIterator implements Cloneable {
      * @stable ICU 2.2
      */
     public RuleBasedBreakIterator(String rules) {
+        this(rules, /* customProperties= */ null);
+    }
+
+    /**
+     * Construct a RuleBasedBreakIterator from a set of rules supplied as a string, using custom
+     * properties.
+     *
+     * @param rules The break rules to be used.
+     * @param customProperties An XSymbolTable that supplies the properties to use in the rules, or
+     *     null to use ICU properties.
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    public RuleBasedBreakIterator(String rules, XSymbolTable customProperties) {
         this();
         try {
             ByteArrayOutputStream ruleOS = new ByteArrayOutputStream();
-            compileRules(rules, ruleOS);
+            RBBIRuleBuilder.compileRules(rules, ruleOS, customProperties);
             fRData = RBBIDataWrapper.get(ByteBuffer.wrap(ruleOS.toByteArray()));
             fLookAheadMatches = new int[fRData.fFTable.fLookAheadResultsSize];
         } catch (IOException e) {
@@ -362,7 +378,7 @@ public class RuleBasedBreakIterator extends BreakIterator implements Cloneable {
      * @stable ICU 4.8
      */
     public static void compileRules(String rules, OutputStream ruleBinary) throws IOException {
-        RBBIRuleBuilder.compileRules(rules, ruleBinary);
+        RBBIRuleBuilder.compileRules(rules, ruleBinary, /* customProperties= */ null);
     }
 
     // =======================================================================
@@ -815,20 +831,8 @@ public class RuleBasedBreakIterator extends BreakIterator implements Cloneable {
         int state = START_STATE;
         int row = fRData.getRowIndex(state);
         short category = 3;
-        int flagsState = fRData.fFTable.fFlags;
         int dictStart = fRData.fFTable.fDictCategoriesStart;
         int mode = RBBI_RUN;
-        if ((flagsState & RBBIDataWrapper.RBBI_BOF_REQUIRED) != 0) {
-            category = 2;
-            mode = RBBI_START;
-            if (TRACE) {
-                System.out.print("            " + RBBIDataWrapper.intToString(text.getIndex(), 5));
-                System.out.print(RBBIDataWrapper.intToHexString(c, 10));
-                System.out.println(
-                        RBBIDataWrapper.intToString(state, 7)
-                                + RBBIDataWrapper.intToString(category, 6));
-            }
-        }
 
         // loop until we reach the end of the text or transition to state 0
         while (state != STOP_STATE) {

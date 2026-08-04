@@ -12,6 +12,7 @@ import com.ibm.icu.impl.Assert;
 import com.ibm.icu.impl.Utility;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.lang.UProperty;
+import com.ibm.icu.text.UnicodeSet.XSymbolTable;
 import java.text.ParsePosition;
 import java.util.HashMap;
 
@@ -64,8 +65,11 @@ class RBBIRuleScanner {
 
     boolean fNoChainInRule; // True if the current rule starts with a '^'.
 
-    RBBISymbolTable fSymbolTable; // symbol table, holds definitions of
-    //   $variable symbols.
+    // Symbol table, holds definitions of $variable symbols.
+    RBBISymbolTable fSymbolTable;
+    // Either fSymbolTable, or an RBBIXSymbolTable with overriden properties,
+    // but whose variables are those of fSymbolTable.
+    SymbolTable fXSymbolTable;
 
     HashMap<String, RBBISetTableEl> fSetTable =
             new HashMap<>(); // UnicocodeSet hash table, holds indexes to
@@ -99,7 +103,7 @@ class RBBIRuleScanner {
     //  Constructor.
     //
     // ----------------------------------------------------------------------------------------
-    RBBIRuleScanner(RBBIRuleBuilder rb) {
+    RBBIRuleScanner(RBBIRuleBuilder rb, XSymbolTable customProperties) {
         fRB = rb;
         fLineNum = 1;
 
@@ -119,6 +123,11 @@ class RBBIRuleScanner {
                 new UnicodeSet(gRuleSet_digit_char_pattern);
 
         fSymbolTable = new RBBISymbolTable(this);
+        if (customProperties != null) {
+            fXSymbolTable = new RBBIXSymbolTable(fSymbolTable, customProperties);
+        } else {
+            fXSymbolTable = fSymbolTable;
+        }
     }
 
     // ----------------------------------------------------------------------------------------
@@ -1065,7 +1074,7 @@ class RBBIRuleScanner {
 
         startPos = fScanIndex;
         try {
-            uset = new UnicodeSet(fRB.fRules, pos, fSymbolTable, UnicodeSet.IGNORE_SPACE);
+            uset = new UnicodeSet(fRB.fRules, pos, fXSymbolTable, UnicodeSet.IGNORE_SPACE);
         } catch (Exception e) { // TODO:  catch fewer exception types.
             // Repackage UnicodeSet errors as RBBI rule builder errors, with location info.
             error(RBBIRuleBuilder.U_BRK_MALFORMED_SET);
@@ -1117,5 +1126,44 @@ class RBBIRuleScanner {
      */
     int numRules() {
         return fRuleNum;
+    }
+
+    /**
+     * An XSymbolTable that exposes the variables of an underlying RBBISymbolTable and the
+     * properties of an underlying XSymbolTable.
+     */
+    private static class RBBIXSymbolTable extends XSymbolTable {
+        private RBBISymbolTable variableTable;
+        private XSymbolTable propertyTable;
+
+        RBBIXSymbolTable(RBBISymbolTable variableTable, XSymbolTable propertyTable) {
+            this.variableTable = variableTable;
+            this.propertyTable = propertyTable;
+        }
+
+        @Override
+        public char[] lookup(String s) {
+            return variableTable.lookup(s);
+        }
+
+        @Override
+        public UnicodeSet lookupSet(String s) {
+            return variableTable.lookupSet(s);
+        }
+
+        @Override
+        public String parseReference(String text, ParsePosition pos, int limit) {
+            return variableTable.parseReference(text, pos, limit);
+        }
+
+        // Note that we do not override XSymbolTable#scanVariable: we retain the
+        // default lexing of variables with a $ sigil, as if we were using the
+        // underlying non-X RBBISymbolTable.
+
+        @Override
+        public boolean applyPropertyAlias(
+                String propertyName, String propertyValue, UnicodeSet result) {
+            return propertyTable.applyPropertyAlias(propertyName, propertyValue, result);
+        }
     }
 }

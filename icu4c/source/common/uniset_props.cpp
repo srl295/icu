@@ -631,6 +631,10 @@ class UnicodeSet::Lexer {
                 if (last == u':') {
                     if (!hex.has_value()) {
                         hex.emplace();
+                        if (start == parsePosition_.getIndex() - 1) {
+                            errorCode = U_ILLEGAL_ARGUMENT_ERROR;
+                            return {};
+                        }
                         for (char16_t digit : std::u16string_view(pattern_).substr(
                                  start, parsePosition_.getIndex() - 1 - start)) {
                             uint8_t nibble;
@@ -975,7 +979,7 @@ void UnicodeSet::parseUnicodeSet(Lexer &lexer,
     // A pattern that preserves the original syntax but strips spaces, normalizes escaping, etc.
     UnicodeString prettyPrintedPattern;
     if (lexer.lookahead().set() != nullptr) {
-        // UnicodeSet ::= property-query | named-element
+        // UnicodeSet ::= property-query
         // Extension:
         //              | set-valued-variable
         *this = *lexer.lookahead().set();
@@ -999,7 +1003,7 @@ void UnicodeSet::parseUnicodeSet(Lexer &lexer,
             }
             prettyPrintedPattern.append(u']');
         } else {
-            U_UNICODESET_RETURN_WITH_PARSE_ERROR(R"([: | \p | \P | \N | [)",
+            U_UNICODESET_RETURN_WITH_PARSE_ERROR("property-query | [",
                                                  lexer.lookahead().debugString(), lexer,
                                                  ec);
         }

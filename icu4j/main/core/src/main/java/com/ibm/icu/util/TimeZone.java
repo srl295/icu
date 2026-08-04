@@ -1237,9 +1237,9 @@ public abstract class TimeZone implements Serializable, Cloneable, Freezable<Tim
      * null</code>.
      *
      * <p>This implementation utilizes <a
-     * href="http://unicode.org/cldr/charts/supplemental/zone_tzid.html">Zone-Tzid mapping data</a>.
-     * The mapping data is updated time to time. To get the latest changes, please read the ICU user
-     * guide section <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/zone_tzid.html">Zone-Tzid
+     * mapping data</a>. The mapping data is updated time to time. To get the latest changes, please
+     * read the ICU user guide section <a
      * href="https://unicode-org.github.io/icu/userguide/datetime/timezone#updating-the-time-zone-data">
      * Updating the Time Zone Data</a>.
      *
@@ -1300,9 +1300,9 @@ public abstract class TimeZone implements Serializable, Cloneable, Freezable<Tim
      * </code>.
      *
      * <p>This implementation utilizes <a
-     * href="http://unicode.org/cldr/charts/supplemental/zone_tzid.html">Zone-Tzid mapping data</a>.
-     * The mapping data is updated time to time. To get the latest changes, please read the ICU user
-     * guide section <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/zone_tzid.html">Zone-Tzid
+     * mapping data</a>. The mapping data is updated time to time. To get the latest changes, please
+     * read the ICU user guide section <a
      * href="https://unicode-org.github.io/icu/userguide/datetime/timezone#updating-the-time-zone-data">
      * Updating the Time Zone Data</a>.
      *

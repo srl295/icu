@@ -48,7 +48,7 @@ _scripts_only_in_iso15924 = (
     "Afak", "Aran", "Blis", "Cirt", "Cyrs",
     "Egyd", "Egyh", "Geok",
     "Hanb", "Hans", "Hant", "Hntl",
-    "Inds", "Jamo", "Jpan", "Jurc", "Kore", "Kpel", "Latf", "Latg", "Loma",
+    "Inds", "Jamo", "Jpan", "Kore", "Kpel", "Latf", "Latg", "Loma",
     "Maya", "Moon", "Nkgb", "Phlv", "Roro",
     "Sara", "Syre", "Syrj", "Syrn",
     "Teng", "Visp", "Wole", "Zmth", "Zsye", "Zsym", "Zxxx"
@@ -1154,11 +1154,15 @@ def CompactBlock(b, i):
           # b_props only has non-default values.
           # Set the default value if it used to be inherited.
           props[pname] = _null_or_defaults[pname]
-      # If there is only one assigned range, then move all of its properties
-      # to the block.
+      # If there is only one assigned range, then
+      # move all of its compressible properties to the block.
       if num_ranges == 1:
-        b_props.update(props)
-        props.clear()
+        # We cannot iterate directly over props and delete items from it.
+        # Copy the props keys, keep only compressible properties.
+        pnames = set(props) - _uncompressible_props
+        for pname in pnames:
+          b_props[pname] = props[pname]
+          del props[pname]
     i += 1
   # Return the _starts index of the first range after this block.
   return i

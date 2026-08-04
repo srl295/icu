@@ -326,6 +326,7 @@ RuleBasedBreakIterator::operator=(const RuleBasedBreakIterator& that) {
     fPosition = that.fPosition;
     fRuleStatusIndex = that.fRuleStatusIndex;
     fDone = that.fDone;
+    fIsPhraseBreaking = that.fIsPhraseBreaking;
 
     // TODO: both the dictionary and the main cache need to be copied.
     //       Current position could be within a dictionary range. Trying to continue
@@ -377,7 +378,8 @@ RuleBasedBreakIterator::operator==(const BreakIterator& that) const {
 
     if (!(fPosition == that2.fPosition &&
             fRuleStatusIndex == that2.fRuleStatusIndex &&
-            fDone == that2.fDone)) {
+            fDone == that2.fDone &&
+            fIsPhraseBreaking == that2.fIsPhraseBreaking)) {
         return false;
     }
 
@@ -820,10 +822,6 @@ int32_t RuleBasedBreakIterator::handleNext() {
 
 
     mode     = RBBI_RUN;
-    if (statetable->fFlags & RBBI_BOF_REQUIRED) {
-        category = 2;
-        mode     = RBBI_START;
-    }
 
 
     // loop until we reach the end of the text or transition to state 0

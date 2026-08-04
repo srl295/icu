@@ -161,6 +161,7 @@ namespace message2 {
         LocalPointer<Function> dateTime(StandardFunctions::DateTime::dateTime(success));
         LocalPointer<Function> date(StandardFunctions::DateTime::date(success));
         LocalPointer<Function> time(StandardFunctions::DateTime::time(success));
+        LocalPointer<Function> currency(StandardFunctions::Number::currency(success));
         LocalPointer<Function> number(StandardFunctions::Number::number(success));
         LocalPointer<Function> integer(StandardFunctions::Number::integer(success));
         LocalPointer<Function> string(StandardFunctions::String::string(success));
@@ -172,6 +173,7 @@ namespace message2 {
                                                       dateTime.orphan(), success)
             .adoptFunction(FunctionName(functions::DATE), date.orphan(), success)
             .adoptFunction(FunctionName(functions::TIME), time.orphan(), success)
+            .adoptFunction(FunctionName(functions::CURRENCY), currency.orphan(), success)
             .adoptFunction(FunctionName(functions::NUMBER),
                                   number.orphan(), success)
             .adoptFunction(FunctionName(functions::INTEGER),
@@ -281,15 +283,15 @@ namespace message2 {
                                      UErrorCode& status) const {
         NULL_ON_ERROR(status);
 
-        if (isBuiltInFunction(functionName)) {
-            return standardMFFunctionRegistry.getFunction(functionName);
-        }
         if (hasCustomMFFunctionRegistry()) {
             const MFFunctionRegistry& customMFFunctionRegistry = getCustomMFFunctionRegistry();
             Function* function = customMFFunctionRegistry.getFunction(functionName);
             if (function != nullptr) {
                 return function;
             }
+        }
+        if (isBuiltInFunction(functionName)) {
+            return standardMFFunctionRegistry.getFunction(functionName);
         }
         // Either there is no custom function registry and the function
         // isn't built-in, or the function doesn't exist in either the built-in

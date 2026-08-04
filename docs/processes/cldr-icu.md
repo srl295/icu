@@ -98,7 +98,7 @@ integration that is part of the BRS process; handle each of these using a separa
 ticket and a separate PR:
 
 1. Generate updated CLDR test data (which is copied to ICU), using the process in
-   [Generating CLDR testData](https://docs.google.com/document/d/1-RC99npKcSSwUoYGkSzxaKOe76gYRkWhGdFzCdIBCu4/edit#heading=h.2rum9c6hrr4w)
+   [Generating CLDR testData](https://docs.google.com/document/d/1-RC99npKcSSwUoYGkSzxaKOe76gYRkWhGdFzCdIBCu4/)
 
 2. Run `CLDRModify` with no options with no options and then with `-fP`. The web page
    for `CLDRModify` is currently being converted to markdown, a reference to it will
@@ -290,7 +290,7 @@ ant proddata 2>&1 | tee $NOTES/cldr-newData-proddataLog.txt
 
 > Note, for CLDR development, at this point tests are sometimes run on the
    production data, see
-   [BRS: Run tests on production data](https://cldr.unicode.org/development/cldr-big-red-switch/brs-run-tests-on-production-data)
+   [BRS: Run tests on production data](https://cldr.unicode.org/development/cldr-big-red-switch/)
 
 > Note, also for CLDR development, periodically at this point the CompareResolved
   tool should be run to compare the fully-resolved data generated from `$CLDR_DIR/common/main`
@@ -420,7 +420,7 @@ If the error is caused by bad CLDR data, then file a CLDR bug (or use the existi
 ticket under which you are performing the integration, if you have one), fix the data,
 and regenerate from step 4.
 
-If the data is OK , other sources of failure can include:
+If the data is OK, other sources of failure can include:
 
 * Problems with the CLDR-ICU conversion process (perhaps some locale data is not getting
   converted properly; go back to step 3, adjust and repeat from there.
