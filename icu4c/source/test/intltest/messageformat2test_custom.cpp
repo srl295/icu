@@ -1037,7 +1037,7 @@ CounterFunction::CounterFunction(UErrorCode& errorCode) {
         return;
     }
     Counter* c = new Counter();
-    count = LocalPointer(c, errorCode);
+    count = LocalPointer<Counter>(c, errorCode);
 }
 
 LocalPointer<FunctionValue>
