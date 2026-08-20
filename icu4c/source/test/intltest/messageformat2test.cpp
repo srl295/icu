@@ -515,7 +515,7 @@ class FixedDateFunction : public Function {
   public:
     FixedDateFunction(UErrorCode& status);
     LocalPointer<FunctionValue> call(const FunctionContext &, const FunctionValue &,
-                                     const FunctionOptions &, UErrorCode &) override;
+                                     const FunctionOptions &, UErrorCode &) const override;
     virtual ~FixedDateFunction();
 };
 
@@ -526,7 +526,7 @@ FixedDateFunction::FixedDateFunction(UErrorCode& status) {
 LocalPointer<FunctionValue> FixedDateFunction::call(const FunctionContext &context,
                                                  const FunctionValue &arg,
                                                  const FunctionOptions &opts,
-                                                 UErrorCode &errorCode) {
+                                                 UErrorCode &errorCode) const {
     (void)context;
 
     if (U_FAILURE(errorCode)) {
