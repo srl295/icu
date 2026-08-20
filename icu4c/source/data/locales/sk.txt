@@ -449,6 +449,10 @@ sk{
                 MMMM{
                     M{"LLLL – LLLL"}
                 }
+                MMMMd{
+                    M{"d. MM. – d. MM."}
+                    d{"d. – d. MM."}
+                }
                 MMMd{
                     M{"d. M. – d. M."}
                     d{"d. – d. M."}
@@ -547,6 +551,11 @@ sk{
                 "yMd",
                 "yMd",
             }
+            appendItems{
+                Day-Of-Week{"{1}, {0}"}
+                Era{"{0} {1}"}
+                Time-Day-Of-Week{"{1}, {0}"}
+            }
             availableFormats{
                 Ed{"E d."}
                 Ehm{"E h:mm a"}
@@ -554,6 +563,8 @@ sk{
                 Gy{"y G"}
                 GyMMM{"LLLL y G"}
                 GyMMMEd{"E d. M. y G"}
+                GyMMMM{"MMM y G"}
+                GyMMMMEd{"E, d. MMMM y G"}
                 GyMMMMd{"d. M. y G"}
                 GyMMMd{"d. M. y G"}
                 GyMd{"d. M. y GGGGG"}
@@ -587,6 +598,7 @@ sk{
                 yMMM{"M/y"}
                 yMMMEd{"E d. M. y"}
                 yMMMM{"LLLL y"}
+                yMMMMEd{"E, d. MMMM y"}
                 yMMMMd{"d. MMMM y"}
                 yMMMd{"d. M. y"}
                 yMd{"d. M. y"}
@@ -784,6 +796,10 @@ sk{
                 }
                 MMMM{
                     M{"LLLL – LLLL"}
+                }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d. – d. MMMM"}
                 }
                 MMMd{
                     M{"d. M. – d. M."}
@@ -1032,7 +1048,6 @@ sk{
             eras{
                 abbreviated{
                     0{"pred ROC"}
-                    1{"ROC"}
                 }
             }
         }

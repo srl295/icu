@@ -8298,7 +8298,7 @@ void NumberFormatTest::TestCurrencyUsage() {
 
         UnicodeString PKR_changed;
         fmt->format(agent, PKR_changed);
-        assertEquals("Test Currency Usage 6", u"PKR\u00A0124", PKR_changed);
+        assertEquals("Test Currency Usage 6", u"PKR\u00A0123.57", PKR_changed);
         delete fmt;
     }
 }

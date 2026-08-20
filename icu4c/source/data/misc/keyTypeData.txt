@@ -78,6 +78,9 @@ keyTypeData:table(nofallback){
                 gb2312{"true"}
                 reformed{"true"}
             }
+            cu{
+                cnx{"true"}
+            }
         }
     }
     typeMap{

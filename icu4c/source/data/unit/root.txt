@@ -446,6 +446,10 @@ root{
             }
         }
         force{
+            dyne{
+                dnam{"dyn"}
+                other{"{0} dyn"}
+            }
             kilogram-force{
                 dnam{"kgf"}
                 other{"{0} kgf"}
@@ -461,6 +465,10 @@ root{
             pound-force{
                 dnam{"lbf"}
                 other{"{0} lbf"}
+            }
+            poundal{
+                dnam{"pdl"}
+                other{"{0} pdl"}
             }
         }
         frequency{
@@ -579,6 +587,10 @@ root{
             mile-scandinavian{
                 dnam{"smi"}
                 other{"{0} smi"}
+            }
+            milliinch{
+                dnam{"milli-inch"}
+                other{"{0} milli-inch"}
             }
             millimeter{
                 dnam{"mm"}

@@ -460,10 +460,6 @@ metadata:table(nofallback){
                 reason{"overlong"}
                 replacement{"fa"}
             }
-            fat{
-                reason{"macrolanguage"}
-                replacement{"ak"}
-            }
             fij{
                 reason{"overlong"}
                 replacement{"fj"}
@@ -1915,6 +1911,10 @@ metadata:table(nofallback){
             ymt{
                 reason{"deprecated"}
                 replacement{"mtm"}
+            }
+            yol{
+                reason{"deprecated"}
+                replacement{"enm"}
             }
             yor{
                 reason{"overlong"}
@@ -5251,6 +5251,7 @@ metadata:table(nofallback){
         "apc_SY",
         "ar_001",
         "arn_CL",
+        "ary_MA",
         "as_IN",
         "asa_TZ",
         "ast_ES",
@@ -5279,6 +5280,7 @@ metadata:table(nofallback){
         "bo_CN",
         "bqi_IR",
         "br_FR",
+        "brh_PK",
         "brx_IN",
         "bs_Cyrl_BA",
         "bs_Latn",
@@ -5561,6 +5563,7 @@ metadata:table(nofallback){
         "sr_Latn_RS",
         "ss_ZA",
         "ssy_ER",
+        "sus_GN",
         "suz_Deva",
         "suz_Sunu_NP",
         "suz_Deva_NP",
@@ -5612,6 +5615,7 @@ metadata:table(nofallback){
         "wal_ET",
         "wbp_AU",
         "wo_SN",
+        "xdq_RU",
         "xh_ZA",
         "xnr_IN",
         "xog_UG",

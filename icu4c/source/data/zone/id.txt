@@ -78,6 +78,9 @@ id{
         "Asia:Tehran"{
             ec{"Teheran"}
         }
+        "Asia:Urumqi"{
+            ec{"Urumchi"}
+        }
         "Atlantic:Cape_Verde"{
             ec{"Tanjung Verde"}
         }
@@ -102,17 +105,11 @@ id{
         "Europe:Copenhagen"{
             ec{"Kopenhagen"}
         }
-        "Europe:Dublin"{
-            ld{"Waktu Standar Irlandia"}
-        }
         "Europe:Isle_of_Man"{
             ec{"Pulau Man"}
         }
         "Europe:Kiev"{
             ec{"Kiev"}
-        }
-        "Europe:London"{
-            ld{"Waktu Musim Panas Inggris"}
         }
         "Europe:Luxembourg"{
             ec{"Luksemburg"}
@@ -184,11 +181,6 @@ id{
             sg{"AKT"}
             ss{"AKST"}
         }
-        "meta:Almaty"{
-            ld{"Waktu Musim Panas Almaty"}
-            lg{"Waktu Almaty"}
-            ls{"Waktu Standar Almaty"}
-        }
         "meta:Amazon"{
             ld{"Waktu Musim Panas Amazon"}
             lg{"Waktu Amazon"}
@@ -235,16 +227,6 @@ id{
             ld{"Waktu Musim Panas Apia"}
             lg{"Waktu Apia"}
             ls{"Waktu Standar Apia"}
-        }
-        "meta:Aqtau"{
-            ld{"Waktu Musim Panas Aqtau"}
-            lg{"Waktu Aqtau"}
-            ls{"Waktu Standar Aqtau"}
-        }
-        "meta:Aqtobe"{
-            ld{"Waktu Musim Panas Aqtobe"}
-            lg{"Waktu Aqtobe"}
-            ls{"Waktu Standar Aqtobe"}
         }
         "meta:Arabian"{
             ld{"Waktu Musim Panas Arab"}
@@ -319,6 +301,10 @@ id{
             ld{"Waktu Musim Panas Brasil"}
             lg{"Waktu Brasil"}
             ls{"Waktu Standar Brasil"}
+        }
+        "meta:British"{
+            ld{"Waktu Musim Panas Inggris"}
+            lg{"Waktu Inggris"}
         }
         "meta:Brunei"{
             ls{"Waktu Brunei Darussalam"}
@@ -425,7 +411,7 @@ id{
             ls{"Waktu Wilayah Selatan dan Antarktika Prancis"}
         }
         "meta:GMT"{
-            ls{"Greenwich Mean Time"}
+            ls{"Waktu Greenwich"}
         }
         "meta:Galapagos"{
             ls{"Waktu Galapagos"}
@@ -441,6 +427,11 @@ id{
         "meta:Gilbert_Islands"{
             ls{"Waktu Kep. Gilbert"}
         }
+        "meta:Greenland"{
+            ld{"Waktu Musim Panas Greenland"}
+            lg{"Waktu Greenland"}
+            ls{"Waktu Standar Greenland"}
+        }
         "meta:Greenland_Eastern"{
             ld{"Waktu Musim Panas Greenland Timur"}
             lg{"Waktu Greenland Timur"}
@@ -454,9 +445,6 @@ id{
             lg{"Waktu Greenland Barat"}
             ls{"Waktu Standar Greenland Barat"}
         }
-        "meta:Guam"{
-            ls{"Waktu Guam"}
-        }
         "meta:Gulf"{
             ls{"Waktu Standar Teluk"}
         }
@@ -464,8 +452,8 @@ id{
             ls{"Waktu Guyana"}
         }
         "meta:Hawaii"{
-            ls{"Waktu Standar Hawaii-Aleutian"}
-            ss{"HAST"}
+            ls{"Waktu Hawaii"}
+            ss{"HST"}
         }
         "meta:Hawaii_Aleutian"{
             ld{"Waktu Musim Panas Hawaii-Aleutian"}
@@ -511,6 +499,10 @@ id{
             lg{"Waktu Iran"}
             ls{"Waktu Standar Iran"}
         }
+        "meta:Irish"{
+            ld{"Waktu Standar Irlandia"}
+            lg{"Waktu Irlandia"}
+        }
         "meta:Irkutsk"{
             ld{"Waktu Musim Panas Irkutsk"}
             lg{"Waktu Irkutsk"}
@@ -527,9 +519,9 @@ id{
             ls{"Waktu Standar Jepang"}
         }
         "meta:Kamchatka"{
-            ld{"Waktu Musim Panas Petropavlovsk-Kamchatski"}
-            lg{"Waktu Petropavlovsk-Kamchatsky"}
-            ls{"Waktu Standar Petropavlovsk-Kamchatsky"}
+            ld{"Waktu Musim Panas Kamchatka"}
+            lg{"Waktu Kamchatka"}
+            ls{"Waktu Standar Kamchatka"}
         }
         "meta:Kazakhstan"{
             ls{"Waktu Kazakhstan"}
@@ -556,9 +548,6 @@ id{
         "meta:Kyrgystan"{
             ls{"Waktu Kirgizstan"}
         }
-        "meta:Lanka"{
-            ls{"Waktu Lanka"}
-        }
         "meta:Line_Islands"{
             ls{"Waktu Kep. Line"}
         }
@@ -566,11 +555,6 @@ id{
             ld{"Waktu Musim Panas Lord Howe"}
             lg{"Waktu Lord Howe"}
             ls{"Waktu Standar Lord Howe"}
-        }
-        "meta:Macau"{
-            ld{"Waktu Musim Panas Makau"}
-            lg{"Waktu Makau"}
-            ls{"Waktu Standar Makau"}
         }
         "meta:Magadan"{
             ld{"Waktu Musim Panas Magadan"}
@@ -652,9 +636,6 @@ id{
             lg{"Waktu Fernando de Noronha"}
             ls{"Waktu Standar Fernando de Noronha"}
         }
-        "meta:North_Mariana"{
-            ls{"Waktu Kep. Mariana Utara"}
-        }
         "meta:Novosibirsk"{
             ld{"Waktu Musim Panas Novosibirsk"}
             lg{"Waktu Novosibirsk"}
@@ -711,11 +692,6 @@ id{
         "meta:Pyongyang"{
             ls{"Waktu Pyongyang"}
         }
-        "meta:Qyzylorda"{
-            ld{"Waktu Musim Panas Qyzylorda"}
-            lg{"Waktu Qyzylorda"}
-            ls{"Waktu Standar Qyzylorda"}
-        }
         "meta:Reunion"{
             ls{"Waktu Reunion"}
         }
@@ -733,8 +709,6 @@ id{
             ls{"Waktu Standar Samara"}
         }
         "meta:Samoa"{
-            ld{"Waktu Musim Panas Samoa"}
-            lg{"Waktu Samoa"}
             ls{"Waktu Standar Samoa"}
         }
         "meta:Seychelles"{
@@ -778,9 +752,9 @@ id{
             ls{"Waktu Chuuk"}
         }
         "meta:Turkey"{
-            ld{"Waktu Musim Panas Turki"}
-            lg{"Waktu Turki"}
-            ls{"Waktu Standar Turki"}
+            ld{"Waktu Musim Panas Turkiye"}
+            lg{"Waktu Turkiye"}
+            ls{"Waktu Standar Turkiye"}
         }
         "meta:Turkmenistan"{
             ld{"Waktu Musim Panas Turkmenistan"}
@@ -794,6 +768,9 @@ id{
             ld{"Waktu Musim Panas Uruguay"}
             lg{"Waktu Uruguay"}
             ls{"Waktu Standar Uruguay"}
+        }
+        "meta:Urumqi"{
+            ls{"Waktu Urumchi"}
         }
         "meta:Uzbekistan"{
             ld{"Waktu Musim Panas Uzbekistan"}

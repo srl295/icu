@@ -241,9 +241,9 @@ sl{
                 nominative{"{0} je"}
             }
             gender{
-                feminine{"Ona {0}"}
-                masculine{"On {0}"}
-                neuter{"Ono {0}"}
+                feminine{"Izmerjena je bila 1 {0}."}
+                masculine{"Izmerjen je bil 1 {0}."}
+                neuter{"Izmerjeno je bilo 1 {0}."}
             }
             ordinal{
                 other{"V {0}. križišču zavijte desno."}
@@ -404,6 +404,10 @@ sl{
                     M{"E, d. MMM–E, d. MMM"}
                     d{"E, d.–E, d. MMM"}
                 }
+                MMMMd{
+                    M{"d. MMMM–d. MMMM"}
+                    d{"d.–d. MMMM"}
+                }
                 MMMd{
                     M{"d. MMM–d. MMM"}
                     d{"d.–d. MMM"}
@@ -517,6 +521,13 @@ sl{
                 "yMMMd",
                 "yyMMd",
             }
+            appendItems{
+                Date-Timezone{"{0} ({1})"}
+                Day-Of-Week{"{1}, {0}"}
+                Era{"{0} {1}"}
+                Time-Day-Of-Week{"{1} ob {0}"}
+                Timezone{"{0} ({1})"}
+            }
             availableFormats{
                 EBh{"E, h B"}
                 EHm{"E, HH:mm"}
@@ -526,14 +537,18 @@ sl{
                 Ehm{"E, h:mm a"}
                 Ehms{"E, h:mm:ss a"}
                 Gy{"y G"}
-                GyM{"MMM y G"}
+                GyM{"M/y G"}
                 GyMEd{"E, d. M. y G"}
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E, d. MMM y G"}
+                GyMMMM{"MMMM y G"}
+                GyMMMMEd{"E, d. MMMM y G"}
+                GyMMMMd{"d. MMMM y G"}
                 GyMMMd{"d. MMM y G"}
                 GyMd{"d. M. y GGGGG"}
                 MEd{"E, d. M."}
                 MMMEd{"E, d. MMM"}
+                MMMMEd{"E, d. MMMM"}
                 MMMMW{
                     few{"MMMM: W. 'teden'"}
                     one{"MMMM: W. 'teden'"}
@@ -553,6 +568,8 @@ sl{
                 yMMM{"MMM y"}
                 yMMMEd{"E, d. MMM y"}
                 yMMMM{"MMMM y"}
+                yMMMMEd{"E, d. MMMM y"}
+                yMMMMd{"d. MMMM y"}
                 yMMMd{"d. MMM y"}
                 yMd{"d. M. y"}
                 yQQQ{"QQQ y"}
@@ -752,6 +769,10 @@ sl{
                     M{"E, d. MMM–E, d. MMM"}
                     d{"E, d.–E, d. MMM"}
                 }
+                MMMMd{
+                    M{"d. MMMM–d. MMMM"}
+                    d{"d.–d. MMMM"}
+                }
                 MMMd{
                     M{"d. MMM–d. MMM"}
                     d{"d.–d. MMM"}
@@ -940,7 +961,7 @@ sl{
         male{"moški"}
         math_symbols{"matematični simboli"}
         middle_eastern_scripts{"pisave Bližnjega vzhoda"}
-        miscellaneous{"Razno"}
+        miscellaneous{"razno"}
         modern_scripts{"moderne pisave"}
         modifier{"modifikator"}
         musical_symbols{"glasbeni simboli"}
@@ -1687,6 +1708,42 @@ sl{
                     one{"pred {0} letom"}
                     other{"pred {0} leti"}
                     two{"pred {0} letoma"}
+                }
+            }
+        }
+        year-narrow{
+            relative{
+                "-1"{"lani"}
+                "0"{"letos"}
+                "1"{"nasl. l."}
+            }
+            relativeTime{
+                future{
+                    few{"čez {0} l."}
+                    one{"čez {0} l."}
+                    other{"čez {0} l."}
+                    two{"čez {0} l."}
+                }
+                past{
+                    few{"pred {0} l."}
+                    one{"pred {0} l."}
+                    other{"pred {0} l."}
+                    two{"pred {0} l."}
+                }
+            }
+        }
+        year-short{
+            relative{
+                "-1"{"lani"}
+                "0"{"letos"}
+                "1"{"nasl. leto"}
+            }
+            relativeTime{
+                past{
+                    few{"pred {0} leti"}
+                    one{"pred {0} l."}
+                    other{"pred {0} leti"}
+                    two{"pred {0} l."}
                 }
             }
         }

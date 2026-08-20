@@ -15,6 +15,10 @@ root{
             "CA$",
             "CAD",
         }
+        CHF{
+            "CHF",
+            "CHF",
+        }
         CNY{
             "CN¥",
             "CNY",
@@ -114,6 +118,7 @@ root{
         BWP{"P"}
         BZD{"$"}
         CAD{"$"}
+        CHF{"Fr."}
         CLP{"$"}
         CNY{"¥"}
         COP{"$"}

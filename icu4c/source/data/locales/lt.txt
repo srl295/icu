@@ -13,7 +13,6 @@ lt{
     NumberElements{
         latn{
             patterns{
-                accountingFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 currencyFormat{"#,##0.00 ¤"}
                 currencyFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 percentFormat{"#,##0 %"}
@@ -567,6 +566,11 @@ lt{
                 "yMMdd",
                 "yMMdd",
             }
+            appendItems{
+                Day-Of-Week{"{1}, {0}"}
+                Era{"{0} {1}"}
+                Time-Day-Of-Week{"{1}, {0}"}
+            }
             availableFormats{
                 EBh{"h B, E"}
                 EBhm{"h:mm B, E"}
@@ -588,7 +592,7 @@ lt{
                 GyMd{"y-MM-dd G"}
                 Hmsv{"HH:mm:ss; v"}
                 Hmv{"HH:mm; v"}
-                Hv{"HH v"}
+                Hv{"HH; v"}
                 M{"MM"}
                 MMM{"MM"}
                 MMMEd{"MM-dd, E"}
@@ -722,10 +726,6 @@ lt{
                 MMMMEd{
                     M{"MMMM d, E – MMMM d, E"}
                     d{"MMMM d, E – MMMM d, E"}
-                }
-                MMMMd{
-                    M{"MMMM d – MMMM d"}
-                    d{"MMMM d–d"}
                 }
                 d{
                     d{"dd–dd"}
@@ -1623,12 +1623,6 @@ lt{
         metric{"metrinė"}
     }
     parse{
-        date{
-            lenient{
-                "[\\- ‑ . /]",
-                "[\\: ∶]",
-            }
-        }
         number{
             lenient{
                 "[\\-－﹣ ‑ ‒ −⁻₋ ➖]",

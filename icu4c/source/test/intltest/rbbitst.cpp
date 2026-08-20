@@ -138,6 +138,7 @@ void RBBITest::runIndexedTest( int32_t index, UBool exec, const char* &name, cha
     TESTCASE_AUTO(TestTableRedundancies);
     TESTCASE_AUTO(TestBug13447);
     TESTCASE_AUTO(TestReverse);
+    TESTCASE_AUTO(TestSafePairDensity);
     TESTCASE_AUTO(TestBug13692);
     TESTCASE_AUTO(TestDebugRules);
     TESTCASE_AUTO(Test8BitsTrieWith8BitStateTable);
@@ -3834,6 +3835,127 @@ void RBBITest::TestReverse(std::unique_ptr<RuleBasedBreakIterator>bi) {
     }
 }
 
+// Regression test for ICU-23478: make sure normal text contains lots of safe positions.
+// NOTE: For now ICU-23478 is open and this test merely records the extent of the disaster (OK for
+// ideographic text, catastrophic elsewhere).
+void RBBITest::TestSafePairDensity() {
+    IcuTestErrorCode status(*this, "TestSafePairDensity");
+    auto showPairAt = [&status](const UnicodeString &text, int32_t i) {
+        UnicodeString result;
+        char nameBuffer[256];
+        if (i < 0) {
+            result += u"(sot)";
+            i = 0;
+        } else {
+            UChar32 first = text.char32At(i);
+            result += toHex(first, 4);
+            result += " ";
+            memset(nameBuffer, 0, sizeof(nameBuffer));
+            u_charName(first, U_UNICODE_CHAR_NAME, nameBuffer, sizeof(nameBuffer), status);
+            result += nameBuffer;
+            i += U16_LENGTH(first);
+        }
+        result += ", ";
+        if (i >= text.length()) {
+            result += u"(eot)";
+        } else {
+            UChar32 second = text.char32At(i);
+            result += toHex(second, 4);
+            result += " ";
+            memset(nameBuffer, 0, sizeof(nameBuffer));
+            u_charName(second, U_UNICODE_CHAR_NAME, nameBuffer, sizeof(nameBuffer), status);
+            result += nameBuffer;
+        }
+        std::string utf8Result;
+        result.toUTF8String(utf8Result);
+        return utf8Result;
+    };
+    std::unique_ptr<RuleBasedBreakIterator> lb(dynamic_cast<RuleBasedBreakIterator *>(
+        BreakIterator::createLineInstance(Locale::getRoot(), status)));
+    {
+        const UnicodeString alphabeticText =
+            u"Ἄνδρα μοι ἔννεπε, Μοῦσα, πολύτροπον, ὃς μάλα πολλὰ πλάγχθη, / "
+            u"ἐπεὶ Τροίης ἱερὸν πτολίεθρον ἔπερσε· πολλῶν δ’ ἀνθρώπων ἴδεν ἄστεα καὶ νόον ἔγνω, / "
+            u"πολλὰ δ’ ὅ γ’ ἐν πόντῳ πάθεν ἄλγεα ὃν κατὰ θυμόν, / "
+            u"ἀρνύμενος ἥν τε ψυχὴν καὶ νόστον ἑταίρων.";
+        lb->setText(alphabeticText);
+        for (int32_t i = 0;; i = alphabeticText.moveIndex32(i, 1)) {
+            const int32_t safePrevious = lb->handleSafePrevious(i);
+            int32_t expectedSafePrevious;
+            if (i == 0) {
+                expectedSafePrevious = -1;
+            } else {
+                expectedSafePrevious = 0;
+            }
+            if (safePrevious != expectedSafePrevious) {
+                errln("alphabetic handleSafePrevious(%d)=%d; expected pair %s, actual pair %s", i,
+                      safePrevious, showPairAt(alphabeticText, expectedSafePrevious).c_str(),
+                      showPairAt(alphabeticText, safePrevious).c_str());
+            }
+            if (i == alphabeticText.length()) {
+                break;
+            }
+        }
+    }
+    {
+        const UnicodeString ideographicText =
+            u"子曰：「學而時習之，不亦說乎？有朋自遠方來，不亦樂乎？人不知而不慍，不亦君子乎？」";
+        lb->setText(ideographicText);
+        for (int32_t i = 0;; i = ideographicText.moveIndex32(i, 1)) {
+            const int32_t safePrevious = lb->handleSafePrevious(i);
+            int32_t expectedSafePrevious;
+            if (i == 0) {
+                expectedSafePrevious = -1;
+            } else if (i == 1) {
+                expectedSafePrevious = 0;
+            } else {
+                for (expectedSafePrevious = ideographicText.moveIndex32(i, -2);;
+                     expectedSafePrevious = ideographicText.moveIndex32(expectedSafePrevious, -1)) {
+                    const auto pairBehind = ideographicText.tempSubString(expectedSafePrevious, 2);
+                    if (pairBehind.charAt(0) == u'「' || pairBehind.charAt(1) == u'，' ||
+                        pairBehind.charAt(1) == u'：' || pairBehind.charAt(1) == u'？' ||
+                        pairBehind.charAt(1) == u'」') {
+                        continue;
+                    }
+                    break;
+                }
+            }
+            if (safePrevious != expectedSafePrevious) {
+                errln("ideographic handleSafePrevious(%d)=%d; expected pair %s, actual pair %s", i,
+                      safePrevious, showPairAt(ideographicText, expectedSafePrevious).c_str(),
+                      showPairAt(ideographicText, safePrevious).c_str());
+            }
+            if (i == ideographicText.length()) {
+                break;
+            }
+        }
+    }
+    {
+        // First line of the Calcutta-Bairat inscription, see the transliterations in
+        // https://archive.org/details/InscriptionsOfAsoka.NewEditionByE.Hultzsch/page/n349/mode/2up.
+        // The first aksara 𑀧𑁆𑀭𑀺 (pri) has two consonants joined by a virama.
+        const UnicodeString aksaraText = u"𑀧𑁆𑀭𑀺𑀬𑀤𑀲𑀺𑀮𑀸𑀚𑀸𑀫𑀸𑀕𑀥𑁂𑀲𑀁𑀖𑀅𑀪𑀺𑀯𑀸𑀤𑁂𑀢𑀽𑀦𑀁𑀆𑀳𑀸𑀅𑀧𑀸𑀩𑀸𑀥𑀢𑀁𑀘𑀨𑀸𑀲𑀼𑀯𑀺𑀳𑀸𑀮𑀢𑀁𑀘𑀸";
+        lb->setText(aksaraText);
+        for (int32_t i = 0;; i = aksaraText.moveIndex32(i, 1)) {
+            const int32_t safePrevious = lb->handleSafePrevious(i);
+            int32_t expectedSafePrevious;
+            if (i < 2) {
+                expectedSafePrevious = -1;
+            } else {
+                expectedSafePrevious = 0;
+            }
+            if (safePrevious != expectedSafePrevious) {
+                errln("aksara handleSafePrevious(%d)=%d; expected pair %s, actual pair %s", i,
+                      safePrevious, showPairAt(aksaraText, expectedSafePrevious).c_str(),
+                      showPairAt(aksaraText, safePrevious).c_str());
+            }
+            if (i == aksaraText.length()) {
+                break;
+            }
+        }
+    }
+}
+
 
 // Ticket 13692 - finding word boundaries in very large numbers or words could
 //                be very time consuming. When the problem was present, this void test
@@ -4931,6 +5053,9 @@ void RBBITest::TestLookaheadPolychromy() {
                                                .*;
                                            )",
                                            parseError, status);
+    assertEquals("lookaheadCherry chromatic number", 2,
+                 lookaheadCherry.fData->fForwardTable->fLookAheadResultsSize -
+                     ACCEPTING_UNCONDITIONAL - 1);
     for (auto const &[text, firstSegment] :
          std::vector<std::pair<UnicodeString, std::u16string_view>>{
              // If lookaheads 1 and 2 use the same slot, 2 stomps over 1 and we get xy instead of x
@@ -4951,7 +5076,7 @@ void RBBITest::TestLookaheadPolychromy() {
                   firstSegment + ", got " + actual);
     }
     // The state that accepts lookahead 1 is reachable from those that set lookaheads 2 and 3, and
-    // the set that accepts lookahead 2 is reachable from the one that sets lookahead 3: the graph
+    // the state that accepts lookahead 2 is reachable from the one that sets lookahead 3: the graph
     // of lookaheads is a triangle, its chromatic number is 3; the lookaheads all need different
     // slots.
     RuleBasedBreakIterator lookaheadTriangle(uR"(
@@ -4961,6 +5086,9 @@ void RBBITest::TestLookaheadPolychromy() {
                                                  .*;
                                              )",
                                              parseError, status);
+    assertEquals("lookaheadTriangle chromatic number", 3,
+                 lookaheadTriangle.fData->fForwardTable->fLookAheadResultsSize -
+                     ACCEPTING_UNCONDITIONAL - 1);
     for (auto const &[text, firstSegment] :
          std::vector<std::pair<UnicodeString, std::u16string_view>>{
              {u"xyz1", u"x"},
@@ -4984,6 +5112,9 @@ void RBBITest::TestLookaheadPolychromy() {
                                              .*;
                                          )",
                                          parseError, status);
+    assertEquals("lookaheadPath chromatic number", 2,
+                 lookaheadPath.fData->fForwardTable->fLookAheadResultsSize -
+                     ACCEPTING_UNCONDITIONAL - 1);
     for (auto const &[text, firstSegment] :
          std::vector<std::pair<UnicodeString, std::u16string_view>>{
              {u"xyz1", u"x"},

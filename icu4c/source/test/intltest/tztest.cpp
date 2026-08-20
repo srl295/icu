@@ -2349,8 +2349,8 @@ static struct   {
     const char            *expectedDisplayName; } 
  zoneDisplayTestData [] =  {
      //  zone id         locale   summer   format          expected display name
-      {"Europe/London",     "en", false, TimeZone::SHORT, "GMT"},
-      {"Europe/London",     "en", false, TimeZone::LONG,  "Greenwich Mean Time"},
+      {"Europe/London",     "en", false, TimeZone::SHORT, "GMT+0"},
+      {"Europe/London",     "en", false, TimeZone::LONG,  "GMT+00:00"},
       {"Europe/London",     "en", true,  TimeZone::SHORT, "GMT+1" /*"BST"*/},
       {"Europe/London",     "en", true,  TimeZone::LONG,  "British Summer Time"},
       
@@ -2378,7 +2378,7 @@ static struct   {
        
       // No Summer Time, but had it before 1983.
       {"Pacific/Honolulu",   "en", false, TimeZone::SHORT, "HST"},
-      {"Pacific/Honolulu",   "en", false, TimeZone::LONG,  "Hawaii-Aleutian Standard Time"},
+      {"Pacific/Honolulu",   "en", false, TimeZone::LONG,  "Hawaii Time"},
       {"Pacific/Honolulu",   "en", true,  TimeZone::SHORT, "GMT-10"},
       {"Pacific/Honolulu",   "en", true,  TimeZone::LONG,  "GMT-10:00"},
        
@@ -2390,13 +2390,13 @@ static struct   {
 
       // Repeating the test data for DST.  The test data below trigger the problem reported
       // by Ticket#6644
-      {"Europe/London",       "en", false, TimeZone::SHORT, "GMT" /*"BST"*/},
-      {"Europe/London",       "en", false, TimeZone::LONG,  "Greenwich Mean Time"},
+      {"Europe/London",       "en", false, TimeZone::SHORT, "GMT+0" /*"BST"*/},
+      {"Europe/London",       "en", false, TimeZone::LONG,  "GMT+00:00"},
       {"Europe/London",       "en", true, TimeZone::SHORT, "GMT+1" /*"BST"*/},
       {"Europe/London",       "en", true, TimeZone::LONG,  "British Summer Time"},
 
-      {"Europe/Dublin",       "en", false, TimeZone::SHORT, "GMT" /*"IST"*/},
-      {"Europe/Dublin",       "en", false, TimeZone::LONG,  "Greenwich Mean Time"},
+      {"Europe/Dublin",       "en", false, TimeZone::SHORT, "GMT+0" /*"IST"*/},
+      {"Europe/Dublin",       "en", false, TimeZone::LONG,  "GMT+00:00"},
       {"Europe/Dublin",       "en", true, TimeZone::SHORT, "GMT+1" /*"IST"*/},
       {"Europe/Dublin",       "en", true, TimeZone::LONG,  "Irish Standard Time"},
 

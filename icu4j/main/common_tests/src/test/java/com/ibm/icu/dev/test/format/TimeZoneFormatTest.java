@@ -22,7 +22,6 @@ import com.ibm.icu.text.TimeZoneFormat.ParseOption;
 import com.ibm.icu.text.TimeZoneFormat.Style;
 import com.ibm.icu.text.TimeZoneFormat.TimeType;
 import com.ibm.icu.text.TimeZoneNames;
-import com.ibm.icu.text.TimeZoneNames.Factory;
 import com.ibm.icu.text.TimeZoneNames.NameType;
 import com.ibm.icu.util.BasicTimeZone;
 import com.ibm.icu.util.Calendar;
@@ -1239,14 +1238,7 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                 TimeType.UNKNOWN
             },
             // Regression test for ICU-23278
-            {
-                "en",
-                "Europe/Dublin",
-                dateJan,
-                Style.SPECIFIC_LONG,
-                "Greenwich Mean Time",
-                TimeType.STANDARD
-            }
+            {"en", "Europe/Dublin", dateJan, Style.SPECIFIC_LONG, "GMT+00:00", TimeType.STANDARD}
         };
 
         for (Object[] testCase : TESTDATA) {
@@ -1519,7 +1511,7 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
         assertTrue("No cases were tested", casesTested > 0);
     }
 
-    class TimeZoneNamesInheriter extends TimeZoneNames {
+    static class TimeZoneNamesInheriter extends TimeZoneNames {
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -1562,7 +1554,7 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
             Class<?> cls =
                     Class.forName(
                             "com.ibm.icu.text.TimeZoneNames$DefaultTimeZoneNames$FactoryImpl");
-            factory = (Factory) cls.newInstance();
+            factory = (TimeZoneNames.Factory) cls.newInstance();
         } catch (Exception e) {
             errln(
                     "Could not create class DefaultTimeZoneNames.FactoryImpl: "

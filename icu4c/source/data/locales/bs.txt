@@ -737,6 +737,10 @@ bs{
                     M{"E, dd. MMM – E, dd. MMM"}
                     d{"E, dd. – E, dd. MMM"}
                 }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d–d. MMMM"}
+                }
                 MMMd{
                     M{"dd. MMM – dd. MMM"}
                     d{"dd. – dd. MMM"}
@@ -851,12 +855,15 @@ bs{
                 Ehm{"E h:mm a"}
                 Ehms{"E h:mm:ss a"}
                 Gy{"y. G"}
+                GyM{"MM. y. G"}
+                GyMEd{"E, d. M. y. G"}
                 GyMMM{"MMM y. G"}
                 GyMMMEd{"E, d. MMM y. G"}
+                GyMMMM{"MMMM y. G"}
+                GyMMMMEd{"E, d. MMMM y. G"}
+                GyMMMMd{"d. MMMM y. G"}
                 GyMMMd{"d. MMM y. G"}
                 GyMd{"d. M. y. G"}
-                Hmsv{"HH:mm:ss (v)"}
-                Hmv{"HH:mm (v)"}
                 MEd{"E, d. M."}
                 MMMEd{"E, d. MMM"}
                 MMMMEd{"E, d. MMMM"}
@@ -870,17 +877,15 @@ bs{
                 MMdd{"d. M."}
                 Md{"d. M."}
                 d{"d."}
-                hm{"hh:mm a"}
-                hms{"hh:mm:ss a"}
-                hmsv{"h:mm:ss a (v)"}
-                hmv{"h:mm a (v)"}
                 y{"y."}
-                yM{"MM/y"}
+                yM{"MM. y."}
                 yMEd{"E, d. M. y."}
                 yMM{"M. y."}
                 yMMM{"MMM y."}
                 yMMMEd{"E, d. MMM y."}
                 yMMMM{"LLLL y."}
+                yMMMMEd{"E, d MMMM y."}
+                yMMMMd{"d. MMMM y."}
                 yMMMd{"d. MMM y."}
                 yMd{"d. M. y."}
                 yQQQ{"QQQ y."}
@@ -946,8 +951,8 @@ bs{
                 }
                 stand-alone{
                     narrow{
-                        am{"prijepodne"}
-                        pm{"popodne"}
+                        am{"AM"}
+                        pm{"PM"}
                     }
                     wide{
                         am{"prijepodne"}
@@ -1035,9 +1040,16 @@ bs{
                     M{"E, d. M – E, d. M."}
                     d{"E, d. M – E, d. M."}
                 }
+                MMM{
+                    M{"LLL – LLL"}
+                }
                 MMMEd{
                     M{"E, d. MMM – E, d. MMM"}
                     d{"E, d – E, d. MMM"}
+                }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d–d. MMMM"}
                 }
                 MMMd{
                     M{"d. MMM – d. MMM"}
@@ -1062,6 +1074,9 @@ bs{
                 }
                 hv{
                     h{"h – h 'h' a v"}
+                }
+                y{
+                    y{"y–y."}
                 }
                 yM{
                     M{"M. y – M. y."}
@@ -1117,7 +1132,7 @@ bs{
                         "feb",
                         "mar",
                         "apr",
-                        "may",
+                        "maj",
                         "jun",
                         "jul",
                         "aug",
@@ -1395,20 +1410,6 @@ bs{
                 }
             }
         }
-        day-narrow{
-            relativeTime{
-                future{
-                    few{"za {0} dana"}
-                    one{"za {0} dan"}
-                    other{"za {0} dana"}
-                }
-                past{
-                    few{"prije {0} dana"}
-                    one{"prije {0} dan"}
-                    other{"prije {0} dana"}
-                }
-            }
-        }
         dayOfYear{
             dn{"dan u godini"}
         }
@@ -1440,25 +1441,6 @@ bs{
                     few{"prije {0} petka"}
                     one{"prije {0} petak"}
                     other{"prije {0} petaka"}
-                }
-            }
-        }
-        fri-narrow{
-            relative{
-                "-1"{"prošli pet"}
-                "0"{"ovaj pet"}
-                "1"{"sljedeći pet"}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} pet"}
-                    one{"za {0} pet"}
-                    other{"za {0} pet"}
-                }
-                past{
-                    few{"prije {0} pet"}
-                    one{"prije {0} pet"}
-                    other{"prije {0} pet"}
                 }
             }
         }
@@ -1517,20 +1499,6 @@ bs{
                     few{"prije {0} minute"}
                     one{"prije {0} minutu"}
                     other{"prije {0} minuta"}
-                }
-            }
-        }
-        minute-narrow{
-            relativeTime{
-                future{
-                    few{"za {0} min"}
-                    one{"za {0} min"}
-                    other{"za {0} min"}
-                }
-                past{
-                    few{"prije {0} min"}
-                    one{"prije {0} min"}
-                    other{"prije {0} min"}
                 }
             }
         }
@@ -1681,25 +1649,6 @@ bs{
                 }
             }
         }
-        sat-narrow{
-            relative{
-                "-1"{"prošla sub"}
-                "0"{"ova sub"}
-                "1"{"sljedeća sub"}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} sub"}
-                    one{"za {0} sub"}
-                    other{"za {0} sub"}
-                }
-                past{
-                    few{"prije {0} sub"}
-                    one{"prije {0} sub"}
-                    other{"prije {0} sub"}
-                }
-            }
-        }
         sat-short{
             relative{
                 "-1"{"prošla sub"}
@@ -1771,25 +1720,6 @@ bs{
                 }
             }
         }
-        sun-narrow{
-            relative{
-                "-1"{"prošla ned"}
-                "0"{"ova ned"}
-                "1"{"sljedeća ned"}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} ned"}
-                    one{"za {0} ned"}
-                    other{"za {0} ned"}
-                }
-                past{
-                    few{"prije {0} ned"}
-                    one{"prije {0} ned"}
-                    other{"prije {0} ned"}
-                }
-            }
-        }
         sun-short{
             relative{
                 "-1"{"prošla ned"}
@@ -1825,25 +1755,6 @@ bs{
                     few{"prije {0} četvrtka"}
                     one{"prije {0} četvrtak"}
                     other{"prije {0} četvrtaka"}
-                }
-            }
-        }
-        thu-narrow{
-            relative{
-                "-1"{"prošli čet"}
-                "0"{"ovaj čet"}
-                "1"{"sljedeći čet"}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} čet"}
-                    one{"za {0} čet"}
-                    other{"za {0} čet"}
-                }
-                past{
-                    few{"prije {0} čet"}
-                    one{"prije {0} čet"}
-                    other{"prije {0} čet"}
                 }
             }
         }
@@ -1885,25 +1796,6 @@ bs{
                 }
             }
         }
-        tue-narrow{
-            relative{
-                "-1"{"prošli uto"}
-                "0"{"ovaj uto"}
-                "1"{"sljedeći uto"}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} uto"}
-                    one{"za {0} uto"}
-                    other{"za {0} uto"}
-                }
-                past{
-                    few{"prije {0} uto"}
-                    one{"prije {0} uto"}
-                    other{"prije {0} uto"}
-                }
-            }
-        }
         tue-short{
             relative{
                 "-1"{"prošli uto"}
@@ -1939,25 +1831,6 @@ bs{
                     few{"prije {0} srijede"}
                     one{"prije {0} srijedu"}
                     other{"prije {0} srijeda"}
-                }
-            }
-        }
-        wed-narrow{
-            relative{
-                "-1"{"prošla sri"}
-                "0"{"ova sri"}
-                "1"{"sljedeća sri"}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} sri"}
-                    one{"za {0} sri"}
-                    other{"za {0} sri"}
-                }
-                past{
-                    few{"prije {0} sri"}
-                    one{"prije {0} sri"}
-                    other{"prije {0} sri"}
                 }
             }
         }
@@ -2001,26 +1874,6 @@ bs{
                 }
             }
         }
-        week-narrow{
-            dn{"sedm."}
-            relative{
-                "-1"{"prošle sedm."}
-                "0"{"ove sedm."}
-                "1"{"sljedeće sedm."}
-            }
-            relativeTime{
-                future{
-                    few{"za {0} sedm."}
-                    one{"za {0} sedm."}
-                    other{"za {0} sedm."}
-                }
-                past{
-                    few{"prije {0} sedm."}
-                    one{"prije {0} sedm."}
-                    other{"prije {0} sedm."}
-                }
-            }
-        }
         week-short{
             dn{"sedm."}
             relative{
@@ -2043,9 +1896,6 @@ bs{
         }
         weekOfMonth{
             dn{"sedmica u mjesecu"}
-        }
-        weekOfMonth-narrow{
-            dn{"sedm. u mj."}
         }
         weekOfMonth-short{
             dn{"sedm. u mj."}

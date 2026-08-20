@@ -739,6 +739,7 @@ sc{
             islamic-civil{"egirianu (tabulare, època tzivile)"}
             islamic-tbla{"islàmicu (tabulare, època astronòmica)"}
             islamic-umalqura{"egirianu (Umm al-Qura)"}
+            iso8601{"ISO-8601"}
             japanese{"giaponesu"}
             persian{"persianu"}
             roc{"minguo"}

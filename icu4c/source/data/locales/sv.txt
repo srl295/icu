@@ -2,7 +2,7 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 // Generated using tools/cldr/cldr-to-icu/
 sv{
-    AuxExemplarCharacters{"[áâãā ç èë íîïī ñ ó ú ÿü æ ø]"}
+    AuxExemplarCharacters{"[áâãā ç èêë íîïī ñ ó úû ÿü æ øô]"}
     ExemplarCharacters{"[aà b c d eé f g h i j k l m n o p q r s t u v w x y z å ä ö]"}
     ExemplarCharactersIndex{"[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Å Ä Ö]"}
     ExemplarCharactersNumbers{"[  , % ‰ + − 0 1 2 3 4 5 6 7 8 9]"}
@@ -34,7 +34,6 @@ sv{
                 atLeast{"⩾{0}"}
             }
             patterns{
-                accountingFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 currencyFormat{"#,##0.00 ¤"}
                 currencyFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 percentFormat{"#,##0 %"}
@@ -630,6 +629,10 @@ sv{
                     M{"E d MMM – E d MMM"}
                     d{"E d – E d MMM"}
                 }
+                MMMMd{
+                    M{"d MMMM–d MMMM"}
+                    d{"d–d MMMM"}
+                }
                 MMMd{
                     M{"d MMM – d MMM"}
                     d{"d–d MMM"}
@@ -671,7 +674,7 @@ sv{
                 }
                 yMMMM{
                     M{"MMMM–MMMM y G"}
-                    y{"MMMM y – MMMM y G"}
+                    y{"MMMM y–MMMM y G"}
                 }
                 yMMMd{
                     M{"d MMM–d MMM y G"}
@@ -717,15 +720,21 @@ sv{
                 "{1} 'kl'. {0}",
                 "{1} {0}",
             }
+            appendItems{
+                Era{"{0} {1}"}
+            }
             availableFormats{
                 Ed{"E d"}
                 Ehm{"E h:mm a"}
                 Ehms{"E h:mm:ss a"}
                 Gy{"y G"}
                 GyM{"y-MM G"}
-                GyMEd{"E M-d-y G"}
+                GyMEd{"E, y-MM-dd GGGGG"}
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E d MMM y G"}
+                GyMMMM{"MMMM y G"}
+                GyMMMMEd{"E d MMMM y G"}
+                GyMMMMd{"d MMMM y G"}
                 GyMMMd{"d MMM y G"}
                 GyMd{"y-MM-dd GGGGG"}
                 MEd{"E d/M"}
@@ -749,6 +758,8 @@ sv{
                 yMMM{"MMM y"}
                 yMMMEd{"E d MMM y"}
                 yMMMM{"MMMM y"}
+                yMMMMEd{"E d MMMM y"}
+                yMMMMd{"d MMMM y"}
                 yMMMd{"d MMM y"}
                 yQQQ{"QQQ y"}
                 yQQQQ{"QQQQ y"}
@@ -875,11 +886,9 @@ sv{
                 }
                 Bhm{
                     B{"h:mm B–h:mm B"}
-                    h{"hh:mm – hh:mm B"}
-                    m{"hh:mm – hh:mm B"}
                 }
                 Gy{
-                    G{"y G – y G"}
+                    G{"y G–y G"}
                     y{"y–y G"}
                 }
                 GyM{
@@ -929,6 +938,10 @@ sv{
                 MMMEd{
                     M{"E d MMM–E d MMM"}
                     d{"E d–E d MMM"}
+                }
+                MMMMd{
+                    M{"d MMMM–d MMMM"}
+                    d{"d–d MMMM"}
                 }
                 MMMd{
                     M{"d MMM–d MMM"}
@@ -1496,7 +1509,7 @@ sv{
                     other{"om {0} fredagar"}
                 }
                 past{
-                    one{"{0} fredag sedan"}
+                    one{"för {0} fredag sedan"}
                     other{"för {0} fredagar sedan"}
                 }
             }

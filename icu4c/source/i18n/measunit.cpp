@@ -43,25 +43,25 @@ static const int32_t gOffsets[] = {
     21,
     34,
     38,
-    340,
-    351,
-    370,
-    378,
-    392,
-    396,
+    342,
+    353,
+    372,
+    380,
+    394,
     400,
-    408,
-    439,
-    443,
-    445,
-    462,
-    463,
-    469,
-    481,
-    487,
+    404,
+    412,
+    444,
+    448,
+    450,
+    467,
+    468,
+    474,
+    486,
     492,
-    494,
-    538
+    497,
+    499,
+    543
 };
 
 static const int32_t kCurrencyOffset = 5;
@@ -401,6 +401,7 @@ static const char * const gSubTypes[] = {
     "VND",
     "VUV",
     "WST",
+    "XAD",
     "XAF",
     "XAG",
     "XAU",
@@ -409,6 +410,7 @@ static const char * const gSubTypes[] = {
     "XBC",
     "XBD",
     "XCD",
+    "XCG",
     "XDR",
     "XEU",
     "XOF",
@@ -488,10 +490,12 @@ static const char * const gSubTypes[] = {
     "kilowatt-hour",
     "sievert",
     "therm-us",
+    "dyne",
     "kilogram-force",
     "kilowatt-hour-per-100-kilometer",
     "newton",
     "pound-force",
+    "poundal",
     "gigahertz",
     "hertz",
     "kilohertz",
@@ -521,6 +525,7 @@ static const char * const gSubTypes[] = {
     "micrometer",
     "mile",
     "mile-scandinavian",
+    "milliinch",
     "millimeter",
     "nanometer",
     "nautical-mile",
@@ -1376,36 +1381,52 @@ MeasureUnit MeasureUnit::getThermUs() {
     return MeasureUnit(9, 13);
 }
 
-MeasureUnit *MeasureUnit::createKilogramForce(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createDyne(UErrorCode &status) {
     return MeasureUnit::create(10, 0, status);
 }
 
-MeasureUnit MeasureUnit::getKilogramForce() {
+MeasureUnit MeasureUnit::getDyne() {
     return MeasureUnit(10, 0);
 }
 
-MeasureUnit *MeasureUnit::createKilowattHourPer100Kilometer(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createKilogramForce(UErrorCode &status) {
     return MeasureUnit::create(10, 1, status);
 }
 
-MeasureUnit MeasureUnit::getKilowattHourPer100Kilometer() {
+MeasureUnit MeasureUnit::getKilogramForce() {
     return MeasureUnit(10, 1);
 }
 
-MeasureUnit *MeasureUnit::createNewton(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createKilowattHourPer100Kilometer(UErrorCode &status) {
     return MeasureUnit::create(10, 2, status);
 }
 
-MeasureUnit MeasureUnit::getNewton() {
+MeasureUnit MeasureUnit::getKilowattHourPer100Kilometer() {
     return MeasureUnit(10, 2);
 }
 
-MeasureUnit *MeasureUnit::createPoundForce(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createNewton(UErrorCode &status) {
     return MeasureUnit::create(10, 3, status);
 }
 
-MeasureUnit MeasureUnit::getPoundForce() {
+MeasureUnit MeasureUnit::getNewton() {
     return MeasureUnit(10, 3);
+}
+
+MeasureUnit *MeasureUnit::createPoundForce(UErrorCode &status) {
+    return MeasureUnit::create(10, 4, status);
+}
+
+MeasureUnit MeasureUnit::getPoundForce() {
+    return MeasureUnit(10, 4);
+}
+
+MeasureUnit *MeasureUnit::createPoundal(UErrorCode &status) {
+    return MeasureUnit::create(10, 5, status);
+}
+
+MeasureUnit MeasureUnit::getPoundal() {
+    return MeasureUnit(10, 5);
 }
 
 MeasureUnit *MeasureUnit::createGigahertz(UErrorCode &status) {
@@ -1640,116 +1661,124 @@ MeasureUnit MeasureUnit::getMileScandinavian() {
     return MeasureUnit(13, 16);
 }
 
-MeasureUnit *MeasureUnit::createMillimeter(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createMilliinch(UErrorCode &status) {
     return MeasureUnit::create(13, 17, status);
 }
 
-MeasureUnit MeasureUnit::getMillimeter() {
+MeasureUnit MeasureUnit::getMilliinch() {
     return MeasureUnit(13, 17);
 }
 
-MeasureUnit *MeasureUnit::createNanometer(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createMillimeter(UErrorCode &status) {
     return MeasureUnit::create(13, 18, status);
 }
 
-MeasureUnit MeasureUnit::getNanometer() {
+MeasureUnit MeasureUnit::getMillimeter() {
     return MeasureUnit(13, 18);
 }
 
-MeasureUnit *MeasureUnit::createNauticalMile(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createNanometer(UErrorCode &status) {
     return MeasureUnit::create(13, 19, status);
 }
 
-MeasureUnit MeasureUnit::getNauticalMile() {
+MeasureUnit MeasureUnit::getNanometer() {
     return MeasureUnit(13, 19);
 }
 
-MeasureUnit *MeasureUnit::createParsec(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createNauticalMile(UErrorCode &status) {
     return MeasureUnit::create(13, 20, status);
 }
 
-MeasureUnit MeasureUnit::getParsec() {
+MeasureUnit MeasureUnit::getNauticalMile() {
     return MeasureUnit(13, 20);
 }
 
-MeasureUnit *MeasureUnit::createPicometer(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createParsec(UErrorCode &status) {
     return MeasureUnit::create(13, 21, status);
 }
 
-MeasureUnit MeasureUnit::getPicometer() {
+MeasureUnit MeasureUnit::getParsec() {
     return MeasureUnit(13, 21);
 }
 
-MeasureUnit *MeasureUnit::createPoint(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createPicometer(UErrorCode &status) {
     return MeasureUnit::create(13, 22, status);
 }
 
-MeasureUnit MeasureUnit::getPoint() {
+MeasureUnit MeasureUnit::getPicometer() {
     return MeasureUnit(13, 22);
 }
 
-MeasureUnit *MeasureUnit::createRiJp(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createPoint(UErrorCode &status) {
     return MeasureUnit::create(13, 23, status);
 }
 
-MeasureUnit MeasureUnit::getRiJp() {
+MeasureUnit MeasureUnit::getPoint() {
     return MeasureUnit(13, 23);
 }
 
-MeasureUnit *MeasureUnit::createRin(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createRiJp(UErrorCode &status) {
     return MeasureUnit::create(13, 24, status);
 }
 
-MeasureUnit MeasureUnit::getRin() {
+MeasureUnit MeasureUnit::getRiJp() {
     return MeasureUnit(13, 24);
 }
 
-MeasureUnit *MeasureUnit::createRod(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createRin(UErrorCode &status) {
     return MeasureUnit::create(13, 25, status);
 }
 
-MeasureUnit MeasureUnit::getRod() {
+MeasureUnit MeasureUnit::getRin() {
     return MeasureUnit(13, 25);
 }
 
-MeasureUnit *MeasureUnit::createShakuCloth(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createRod(UErrorCode &status) {
     return MeasureUnit::create(13, 26, status);
 }
 
-MeasureUnit MeasureUnit::getShakuCloth() {
+MeasureUnit MeasureUnit::getRod() {
     return MeasureUnit(13, 26);
 }
 
-MeasureUnit *MeasureUnit::createShakuLength(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createShakuCloth(UErrorCode &status) {
     return MeasureUnit::create(13, 27, status);
 }
 
-MeasureUnit MeasureUnit::getShakuLength() {
+MeasureUnit MeasureUnit::getShakuCloth() {
     return MeasureUnit(13, 27);
 }
 
-MeasureUnit *MeasureUnit::createSolarRadius(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createShakuLength(UErrorCode &status) {
     return MeasureUnit::create(13, 28, status);
 }
 
-MeasureUnit MeasureUnit::getSolarRadius() {
+MeasureUnit MeasureUnit::getShakuLength() {
     return MeasureUnit(13, 28);
 }
 
-MeasureUnit *MeasureUnit::createSun(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createSolarRadius(UErrorCode &status) {
     return MeasureUnit::create(13, 29, status);
 }
 
-MeasureUnit MeasureUnit::getSun() {
+MeasureUnit MeasureUnit::getSolarRadius() {
     return MeasureUnit(13, 29);
 }
 
-MeasureUnit *MeasureUnit::createYard(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createSun(UErrorCode &status) {
     return MeasureUnit::create(13, 30, status);
 }
 
-MeasureUnit MeasureUnit::getYard() {
+MeasureUnit MeasureUnit::getSun() {
     return MeasureUnit(13, 30);
+}
+
+MeasureUnit *MeasureUnit::createYard(UErrorCode &status) {
+    return MeasureUnit::create(13, 31, status);
+}
+
+MeasureUnit MeasureUnit::getYard() {
+    return MeasureUnit(13, 31);
 }
 
 MeasureUnit *MeasureUnit::createCandela(UErrorCode &status) {

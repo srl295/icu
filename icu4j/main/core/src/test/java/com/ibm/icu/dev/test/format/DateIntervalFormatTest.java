@@ -953,7 +953,7 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
             "CE 2007 10 10 10:10:10",
             "CE 2007 11 10 10:10:10",
             "dMMMM",
-            "10\\u670810\\u65e5\\u81f311\\u670810\\u65e5",
+            "10\\u670810\\u65E5\\u201311\\u670810\\u65E5",
             "zh",
             "CE 2007 10 10 10:10:10",
             "CE 2007 11 10 10:10:10",
@@ -983,7 +983,7 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
             "CE 2007 11 10 10:10:10",
             "CE 2007 11 20 10:10:10",
             "dMMMM",
-            "11\\u670810\\u65e5\\u81f320\\u65e5",
+            "11\\u670810\\u201320\\u65E5",
             "zh",
             "CE 2007 11 10 10:10:10",
             "CE 2007 11 20 10:10:10",
@@ -2419,15 +2419,15 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
             "en",
             "2007 01 10 10:00:10",
             "2007 01 10 14:10:10",
-            "Jan 10, 2007",
+            "Jan 10, \u20192007",
             "en",
             "2007 01 10 10:00:10",
             "2007 01 10 10:20:10",
-            "Jan 10, 2007",
+            "Jan 10, \u20192007",
             "en",
             "2007 01 10 10:10:10",
             "2007 01 10 10:10:20",
-            "Jan 10, 2007",
+            "Jan 10, \u20192007",
             "zh",
             "2007 10 10 10:10:10",
             "2008 10 10 10:10:10",
@@ -4185,21 +4185,21 @@ public class DateIntervalFormatTest extends CoreTestFmwk {
         FormattedDateInterval formatted = roc.formatToValue(bothAfterMG);
         assertEquals(
                 "roc calendar - both dates in MG Era",
-                "民國1/1/2\u2009上午6時\u2009\u2013\u2009民國2/1/2\u2009上午6時",
+                "民國1/1/2 上午6時\u2009\u2013\u2009民國2/1/2 上午6時",
                 formatted.toString());
         List<Field> expectedFields = getFields(formatted);
 
         formatted = roc.formatToValue(beforeAfterMG);
         assertEquals(
                 "roc calendar - prior MG Era and in MG Era",
-                "民國前1/1/2\u2009上午6時\u2009\u2013\u2009民國2/1/2\u2009上午6時",
+                "民國前1/1/2 上午6時\u2009\u2013\u2009民國2/1/2 上午6時",
                 formatted.toString());
         verifyFields(formatted, expectedFields);
 
         formatted = roc.formatToValue(bothBeforeMG);
         assertEquals(
                 "roc calendar - both dates prior MG Era",
-                "民國前2/1/2\u2009上午6時\u2009\u2013\u2009民國前1/1/2\u2009上午6時",
+                "民國前2/1/2 上午6時\u2009\u2013\u2009民國前1/1/2 上午6時",
                 formatted.toString());
         verifyFields(formatted, expectedFields);
     }

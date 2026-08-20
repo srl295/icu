@@ -716,16 +716,24 @@ private:
     //=======================================================================
     // implementation
     //=======================================================================
+
+#ifndef U_HIDE_INTERNAL_API
+public:
+#endif /* U_HIDE_INTERNAL_API */
     /**
      * Iterate backwards from an arbitrary position in the input text using the
      * synthesized Safe Reverse rules.
      * This locates a "Safe Position" from which the forward break rules
      * will operate correctly. A Safe Position is not necessarily a boundary itself.
      *
+     * Public only for testing (to avoid regressions like ICU-23478).
+     *
      * @param fromPosition the position in the input text to begin the iteration.
+     * @internal
      */
     int32_t handleSafePrevious(int32_t fromPosition);
 
+private:
     /**
      * Find a rule-based boundary by running the state machine.
      * Input

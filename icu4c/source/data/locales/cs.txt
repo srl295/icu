@@ -19,7 +19,6 @@ cs{
     NumberElements{
         latn{
             patterns{
-                accountingFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 currencyFormat{"#,##0.00 ¤"}
                 currencyFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 currencyPatternAppendISO{"{0} ¤¤"}
@@ -585,6 +584,10 @@ cs{
                     M{"E d. M. – E d. M."}
                     d{"E d. M. – E d. M."}
                 }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d.–d. MMMM"}
+                }
                 MMMd{
                     M{"d. M. – d. M."}
                     d{"d.–d. M."}
@@ -696,9 +699,10 @@ cs{
                 Ehms{"E h:mm:ss a"}
                 Gy{"y G"}
                 GyM{"M/y G"}
-                GyMEd{"E, d. M. y G"}
+                GyMEd{"E d. M. y G"}
                 GyMMM{"LLLL y G"}
                 GyMMMEd{"E d. M. y G"}
+                GyMMMM{"LLLL y G"}
                 GyMMMMEd{"E d. MMMM y G"}
                 GyMMMMd{"d. MMMM y G"}
                 GyMMMd{"d. M. y G"}
@@ -920,6 +924,10 @@ cs{
                 MMMEd{
                     M{"E d. M. – E d. M."}
                     d{"E d. M. – E d. M."}
+                }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d.–d. MMMM"}
                 }
                 MMMd{
                     M{"d. M. – d. M."}
@@ -1171,7 +1179,6 @@ cs{
             eras{
                 abbreviated{
                     0{"před ROC"}
-                    1{"ROC"}
                 }
             }
         }

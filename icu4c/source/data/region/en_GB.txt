@@ -3,4 +3,7 @@
 // Generated using tools/cldr/cldr-to-icu/
 en_GB{
     %%Parent{"en_001"}
+    Countries%short{
+        SH{"St Helena"}
+    }
 }

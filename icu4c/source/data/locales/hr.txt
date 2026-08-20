@@ -20,7 +20,6 @@ hr{
                 range{"{0} – {1}"}
             }
             patterns{
-                accountingFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 currencyFormat{"#,##0.00 ¤"}
                 currencyFormat%alphaNextToNumber{"#,##0.00 ¤"}
                 percentFormat{"#,##0 %"}
@@ -258,6 +257,14 @@ hr{
                 "yMd",
                 "yMd",
             }
+            availableFormats{
+                yyyyMd{"dd. MM. y."}
+            }
+        }
+        dangi{
+            availableFormats{
+                yyyyMd{"dd. MM. y."}
+            }
         }
         ethiopic{
             monthNames{
@@ -409,6 +416,10 @@ hr{
                     M{"E, dd. MMM – E, dd. MMM"}
                     d{"E, dd. – E, dd. MMM"}
                 }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d. – d. MMMM"}
+                }
                 MMMd{
                     M{"dd. MMM – dd. MMM"}
                     d{"d. – d. MMM"}
@@ -515,6 +526,9 @@ hr{
                 GyMEd{"E, dd. MM. y., G"}
                 GyMMM{"LLL y. G"}
                 GyMMMEd{"E, d. MMM y. G"}
+                GyMMMM{"LLLL y. G"}
+                GyMMMMEd{"E, d. MMMM y. G"}
+                GyMMMMd{"d. MMMM y. G"}
                 GyMMMd{"d. MMM y. G"}
                 GyMd{"d. M. y. GGGGG"}
                 Hv{"HH (v)"}
@@ -543,6 +557,8 @@ hr{
                 yMMM{"LLL y."}
                 yMMMEd{"E, d. MMM y."}
                 yMMMM{"LLLL y."}
+                yMMMMEd{"E, d. MMMM y."}
+                yMMMMd{"d. MMMM y."}
                 yMMMd{"d. MMM y."}
                 yMd{"dd. MM. y."}
                 yQQQ{"QQQ y."}
@@ -710,6 +726,10 @@ hr{
                 MMMEd{
                     M{"E, dd. MMM – E, dd. MMM"}
                     d{"E, dd. – E, dd. MMM"}
+                }
+                MMMMd{
+                    M{"d. MMMM – d. MMMM"}
+                    d{"d. – d. MMMM"}
                 }
                 MMMd{
                     M{"dd. MMM – dd. MMM"}

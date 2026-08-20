@@ -349,6 +349,26 @@ ar{
                 }
             }
         }
+        chinese{
+            DateTimePatterns{
+                "h:mm:ss a zzzz",
+                "h:mm:ss a z",
+                "h:mm:ss a",
+                "h:mm a",
+                "r(U) MMMM d, EEEE",
+                "r(U) MMMM d",
+                "r MMM d",
+                "r/MM/dd",
+                "{1} {0}",
+                "{1} {0}",
+                "{1} {0}",
+                "{1} {0}",
+                "{1} {0}",
+            }
+            availableFormats{
+                yyyyMd{"r/MM/dd"}
+            }
+        }
         coptic{
             monthNames{
                 format{
@@ -449,6 +469,7 @@ ar{
             availableFormats{
                 Ed{"E، d"}
                 Gy{"y G"}
+                GyM{"G y/MM"}
                 GyMEd{"E، M/d/y G"}
                 GyMMM{"MMM y G"}
                 GyMMMEd{"E، d MMM y G"}
@@ -526,6 +547,10 @@ ar{
                 }
                 MMMM{
                     M{"LLLL–LLLL"}
+                }
+                MMMMd{
+                    M{"MMMM d – ‏MMMM d"}
+                    d{"‏d–‏d ‏MMMM"}
                 }
                 MMMd{
                     M{"d MMM – d MMM"}
@@ -615,6 +640,9 @@ ar{
                 "yMMdd",
                 "yMd",
             }
+            appendItems{
+                Era{"{0} {1}"}
+            }
             availableFormats{
                 Ed{"E، d"}
                 Gy{"y G"}
@@ -645,6 +673,8 @@ ar{
                 yMMM{"MMM y"}
                 yMMMEd{"E، d MMM y"}
                 yMMMM{"MMMM y"}
+                yMMMMEd{"EEE، d MMMM y"}
+                yMMMMd{"d MMMM y"}
                 yMMMd{"d MMM y"}
                 yMd{"d‏/M‏/y"}
                 yQQQ{"QQQ y"}
@@ -826,6 +856,10 @@ ar{
                 }
                 MMMM{
                     M{"LLLL–LLLL"}
+                }
+                MMMMd{
+                    M{"d MMMM – d MMMM"}
+                    d{"d–d MMMM"}
                 }
                 MMMd{
                     M{"d MMM – d MMM"}
@@ -1031,6 +1065,26 @@ ar{
                         "١٢",
                     }
                 }
+            }
+        }
+        iso8601{
+            DateTimePatterns{
+                "HH:mm:ss zzzz",
+                "HH:mm:ss z",
+                "HH:mm:ss",
+                "HH:mm",
+                "y MMMM d, EEEE",
+                "y MMMM d",
+                "y MMM d",
+                "y/MM/dd",
+                "{1} {0}",
+                "{1} {0}",
+                "{1} {0}",
+                "{1} {0}",
+                "{1} {0}",
+            }
+            availableFormats{
+                yMd{"y/MM/dd"}
             }
         }
         japanese{

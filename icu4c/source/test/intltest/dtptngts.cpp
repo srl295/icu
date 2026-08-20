@@ -366,12 +366,12 @@ void IntlTestDateTimePatternGeneratorAPI::testAPI(/*char *par*/)
         UnicodeString(""),
     };
     UnicodeString patternResults2[] = {
-        UnicodeString("Oct 14, 1999"),
+        UnicodeString(u"Oct 14, \u20191999", -1),
         UnicodeString("4th quarter 1999"),
         UnicodeString("Oct 14, 1999"),
         UnicodeString("Thu, Oct 14, 1999"),
         UnicodeString("10/14/1999"),
-        UnicodeString("Oct 1999"),
+        UnicodeString(u"Oct \u20191999", -1),
         UnicodeString("10/1999"),
         UnicodeString("10/99"),
         UnicodeString("O 14, 1999"),
@@ -381,7 +381,7 @@ void IntlTestDateTimePatternGeneratorAPI::testAPI(/*char *par*/)
         UnicodeString(u"Thu, Oct 14, 6:58:59\u202FAM", -1),
         UnicodeString(u"10/14, 6:58\u202FAM", -1),
         UnicodeString(u"Thursday, Oct 14, 6:58:59\u202FAM", -1),
-        UnicodeString(u"Oct 14, 1999, 6:58:59\u202FAM", -1),
+        UnicodeString(u"Oct 14, \u20191999, 6:58:59\u202FAM", -1),
         UnicodeString(u"Thu, Oct 14, 1999, 6:58:59\u202FAM", -1),
         UnicodeString(u"6:58\u202FAM", -1),
         UnicodeString(u"6:58\u202FAM", -1),
@@ -919,8 +919,8 @@ void IntlTestDateTimePatternGeneratorAPI::testOptions(/*char *par*/)
         { "da", "HHmm", u"HH.mm",        UDATPG_MATCH_HOUR_FIELD_LENGTH },
         { "da", "hhmm", u"hh.mm\u202Fa", UDATPG_MATCH_HOUR_FIELD_LENGTH },
         //
-        { "en",                   "yyyy",  u"yyyy",  UDATPG_MATCH_NO_OPTIONS },
-        { "en",                   "YYYY",  u"YYYY",  UDATPG_MATCH_NO_OPTIONS },
+        { "en",                   "yyyy",  u"’yyyy",  UDATPG_MATCH_NO_OPTIONS },
+        { "en",                   "YYYY",  u"’YYYY",  UDATPG_MATCH_NO_OPTIONS },
         { "en",                   "U",     u"y",     UDATPG_MATCH_NO_OPTIONS },
         { "en@calendar=japanese", "yyyy",  u"y G",   UDATPG_MATCH_NO_OPTIONS },
         { "en@calendar=japanese", "YYYY",  u"Y G",   UDATPG_MATCH_NO_OPTIONS },
@@ -1594,6 +1594,28 @@ void IntlTestDateTimePatternGeneratorAPI::testBestPattern() {
         // ICU-20992: Bad patterns for missing fields
         { "ckb_IR",     "mmSSS",       u"mm:ss\u066bSSS"     },
         { "ckb_IR",     "BSSS",        u"SSS \u251c'Dayperiod': B\u2524" },
+        // ddd (ordinal day-of-month) vs d (numeric) produce different patterns
+        { "en",         "yMMMd",       u"MMM d, y"        },
+        { "en",         "yMMMddd",     u"MMM ddd, y"      },
+        { "en",         "yMMMEd",      u"EEE, MMM d, y"   },
+        { "en",         "yMMMEddd",    u"EEE, MMM ddd, y" },
+        { "en",         "MMMd",        u"MMM d"           },
+        { "en",         "MMMddd",      u"MMM ddd"         },
+        { "en",         "MMMMddd",     u"MMMM ddd"        },
+        { "en",         "MMMMEddd",    u"EEE, MMMM ddd"   },
+        // French now has its own ddd availableFormats (CLDR-19616), which use
+        // the French day-before-month order rather than root's MMM-before-day.
+        { "fr",         "yMMMd",       u"d MMM y"         },
+        { "fr",         "yMMMddd",     u"ddd MMM y"       },
+        { "fr",         "MMMd",        u"d MMM"           },
+        { "fr",         "MMMddd",      u"ddd MMM"         },
+		// We also have to make sure that the presence of new "ddd" patterns didn't
+		// mess up the handling of skeletons that contain "dd"-- if we don't treat
+		// "ddd" correctly, "dd" in the skeleton will match a "ddd" skeleton in
+		// the parent locale instead of a "d" skeleton in the requested locale,
+		// potentially messing up the field order.
+		{ "de",         "MMMd",        u"d. MMM"          },
+		{ "de",         "MMMdd",       u"dd. MMM"         },
     };
     
     for (int32_t i = 0; i < UPRV_LENGTHOF(testCases); i++) {
@@ -1644,7 +1666,7 @@ void IntlTestDateTimePatternGeneratorAPI::testDateTimePatterns() {
                   UnicodeString(u"d MMM y, HH:mm"),
                   UnicodeString(u"dd/MM/y HH:mm") } },
         { "ha", { UnicodeString(u"EEEE d MMMM, y 'da' HH:mm"),
-                  UnicodeString(u"d MMMM, y 'da' HH:mm"),
+                  UnicodeString(u"y, MMMM d 'da' HH:mm"),
                   UnicodeString(u"d MMM, y, HH:mm"),
                   UnicodeString(u"y-MM-dd, HH:mm") } },
         { nullptr, { UnicodeString(""), UnicodeString(""), // terminator

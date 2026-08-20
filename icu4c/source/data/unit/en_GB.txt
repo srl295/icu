@@ -3,4 +3,100 @@
 // Generated using tools/cldr/cldr-to-icu/
 en_GB{
     %%Parent{"en_001"}
+    units{
+        volume{
+            cup{
+                dnam{"US cups"}
+                one{"{0} US cup"}
+                other{"{0} US cups"}
+            }
+            cup-imperial{
+                dnam{"cups"}
+                one{"{0} cup"}
+                other{"{0} cups"}
+            }
+            pint{
+                dnam{"US pints"}
+                one{"{0} US pint"}
+                other{"{0} US pints"}
+            }
+            pint-imperial{
+                dnam{"pints"}
+                one{"{0} pint"}
+                other{"{0} pints"}
+            }
+        }
+    }
+    unitsNarrow{
+        energy{
+            british-thermal-unit-it{
+                one{"{0} BTU-IT"}
+                other{"{0} BTU-IT"}
+            }
+        }
+        temperature{
+            rankine{
+                one{"{0}°R"}
+                other{"{0}°R"}
+            }
+        }
+        volume{
+            cup{
+                dnam{"US cup"}
+                one{"{0}USc"}
+                other{"{0}USc"}
+            }
+            cup-imperial{
+                dnam{"cup"}
+                one{"{0} cup"}
+                other{"{0} cup"}
+            }
+            pint{
+                dnam{"US pt"}
+                one{"{0}USpt"}
+                other{"{0}USpt"}
+            }
+            pint-imperial{
+                dnam{"pt"}
+                one{"{0} pt"}
+                other{"{0} pt"}
+            }
+        }
+    }
+    unitsShort{
+        energy{
+            british-thermal-unit-it{
+                one{"{0} BTU-IT"}
+                other{"{0} BTU-IT"}
+            }
+        }
+        temperature{
+            rankine{
+                one{"{0}°R"}
+                other{"{0}°R"}
+            }
+        }
+        volume{
+            cup{
+                dnam{"US cups"}
+                one{"{0} US c"}
+                other{"{0} US c"}
+            }
+            cup-imperial{
+                dnam{"cup"}
+                one{"{0} cup"}
+                other{"{0} cup"}
+            }
+            pint{
+                dnam{"US pints"}
+                one{"{0} US pt"}
+                other{"{0} US pt"}
+            }
+            pint-imperial{
+                dnam{"pt"}
+                one{"{0} pt"}
+                other{"{0} pt"}
+            }
+        }
+    }
 }

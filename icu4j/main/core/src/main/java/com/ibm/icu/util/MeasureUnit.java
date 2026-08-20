@@ -728,8 +728,6 @@ public class MeasureUnit implements Serializable {
      * the constant denominator. To obtain the constant denominator, retrieve it from the original
      * unit.
      *
-     * <p>
-     *
      * @return An unmodifiable list of single units
      * @stable ICU 68
      */
@@ -1813,6 +1811,13 @@ public class MeasureUnit implements Serializable {
             MeasureUnit.internalGetInstance("energy", "therm-us");
 
     /**
+     * Constant for unit of force: dyne
+     *
+     * @draft ICU 79
+     */
+    public static final MeasureUnit DYNE = MeasureUnit.internalGetInstance("force", "dyne");
+
+    /**
      * Constant for unit of force: kilogram-force
      *
      * @draft ICU 78
@@ -1842,6 +1847,13 @@ public class MeasureUnit implements Serializable {
      */
     public static final MeasureUnit POUND_FORCE =
             MeasureUnit.internalGetInstance("force", "pound-force");
+
+    /**
+     * Constant for unit of force: poundal
+     *
+     * @draft ICU 79
+     */
+    public static final MeasureUnit POUNDAL = MeasureUnit.internalGetInstance("force", "poundal");
 
     /**
      * Constant for unit of frequency: gigahertz
@@ -2061,6 +2073,14 @@ public class MeasureUnit implements Serializable {
      */
     public static final MeasureUnit MILE_SCANDINAVIAN =
             MeasureUnit.internalGetInstance("length", "mile-scandinavian");
+
+    /**
+     * Constant for unit of length: milliinch
+     *
+     * @draft ICU 79
+     */
+    public static final MeasureUnit MILLIINCH =
+            MeasureUnit.internalGetInstance("length", "milliinch");
 
     /**
      * Constant for unit of length: millimeter

@@ -12,6 +12,7 @@ package com.ibm.icu.dev.test.format;
 import com.ibm.icu.dev.test.CoreTestFmwk;
 import com.ibm.icu.impl.PatternTokenizer;
 import com.ibm.icu.impl.Utility;
+import com.ibm.icu.impl.locale.XCldrStub;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DateTimePatternGenerator;
 import com.ibm.icu.text.DateTimePatternGenerator.FormatParser;
@@ -216,12 +217,12 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
                                 DateFormat.FULL, DateFormat.FULL, ULocale.ENGLISH);
         enFormat.setTimeZone(enZone);
         String[][] tests = {
-            {"yyyyMMMdd", "Oct 14, 1999"},
+            {"yyyyMMMdd", "Oct 14, \u20191999"},
             {"yyyyqqqq", "4th quarter 1999"},
             {"yMMMdd", "Oct 14, 1999"},
             {"EyyyyMMMdd", "Thu, Oct 14, 1999"},
             {"yyyyMMdd", "10/14/1999"},
-            {"yyyyMMM", "Oct 1999"},
+            {"yyyyMMM", "Oct \u20191999"},
             {"yyyyMM", "10/1999"},
             {"yyMM", "10/99"},
             {"yMMMMMd", "O 14, 1999"}, // narrow format
@@ -232,7 +233,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
             {"MMdhmm", "10/14, 6:58\u202FAM"},
             {"EEEEMMMdhmms", "Thursday, Oct 14, 6:58:59\u202FAM"},
             {
-                "yyyyMMMddhhmmss", "Oct 14, 1999, 6:58:59\u202FAM"
+                "yyyyMMMddhhmmss", "Oct 14, \u20191999, 6:58:59\u202FAM"
             }, // (fixed expected result per ticket 6872<-7180)
             {
                 "EyyyyMMMddhhmmss", "Thu, Oct 14, 1999, 6:58:59\u202FAM"
@@ -446,7 +447,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
         new String[] {"HHmm", "23:58"},
         new String[] {"jjmm", "11:58\u202FPM"},
         new String[] {"mmss", "58:59"},
-        new String[] {"yyyyMMMM", "January 1999"}, // (new item for testing 6872<-5702)
+        new String[] {"yyyyMMMM", "January \u20191999"}, // (new item for testing 6872<-5702)
         new String[] {"MMMEd", "Wed, Jan 13"},
         new String[] {"Ed", "13 Wed"},
         new String[] {"jmmssSSS", "11:58:59.123\u202FPM"},
@@ -1214,7 +1215,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
         }
     }
 
-    private final class AppendItemName {
+    private static final class AppendItemName {
         public int field;
         public String name;
 
@@ -1498,6 +1499,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
      * Test case for DateFormatPatternGenerator threading problem #7169
      */
     @Test
+    @SuppressWarnings("ThreadJoinLoop")
     public void TestT7169() {
         Thread[] workers = new Thread[10];
         for (int i = 0; i < workers.length; i++) {
@@ -1533,11 +1535,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
             wk.start();
         }
         for (Thread wk : workers) {
-            try {
-                wk.join();
-            } catch (InterruptedException ie) {
-
-            }
+            XCldrStub.joinUninterruptibly(wk);
         }
     }
 
@@ -1548,7 +1546,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
      * hms{"h:mm:ss a"} en/gregorian has Hm{"H:mm"} Hms{"H:mm:ss"} hm{"h:mm a"} be/gregorian has
      * HHmmss{"HH.mm.ss"} Hm{"HH.mm"} hm{"h.mm a"} hms{"h.mm.ss a"}
      */
-    private final class TestOptionsItem {
+    private static final class TestOptionsItem {
         public String locale;
         public String skeleton;
         public String expectedPattern;
@@ -1587,8 +1585,10 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
             new TestOptionsItem(
                     "da", "hhmm", "hh.mm\u202Fa", DateTimePatternGenerator.MATCH_HOUR_FIELD_LENGTH),
             //
-            new TestOptionsItem("en", "yyyy", "yyyy", DateTimePatternGenerator.MATCH_NO_OPTIONS),
-            new TestOptionsItem("en", "YYYY", "YYYY", DateTimePatternGenerator.MATCH_NO_OPTIONS),
+            new TestOptionsItem(
+                    "en", "yyyy", "\u2019yyyy", DateTimePatternGenerator.MATCH_NO_OPTIONS),
+            new TestOptionsItem(
+                    "en", "YYYY", "\u2019YYYY", DateTimePatternGenerator.MATCH_NO_OPTIONS),
             new TestOptionsItem("en", "U", "y", DateTimePatternGenerator.MATCH_NO_OPTIONS),
             new TestOptionsItem(
                     "en@calendar=japanese",
@@ -1726,7 +1726,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
     }
 
     /** Test that DTPG can handle all valid pattern character / length combinations */
-    private final class AllFieldsTestItem {
+    private static final class AllFieldsTestItem {
         public char patternChar;
         public int[] fieldLengths;
         public String mustIncludeOneOf;
@@ -1973,7 +1973,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
         assertEquals(message, "d-MM-y, G", dtpg.getBestPattern(skeleton));
     }
 
-    private final class FieldDisplayNameData {
+    private static final class FieldDisplayNameData {
         public String locale;
         public int field;
         public DateTimePatternGenerator.DisplayWidth width;
@@ -2314,7 +2314,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
 
     private static final int NUM_DATE_TIME_PATTERNS = 4;
 
-    private final class DTPLocaleAndResults {
+    private static final class DTPLocaleAndResults {
         public String localeID;
         public String[] expectPat;
 
@@ -2356,7 +2356,7 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
                     "ha",
                     new String[] {
                         "EEEE d MMMM, y 'da' HH:mm",
-                        "d MMMM, y 'da' HH:mm",
+                        "y, MMMM d 'da' HH:mm",
                         "d MMM, y, HH:mm",
                         "y-MM-dd, HH:mm"
                     }),
@@ -2586,5 +2586,38 @@ public class DateTimeGeneratorTest extends CoreTestFmwk {
         // we still select GyMMMEd, but we don't change it to a numeric month.
         String bestPattern = dtpg.getBestPattern("GyMEd");
         assertEquals("Should not substitute numeric for alpha", "EEE, MMM d, y G", bestPattern);
+    }
+
+    @Test
+    public void TestDayOfMonthSkeleton() {
+        // ddd (ordinal day-of-month) vs d (numeric) produce different patterns.
+        String[][] testCases = {
+            {"en", "yMMMd", "MMM d, y"},
+            {"en", "yMMMddd", "MMM ddd, y"},
+            {"en", "yMMMEd", "EEE, MMM d, y"},
+            {"en", "yMMMEddd", "EEE, MMM ddd, y"},
+            {"en", "MMMd", "MMM d"},
+            {"en", "MMMddd", "MMM ddd"},
+            {"en", "MMMMddd", "MMMM ddd"},
+            {"en", "MMMMEddd", "EEE, MMMM ddd"},
+            // French has no ddd availableFormats of its own, so it inherits root's
+            // patterns (which use English-style MMM-before-day order).
+            {"fr", "yMMMd", "d MMM y"},
+            {"fr", "yMMMddd", "ddd MMM y"},
+            {"fr", "MMMd", "d MMM"},
+            {"fr", "MMMddd", "ddd MMM"},
+            // We also have to make sure that the presence of new "ddd" patterns didn't
+            // mess up the handling of skeletons that contain "dd"-- if we don't treat
+            // "ddd" correctly, "dd" in the skeleton will match a "ddd" skeleton in
+            // the parent locale instead of a "d" skeleton in the requested locale,
+            // potentially messing up the field order.
+            {"de", "MMMd", "d. MMM"},
+            {"de", "MMMdd", "dd. MMM"},
+        };
+        for (String[] tc : testCases) {
+            DateTimePatternGenerator gen = DateTimePatternGenerator.getInstance(new ULocale(tc[0]));
+            String got = gen.getBestPattern(tc[1]);
+            assertEquals(tc[0] + " " + tc[1], tc[2], got);
+        }
     }
 }

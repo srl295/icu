@@ -901,6 +901,8 @@ gd{
                 yMMM{"LLL Y"}
                 yMMMEd{"E, d MMM y"}
                 yMMMM{"LLLL y"}
+                yMMMMEd{"EEE, d MMMM y"}
+                yMMMMd{"d MMMM y"}
                 yMMMd{"d MMM y"}
                 yMd{"d/M/y"}
                 yQQQ{"QQQ y"}

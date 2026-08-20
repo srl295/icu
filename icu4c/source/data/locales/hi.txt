@@ -362,6 +362,12 @@ hi{
                 "{1}, {0}",
                 "{1}, {0}",
             }
+            DateTimePatterns%relative{
+                "{1} {0} बजे",
+                "{1} {0} बजे",
+                "{1}, {0}",
+                "{1}, {0}",
+            }
             DateTimeSkeletons{
                 "ahmmsszzzz",
                 "ahmmssz",
@@ -424,6 +430,10 @@ hi{
                 MMMEd{
                     M{"E, d MMM – E, d MMM"}
                     d{"E, d MMM – E, d MMM"}
+                }
+                MMMMd{
+                    M{"d MMMM – d MMMM"}
+                    d{"d – d MMMM"}
                 }
                 MMMd{
                     M{"d MMM – d MMM"}
@@ -497,6 +507,12 @@ hi{
                 "{1}, {0}",
                 "{1}, {0}",
             }
+            DateTimePatterns%relative{
+                "{1}, {0} बजे",
+                "{1}, {0} बजे",
+                "{1}, {0}",
+                "{1}, {0}",
+            }
             DateTimeSkeletons{
                 "ahmmsszzzz",
                 "ahmmssz",
@@ -506,6 +522,11 @@ hi{
                 "yMMMMd",
                 "yMMMd",
                 "yyMd",
+            }
+            appendItems{
+                Day-Of-Week{"{1}, {0}"}
+                Era{"{0} {1}"}
+                Time-Day-Of-Week{"{1}, {0}"}
             }
             availableFormats{
                 Bh{"B h"}
@@ -517,6 +538,9 @@ hi{
                 Gy{"y G"}
                 GyMMM{"MMM G y"}
                 GyMMMEd{"E, d MMM y G"}
+                GyMMMM{"MMMM y G"}
+                GyMMMMEd{"E, d MMMM, y G"}
+                GyMMMMd{"d MMMM, y G"}
                 GyMMMd{"d MMM y G"}
                 GyMd{"GGGGG d/M/y"}
                 MEd{"E, d/M"}
@@ -536,6 +560,8 @@ hi{
                 yMMM{"MMM y"}
                 yMMMEd{"E, d MMM y"}
                 yMMMM{"MMMM y"}
+                yMMMMEd{"E, d MMMM, y"}
+                yMMMMd{"d MMMM, y"}
                 yMMMd{"d MMM y"}
                 yMMdd{"dd/MM/y"}
                 yMd{"d/M/y"}
@@ -640,6 +666,10 @@ hi{
                 MMMEd{
                     M{"E, d MMM – E, d MMM"}
                     d{"E, d MMM – E, d MMM"}
+                }
+                MMMMd{
+                    M{"d MMMM – d MMMM"}
+                    d{"d – d MMMM"}
                 }
                 MMMd{
                     M{"d MMM – d MMM"}
@@ -1449,14 +1479,14 @@ hi{
         }
         standard{
             2{"{0} और {1}"}
-            end{"{0}, और {1}"}
+            end{"{0} और {1}"}
         }
         standard-short{
             end{"{0} और {1}"}
         }
         unit{
             2{"{0} और {1}"}
-            end{"{0}, और {1}"}
+            end{"{0} और {1}"}
         }
         unit-narrow{
             2{"{0} {1}"}

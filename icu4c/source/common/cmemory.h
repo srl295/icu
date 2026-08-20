@@ -28,6 +28,7 @@
 
 #include "unicode/utypes.h"
 
+#include <limits.h>
 #include <stddef.h>
 #include <string.h>
 #include "unicode/localpointer.h"
@@ -171,7 +172,9 @@ uprv_deleteUObject(void *obj);
 
 #ifdef __cplusplus
 
+#include <memory>
 #include <utility>
+#include <type_traits>
 #include "unicode/uobject.h"
 
 U_NAMESPACE_BEGIN
@@ -889,6 +892,244 @@ public:
     }
 };
 
+namespace prv {
+
+#if U_OVERRIDE_CXX_ALLOCATION
+
+/**
+ * A deleter (as used by std::unique_ptr) that deallocates using `deallocate`.
+ * @internal
+ */
+template <typename T, void deallocate(void *), typename = void> class Deleter {
+  public:
+    Deleter() = default;
+    void operator()(T *const ptr) const {
+        if constexpr (!std::is_trivially_destructible_v<T>) {
+            ptr->~T();
+        }
+        deallocate(ptr);
+    }
+};
+
+/**
+ * A deleter (as used by std::unique_ptr) that deallocates using `deallocate`: specialization for
+ * arrays of trivially destructible objects, e.g., int32_t[].
+ * @internal
+ */
+template <typename T, void deallocate(void *)>
+class Deleter<T[], deallocate, std::enable_if_t<std::is_trivially_destructible_v<T>>> {
+  public:
+    Deleter() = default;
+    void operator()(T *const ptr) const { deallocate(ptr); }
+};
+
+/**
+ * A deleter (as used by std::unique_ptr) that deallocates using `deallocate`: specialization for
+ * arrays of nontrivially destructible objects, e.g., UnicodeString[].
+ * @internal
+ */
+template <typename T, void deallocate(void *)>
+class Deleter<T[], deallocate, std::enable_if_t<!std::is_trivially_destructible_v<T>>> {
+  public:
+    Deleter(const std::size_t size) : size_(size) {}
+    void operator()(T *const ptr) const {
+        for (std::ptrdiff_t i = static_cast<std::ptrdiff_t>(size_) - 1; i >= 0; --i) {
+            ptr[i]->~T();
+        }
+        deallocate(ptr);
+    }
+  private:
+    const std::size_t size_;
+};
+
+/**
+ * An std::unique_ptr that deallocates using uprv_free.
+ * @internal
+ */
+template <typename T> using unique_ptr = std::unique_ptr<T, Deleter<T, uprv_free>>;
+
+#else
+
+using std::unique_ptr;
+
+#endif
+
+/**
+ * Helper for make_unique<T, Args...>; forwards all but the last of args to the constructor of
+ * T, uses the last of args as the error code for allocation errors.
+ * @internal
+ */
+template <typename T, typename... Args, std::size_t... i>
+unique_ptr<T> make_unique_impl(std::tuple<Args...> args,
+                               std::index_sequence<i...> constructor_arg_indices) {
+    static_assert(std::is_same_v<decltype(constructor_arg_indices),
+                                 std::make_index_sequence<sizeof...(Args) - 1>>);
+#if U_OVERRIDE_CXX_ALLOCATION
+    auto &&error = std::get<sizeof...(Args) - 1>(args);
+    static_assert(std::is_same_v<decltype(error), UErrorCode &>);
+    void *const buffer = uprv_malloc(sizeof(T));
+    if (buffer == nullptr) {
+        error = U_MEMORY_ALLOCATION_ERROR;
+        return nullptr;
+    }
+    return unique_ptr<T>(new (buffer) T(std::get<i>(args)...));
+#else
+    return std::make_unique<T>(std::get<i>(args)...);
+#endif
+}
+
+/**
+ * A version of std::make_unique<T> that is compatible with ICU allocation error handling.
+ * If U_OVERRIDE_CXX_ALLOCATION, allocates using uprv_malloc, and sets a UErrorCode on failure.
+ * Otherwise, equivalent to std::make_unique<T>; the trailing UErrorCode& parameter is not used.
+ *   prv::make_unique<T>(Args... args, UErrorCode& status)
+ * corresponds to
+ *   std::make_unique<T>(Args... args)
+ * and
+ *   new T(Args... args).
+ *
+ * With empty args, this corresponds to new T(), and the allocated object is value-initialized; in
+ * particular, scalar types are zero-initialized; cf. make_unique_for_overwrite which
+ * corresponds to new T.
+ *
+ * @internal
+ */
+template <typename T, typename... Args, typename = std::enable_if_t<!std::is_array_v<T>>>
+unique_ptr<T> make_unique(Args &&...args) {
+    return make_unique_impl<T>(std::forward_as_tuple(args...),
+                               std::make_index_sequence<sizeof...(Args) - 1>());
+}
+
+/**
+ * A version of std::make_unique<T[]> that is compatible with ICU allocation error handling.
+ * If U_OVERRIDE_CXX_ALLOCATION, allocates using uprv_malloc, and sets a UErrorCode on failure.
+ * Otherwise, equivalent to std::make_unique<T[]>; the trailing UErrorCode& parameter is not used.
+ *   prv::make_unique<T[]>(std::size_t n, UErrorCode& status)
+ * corresponds to
+ *   std::make_unique<T[]>(std::size_t n)
+ * and
+ *   new T[std::size_t n]().
+ *
+ * The allocated objects are value-initialized; in particular, scalar types are zero-initialized;
+ * cf. make_unique_for_overwrite which corresponds to new T[n].
+ *
+ * @internal
+ */
+template <typename T,
+          // In C++20, this could require is_unbounded_array_v<T>.
+          typename = std::enable_if_t<std::is_same_v<std::remove_extent_t<T>[], T>>>
+unique_ptr<T> make_unique(const std::size_t n, [[maybe_unused]] UErrorCode &error) {
+#if U_OVERRIDE_CXX_ALLOCATION
+    // In C23/C++26, we could use ckd_mul.
+    constexpr std::size_t maxSize = SIZE_MAX / sizeof(std::remove_extent_t<T>);
+    if (n > maxSize) {
+        error = U_ILLEGAL_ARGUMENT_ERROR;
+        return nullptr;
+    }
+    void *const buffer = uprv_malloc(sizeof(std::remove_extent_t<T>) * n);
+    if (buffer == nullptr) {
+        error = U_MEMORY_ALLOCATION_ERROR;
+        if constexpr (std::is_trivially_destructible_v<std::remove_extent_t<T>>) {
+            return nullptr;
+        } else {
+            return unique_ptr<T>(nullptr, Deleter<T, uprv_free>(0));
+        }
+    }
+    if constexpr (std::is_trivially_destructible_v<std::remove_extent_t<T>>) {
+        return unique_ptr<T>(new (buffer) std::remove_extent_t<T>[n]());
+    } else {
+        return unique_ptr<T>(new (buffer) std::remove_extent_t<T>[n](), Deleter<T, uprv_free>(n));
+    }
+#else
+    return std::make_unique<T>(n);
+#endif
+}
+
+/**
+ * A version of std::make_unique_for_overwrite<T> that is compatible with ICU allocation error
+ * handling.
+ * If U_OVERRIDE_CXX_ALLOCATION, allocates using uprv_malloc, and sets a UErrorCode on failure.
+ * Otherwise, equivalent to std::make_unique_for_overwrite<T>; the trailing UErrorCode& parameter is
+ * not used.
+ *   prv::make_unique_for_overwrite<T>(UErrorCode& status)
+ * corresponds to
+ *   std::make_unique_for_overwrite<T>()
+ * and
+ *   new T.
+ *
+ * The allocated object is default-initialized.  For some types, e.g., scalar types, this means it
+ * has an indeterminate value, or an erroneous value since C++26 (in plain English, the memory is
+ * uninitialized).
+ *
+ * @internal
+ */
+template <typename T, typename = std::enable_if_t<!std::is_array_v<T>>>
+unique_ptr<T> make_unique_for_overwrite([[maybe_unused]] UErrorCode &error) {
+#if U_OVERRIDE_CXX_ALLOCATION
+    void *const buffer = uprv_malloc(sizeof(T));
+    if (buffer == nullptr) {
+        error = U_MEMORY_ALLOCATION_ERROR;
+        return nullptr;
+    }
+    return unique_ptr<T>(new (buffer) T);
+#elif U_CPLUSPLUS_VERSION >= 20
+    return std::make_unique_for_overwrite<T>();
+#else
+    return unique_ptr<T>(new T);
+#endif
+}
+
+/**
+ * A version of std::make_unique_for_overwrite<T[]> that is compatible with ICU allocation error
+ * handling.
+ * If U_OVERRIDE_CXX_ALLOCATION, allocates using uprv_malloc, and sets a UErrorCode on failure.
+ * Otherwise, equivalent to std::make_unique_for_overwrite<T[]>; the trailing UErrorCode& parameter
+ * is not used.
+ *   prv::make_unique_for_overwrite<T[]>(std::size_t n, UErrorCode& status)
+ * corresponds to
+ *   std::make_unique_for_overwrite<T[]>(std::size_t n)
+ * and
+ *   new T[std::size_t n].
+ *
+ * The allocated objects are default-initialized.  For some types, e.g., scalar types, this means
+ * they have indeterminate values, or erroneous values since C++26 (in plain English, the memory is
+ * uninitialized).
+ *
+ * @internal
+ */
+template <typename T,
+          // In C++20, this could require is_unbounded_array_v<T>.
+          typename = std::enable_if_t<std::is_same_v<std::remove_extent_t<T>[], T>>>
+unique_ptr<T> make_unique_for_overwrite(const std::size_t n, [[maybe_unused]] UErrorCode &error) {
+#if U_OVERRIDE_CXX_ALLOCATION
+    // In C23/C++26, we could use ckd_mul.
+    constexpr std::size_t maxSize = SIZE_MAX / sizeof(std::remove_extent_t<T>);
+    if (n > maxSize) {
+        error = U_ILLEGAL_ARGUMENT_ERROR;
+        return nullptr;
+    }
+    void *const buffer = uprv_malloc(sizeof(std::remove_extent_t<T>) * n);
+    if (buffer == nullptr) {
+        error = U_MEMORY_ALLOCATION_ERROR;
+        if constexpr (std::is_trivially_destructible_v<std::remove_extent_t<T>>) {
+            return nullptr;
+        } else {
+            return unique_ptr<T>(nullptr, Deleter<T, uprv_free>(0));
+        }
+    }
+    if constexpr (std::is_trivially_destructible_v<std::remove_extent_t<T>>) {
+        return unique_ptr<T>(new (buffer) std::remove_extent_t<T>[n]);
+    } else {
+        return unique_ptr<T>(new (buffer) std::remove_extent_t<T>[n], Deleter<T, uprv_free>(n));
+    }
+#elif U_CPLUSPLUS_VERSION >= 20
+    return std::make_unique_for_overwrite<T>(n);
+#else
+    return unique_ptr<T>(new std::remove_extent_t<T>[n]);
+#endif
+}
+
+}  // namespace prv
 
 U_NAMESPACE_END
 

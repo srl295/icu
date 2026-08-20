@@ -2868,7 +2868,6 @@ supplementalData:table(nofallback){
                 "CHW",
                 "CLE~F",
                 "CNH",
-                "CNX",
                 "COU",
                 "CSD",
                 "CSK",
@@ -3160,6 +3159,7 @@ supplementalData:table(nofallback){
                 "bh",
                 "bhk",
                 "bic",
+                "bih",
                 "bij",
                 "bjd",
                 "bjq",
@@ -3214,7 +3214,6 @@ supplementalData:table(nofallback){
                 "emk",
                 "emo",
                 "esk",
-                "fat",
                 "fuc",
                 "gav",
                 "gaz",
@@ -3418,6 +3417,7 @@ supplementalData:table(nofallback){
                 "yma",
                 "ymt",
                 "ynh",
+                "yol",
                 "yos",
                 "yri",
                 "yuu",
@@ -3887,7 +3887,7 @@ supplementalData:table(nofallback){
                 "dyd",
                 "dyg",
                 "dyi",
-                "dym~o",
+                "dyl~o",
                 "dyr",
                 "dyu",
                 "dyy",
@@ -3995,7 +3995,7 @@ supplementalData:table(nofallback){
                 "faf~n",
                 "fap",
                 "far",
-                "fau",
+                "fat~u",
                 "fax~z",
                 "fbl",
                 "fcs",
@@ -4575,7 +4575,7 @@ supplementalData:table(nofallback){
                 "ldg~q",
                 "lea~f",
                 "leh~z",
-                "lfa",
+                "lfa~b",
                 "lfn",
                 "lg",
                 "lga~b",
@@ -4929,7 +4929,7 @@ supplementalData:table(nofallback){
                 "oku~v",
                 "okx",
                 "okz",
-                "ola",
+                "ola~b",
                 "old~e",
                 "olk",
                 "olm",
@@ -4970,7 +4970,7 @@ supplementalData:table(nofallback){
                 "orz",
                 "os",
                 "osa",
-                "osc",
+                "osc~d",
                 "osi",
                 "osn~p",
                 "ost~u",
@@ -5243,6 +5243,7 @@ supplementalData:table(nofallback){
                 "sck~l",
                 "scn~q",
                 "scs~x",
+                "scz",
                 "sd",
                 "sda~c",
                 "sde~h",
@@ -5456,6 +5457,7 @@ supplementalData:table(nofallback){
                 "tus~z",
                 "tva",
                 "tvd~e",
+                "tvg",
                 "tvi",
                 "tvk~o",
                 "tvs~u",
@@ -5931,7 +5933,8 @@ supplementalData:table(nofallback){
                 "yob",
                 "yog",
                 "yoi",
-                "yok~n",
+                "yok",
+                "yom~n",
                 "yot",
                 "yox~y",
                 "ypa~b",
@@ -6004,6 +6007,7 @@ supplementalData:table(nofallback){
                 "zhb",
                 "zhd",
                 "zhi",
+                "zhk",
                 "zhn",
                 "zhw~x",
                 "zia~b",
@@ -6330,6 +6334,7 @@ supplementalData:table(nofallback){
                 "Jamo",
                 "Java",
                 "Jpan",
+                "Jurc",
                 "Kali",
                 "Kana",
                 "Kawi",
@@ -6384,6 +6389,7 @@ supplementalData:table(nofallback){
                 "Ougr",
                 "Palm",
                 "Pauc",
+                "Pcun",
                 "Perm",
                 "Phag",
                 "Phli",
@@ -6397,6 +6403,7 @@ supplementalData:table(nofallback){
                 "Samr",
                 "Sarb",
                 "Saur",
+                "Seal",
                 "Sgnw",
                 "Shaw",
                 "Shrd",
@@ -10215,6 +10222,7 @@ supplementalData:table(nofallback){
                 "length-meter",
                 "length-decimeter",
                 "length-centimeter",
+                "length-milliinch",
                 "length-millimeter",
                 "length-micrometer",
                 "length-nanometer",
@@ -10359,6 +10367,8 @@ supplementalData:table(nofallback){
                 "speed-light-speed",
                 "volume-fluid-ounce-metric",
                 "volume-cup-imperial",
+                "force-poundal",
+                "force-dyne",
             }
         }
         variant{
@@ -10448,6 +10458,7 @@ supplementalData:table(nofallback){
                 "mdctrans",
                 "mesokem",
                 "metelko",
+                "moderat",
                 "monoton",
                 "ndyuka",
                 "nedis",
@@ -10466,6 +10477,7 @@ supplementalData:table(nofallback){
                 "polyton",
                 "provenc",
                 "puter",
+                "radikalt",
                 "rigik",
                 "rozaj",
                 "rumgr",
@@ -10474,13 +10486,16 @@ supplementalData:table(nofallback){
                 "scotland",
                 "scouse",
                 "simple",
+                "slepe",
                 "solba",
                 "sotav",
                 "spanglis",
+                "stadi",
                 "surmiran",
                 "sursilv",
                 "sutsilv",
                 "synnejyl",
+                "taglish",
                 "tailo",
                 "tarask",
                 "tongyong",
@@ -11146,6 +11161,14 @@ supplementalData:table(nofallback){
                 scripts{"Latn"}
             }
         }
+        cdo{
+            primary{
+                scripts{"Hans"}
+            }
+            secondary{
+                scripts{"Hant"}
+            }
+        }
         ce{
             primary{
                 scripts{"Cyrl"}
@@ -11262,6 +11285,14 @@ supplementalData:table(nofallback){
         cps{
             primary{
                 scripts{"Latn"}
+            }
+        }
+        cpx{
+            primary{
+                scripts{"Hans"}
+            }
+            secondary{
+                scripts{"Hant"}
             }
         }
         cr{
@@ -12070,6 +12101,11 @@ supplementalData:table(nofallback){
                 scripts{"Latn"}
             }
         }
+        hrx{
+            primary{
+                scripts{"Latn"}
+            }
+        }
         hsb{
             primary{
                 scripts{"Latn"}
@@ -12351,6 +12387,11 @@ supplementalData:table(nofallback){
             }
         }
         kea{
+            primary{
+                scripts{"Latn"}
+            }
+        }
+        kek{
             primary{
                 scripts{"Latn"}
             }
@@ -13122,6 +13163,14 @@ supplementalData:table(nofallback){
             }
             secondary{
                 scripts{"Mtei"}
+            }
+        }
+        mnp{
+            primary{
+                scripts{"Hans"}
+            }
+            secondary{
+                scripts{"Hant"}
             }
         }
         mns{
@@ -14878,6 +14927,11 @@ supplementalData:table(nofallback){
         xcr{
             primary{
                 scripts{"Cari"}
+            }
+        }
+        xdq{
+            primary{
+                scripts{"Cyrl"}
             }
         }
         xh{
@@ -26619,7 +26673,7 @@ supplementalData:table(nofallback){
                 populationShareF:int{48500000}
             }
             sus{
-                populationShareF:int{49110000}
+                populationShareF:int{49240000}
             }
             territoryF:intvector{
                 60566600,
@@ -29367,7 +29421,7 @@ supplementalData:table(nofallback){
                 writingShareF:int{48500000}
             }
             brh{
-                populationShareF:int{48130000}
+                populationShareF:int{48120000}
             }
             btv{
                 populationShareF:int{46190000}
@@ -29575,21 +29629,63 @@ supplementalData:table(nofallback){
             }
         }
         PY{
+            aqt{
+                populationShareF:int{46170000}
+            }
+            ayo{
+                populationShareF:int{46360000}
+            }
+            cag{
+                populationShareF:int{47230000}
+            }
+            ceg{
+                populationShareF:int{46300000}
+            }
             de{
                 populationShareF:int{48290000}
             }
+            enl{
+                populationShareF:int{47130000}
+            }
+            enx{
+                populationShareF:int{46750000}
+            }
             es{
                 officialStatus{"official"}
-                populationShareF:int{48320000}
+                populationShareF:int{49670000}
             }
             gn{
                 officialStatus{"official"}
-                populationShareF:int{49800000}
+                populationShareF:int{49690000}
+            }
+            gun{
+                populationShareF:int{47160000}
+            }
+            guq{
+                populationShareF:int{46240000}
+            }
+            gva{
+                populationShareF:int{44300000}
+            }
+            mca{
+                populationShareF:int{46270000}
+            }
+            nhd{
+                populationShareF:int{46160000}
+            }
+            pta{
+                populationShareF:int{47130000}
+            }
+            spn{
+                populationShareF:int{46250000}
             }
             territoryF:intvector{
                 61108000,
                 49939000,
                 56752255,
+            }
+            tmf{
+                populationShareF:int{46270000}
             }
         }
         QA{
@@ -29878,6 +29974,9 @@ supplementalData:table(nofallback){
             xal{
                 populationShareF:int{46800000}
             }
+            xdq{
+                populationShareF:int{46150000}
+            }
         }
         RW{
             en{
@@ -30025,32 +30124,75 @@ supplementalData:table(nofallback){
             }
         }
         SG{
+            bn{
+                populationShareF:int{48130000}
+            }
+            cdo{
+                populationShareF:int{47900000}
+            }
+            cpx{
+                populationShareF:int{47400000}
+            }
             en{
+                literacyShareF:int{50100000}
                 officialStatus{"official"}
-                populationShareF:int{49930000}
+                populationShareF:int{49800000}
+            }
+            fil{
+                populationShareF:int{48260000}
+            }
+            hak{
+                populationShareF:int{48430000}
+            }
+            id{
+                populationShareF:int{48200000}
+            }
+            ja{
+                populationShareF:int{47600000}
+            }
+            jv{
+                populationShareF:int{48150000}
+            }
+            mad{
+                populationShareF:int{47400000}
             }
             ml{
-                populationShareF:int{47170000}
+                populationShareF:int{47400000}
+            }
+            mnp{
+                populationShareF:int{47300000}
             }
             ms{
+                literacyShareF:int{50100000}
                 officialStatus{"official"}
-                populationShareF:int{49140000}
+                populationShareF:int{49190000}
+            }
+            nan{
+                populationShareF:int{48580000}
             }
             pa{
-                populationShareF:int{47160000}
+                populationShareF:int{47400000}
             }
             ta{
+                literacyShareF:int{49880000}
                 officialStatus{"official"}
-                populationShareF:int{48210000}
+                populationShareF:int{48490000}
             }
             territoryF:intvector{
                 61754800,
                 49959000,
                 56602846,
             }
+            th{
+                populationShareF:int{47700000}
+            }
+            yue{
+                populationShareF:int{48210000}
+            }
             zh{
+                literacyShareF:int{50100000}
                 officialStatus{"official"}
-                populationShareF:int{49770000}
+                populationShareF:int{49620000}
             }
         }
         SH{
@@ -30153,6 +30295,9 @@ supplementalData:table(nofallback){
             }
             men{
                 populationShareF:int{49270000}
+            }
+            sus{
+                populationShareF:int{48300000}
             }
             tem{
                 literacyShareF:int{48600000}
@@ -31540,12 +31685,12 @@ supplementalData:table(nofallback){
         }
         AR{
             allowed{
-                "h",
                 "H",
+                "h",
                 "hB",
                 "hb",
             }
-            preferred{"h"}
+            preferred{"H"}
         }
         AS{
             allowed{
@@ -31811,12 +31956,12 @@ supplementalData:table(nofallback){
         }
         CL{
             allowed{
-                "h",
                 "H",
+                "h",
                 "hB",
                 "hb",
             }
-            preferred{"h"}
+            preferred{"H"}
         }
         CM{
             allowed{
@@ -32244,6 +32389,13 @@ supplementalData:table(nofallback){
             preferred{"h"}
         }
         HR{
+            allowed{
+                "H",
+                "hB",
+            }
+            preferred{"H"}
+        }
+        HT{
             allowed{
                 "H",
                 "hB",
@@ -32960,12 +33112,12 @@ supplementalData:table(nofallback){
         }
         PY{
             allowed{
-                "h",
                 "H",
+                "h",
                 "hB",
                 "hb",
             }
-            preferred{"h"}
+            preferred{"H"}
         }
         QA{
             allowed{
@@ -33004,6 +33156,8 @@ supplementalData:table(nofallback){
         }
         RW{
             allowed{
+                "hB",
+                "hb",
                 "H",
                 "h",
             }
@@ -33330,12 +33484,12 @@ supplementalData:table(nofallback){
         }
         UY{
             allowed{
-                "h",
                 "H",
+                "h",
                 "hB",
                 "hb",
             }
-            preferred{"h"}
+            preferred{"H"}
         }
         UZ{
             allowed{
@@ -33452,12 +33606,10 @@ supplementalData:table(nofallback){
         }
         ZM{
             allowed{
-                "h",
-                "hb",
                 "H",
                 "hB",
             }
-            preferred{"h"}
+            preferred{"H"}
         }
         ZW{
             allowed{

@@ -10,6 +10,7 @@
 //  rbbitblb.cpp
 //
 
+#include <functional>
 
 #include "unicode/utypes.h"
 
@@ -27,6 +28,51 @@
 #include "cmemory.h"
 
 U_NAMESPACE_BEGIN
+
+namespace {
+
+// Given the `RBBITableBuilder::fDStates` vector of `RBBIStateDescriptor`s, returns
+// true if a state for which `isSink` returns true is reachable from state `source` by following
+// transitions without going through any state for which `excludedState` returns true.
+bool reachableByTransitions(const UVector &states, const int32_t source,
+                            const std::function<bool(int32_t)> isSink,
+                            const std::function<bool(int32_t)> excludedState, UErrorCode &status) {
+    UStack boundary(status);
+    {
+        UVector32 &transitionsFromSource =
+            *static_cast<RBBIStateDescriptor *>(states.elementAt(source))->fDtran;
+        // We do not initialize boundary to `{source}`, but instead to the set of states one
+        // transition away from `source`; if `source` sets lookahead l and accepts lookahead k, we
+        // only need k and l to occupy distinct slots if there is a `source`-to-`source` path.
+        for (int32_t symbol = 0; symbol < transitionsFromSource.size(); ++symbol) {
+            const int32_t state = transitionsFromSource.elementAti(symbol);
+            if (state != 0 && !excludedState(state)) {
+                boundary.push(state, status);
+            }
+        }
+    }
+    const auto visited = prv::make_unique<bool[]>(states.size(), status);
+    while (U_SUCCESS(status) && !boundary.empty()) {
+        const int32_t s = boundary.popi();
+        if (isSink(s)) {
+            return true;
+        }
+        if (visited[s]) {
+            continue;
+        }
+        visited[s] = true;
+        UVector32 &transitions = *static_cast<RBBIStateDescriptor *>(states.elementAt(s))->fDtran;
+        for (int32_t symbol = 0; symbol < transitions.size(); ++symbol) {
+            const int32_t t = transitions.elementAti(symbol);
+            if (t != 0 && !visited[t] && !excludedState(t)) {
+                boundary.push(t, status);
+            }
+        }
+    }
+    return false;
+}
+
+} // namespace
 
 const int32_t kMaxStateFor8BitsTable = 255;
 
@@ -985,7 +1031,7 @@ void RBBITableBuilder::minimizeStates() {
         return;
     }
 
-#if UPRV_HAS_FEATURE(address_sanitizer) || UPRV_HAS_FEATURE(undefined_behavior_sanitizer)
+#if UPRV_HAS_SANITIZER
     if (fDStates->size() > 512) {
         // This algorithm is sluggish on large state machines, and even more sluggish with
         // sanitizers, which leads the fuzzer into the weeds, see
@@ -1004,8 +1050,8 @@ void RBBITableBuilder::minimizeStates() {
                    fTagsIdx == other.fTagsIdx;
         }
     };
-    // We wrap `UVector`s in `LocalPointer`s throughout so we can move them,
-    // including into `UVector`s (by orphaning them from the `LocalPointer`
+    // We wrap `UVector`s in `unique_ptr``s throughout so we can move them,
+    // including into `UVector`s (by releasing them from the `unique_ptr`
     // and having the enclosing `UVector` adopt them). 
     // Group the states by types (but we have no maps so this is verbose).
     // If there are no lookaheads and no tags, there are only two types
@@ -1013,9 +1059,9 @@ void RBBITableBuilder::minimizeStates() {
     // of Algorithm 3.6.
     struct TypeToStates : UMemory {
         TypeToStates(const StateType &type, UErrorCode &status)
-            : type(type), states(new UVector(status), status) {}
+            : type(type), states(prv::make_unique<UVector>(status, status)) {}
         StateType type;
-        LocalPointer<UVector> states;
+        prv::unique_ptr<UVector> states;
     };
     UVector initialPartition(*fStatus);
     initialPartition.setDeleter(
@@ -1036,18 +1082,18 @@ void RBBITableBuilder::minimizeStates() {
             }
         }
         if (j == initialPartition.size()) {
-            auto newEntry = LocalPointer<TypeToStates>(new TypeToStates(type, *fStatus), *fStatus);
+            auto newEntry = prv::make_unique<TypeToStates>(type, *fStatus, *fStatus);
             if (U_FAILURE(*fStatus)) {
                 return;
             }
             newEntry->states->addElement(i, *fStatus);
-            initialPartition.adoptElement(newEntry.orphan(), *fStatus);
+            initialPartition.adoptElement(newEntry.release(), *fStatus);
         }
     }
     // The partition Π from Algorithm 3.6.
     // (We could call it Π, but some member companies that integrate the ICU
     // code base prohibit non-ASCII identifiers…).
-    LocalPointer<UVector> partition(new UVector(*fStatus), *fStatus);
+    auto partition = prv::make_unique<UVector>(*fStatus, *fStatus);
     if (U_FAILURE(*fStatus)) {
         return;
     }
@@ -1056,7 +1102,7 @@ void RBBITableBuilder::minimizeStates() {
     
     for (int32_t i = 0; i < initialPartition.size(); ++i) {
         partition->adoptElement(
-            static_cast<TypeToStates*>(initialPartition.elementAt(i))->states.orphan(),
+            static_cast<TypeToStates*>(initialPartition.elementAt(i))->states.release(),
             *fStatus);
     }
     // Given the index of a state 𝑠 in `fDStates`, returns a UVector of integers
@@ -1065,38 +1111,32 @@ void RBBITableBuilder::minimizeStates() {
     // We then have σ(𝑠) == σ(𝑡) if and only if “for all input symbols 𝑎, states
     // 𝑠 and 𝑡 have transitions on 𝑎 to states in the same group of Π” (which is
     // what defines the refinement of 𝐺 in Fig. 3.45).
-    auto partition_signature =
-        [&partition, this](int32_t stateIndex) -> LocalPointer<UVector> {
-            const RBBIStateDescriptor &state =
-                *static_cast<RBBIStateDescriptor*>(
-                    fDStates->elementAt(stateIndex));
-            LocalPointer<UVector> result(
-                new UVector(state.fDtran->size(), *fStatus), *fStatus);
-            if (U_FAILURE(*fStatus)) {
-                return LocalPointer<UVector>(nullptr);
-            }
-            for (int32_t i = 0; i < state.fDtran->size(); ++i) {
-                int32_t toState = state.fDtran->elementAti(i);
-                for (int32_t partIndex = 0;
-                     partIndex < partition->size();
-                     ++partIndex) {
-                    const UVector &part =
-                        *static_cast<UVector*>(partition->elementAt(partIndex));
-                    if (part.contains(toState)) {
-                        result->addElement(partIndex, *fStatus);
-                        break;
-                    }
+    auto partition_signature = [&partition, this](int32_t stateIndex) -> prv::unique_ptr<UVector> {
+        const RBBIStateDescriptor &state =
+            *static_cast<RBBIStateDescriptor *>(fDStates->elementAt(stateIndex));
+        auto result = prv::make_unique<UVector>(state.fDtran->size(), *fStatus, *fStatus);
+        if (U_FAILURE(*fStatus)) {
+            return nullptr;
+        }
+        for (int32_t i = 0; i < state.fDtran->size(); ++i) {
+            int32_t toState = state.fDtran->elementAti(i);
+            for (int32_t partIndex = 0; partIndex < partition->size(); ++partIndex) {
+                const UVector &part = *static_cast<UVector *>(partition->elementAt(partIndex));
+                if (part.contains(toState)) {
+                    result->addElement(partIndex, *fStatus);
+                    break;
                 }
             }
-            result->setComparer([](const UElement left, const UElement right) -> UBool {
-                return left.integer == right.integer;
-            });
-            return result;
-        };
+        }
+        result->setComparer([](const UElement left, const UElement right) -> UBool {
+            return left.integer == right.integer;
+        });
+        return result;
+    };
     // The loop between steps 2. and 3. of Algorithm 3.6.
     for (;;) {
         // Π_new.
-        LocalPointer<UVector> partitionNew(new UVector(*fStatus), *fStatus);
+        auto partitionNew = prv::make_unique<UVector>(*fStatus, *fStatus);
         if (U_FAILURE(*fStatus)) {
             return;
         }
@@ -1109,11 +1149,11 @@ void RBBITableBuilder::minimizeStates() {
             const UVector &group = *static_cast<UVector*>(partition->elementAt(i));
             // Partition 𝐺 based on the signature, see above.
             struct SignatureToStates : UMemory {
-                SignatureToStates(LocalPointer<UVector> signature, UErrorCode &status)
-                    : signature(std::move(signature)), states(new UVector(status), status) {
+                SignatureToStates(prv::unique_ptr<UVector> signature, UErrorCode &status)
+                    : signature(std::move(signature)), states(prv::make_unique<UVector>(status, status)) {
                 }
-                LocalPointer<UVector> signature;
-                LocalPointer<UVector> states;
+                prv::unique_ptr<UVector> signature;
+                prv::unique_ptr<UVector> states;
             };
             UVector groupRefinement(*fStatus);
             groupRefinement.setDeleter([](void *p) { delete static_cast<SignatureToStates*>(p); });
@@ -1148,7 +1188,7 @@ void RBBITableBuilder::minimizeStates() {
             for (int32_t j = 0; j < groupRefinement.size(); ++j) {
                 auto &[_, subgroup] = *static_cast<SignatureToStates*>(
                     groupRefinement.elementAt(j));
-                partitionNew->adoptElement(subgroup.orphan(), *fStatus);
+                partitionNew->adoptElement(subgroup.release(), *fStatus);
             }
         }
         if (refined) {
@@ -1180,11 +1220,8 @@ void RBBITableBuilder::minimizeStates() {
     if (U_FAILURE(*fStatus)) {
         return;
     }
-    // We cannot use LocalArray nor new[] because, on uint16_t, they would call
-    // the global new[] and delete[].
-    LocalMemory<uint16_t> oldStateToPart(static_cast<uint16_t*>(
-        uprv_malloc(sizeof(uint16_t) * fDStates->size())));
-    if (oldStateToPart == nullptr) {
+    auto oldStateToPart = prv::make_unique_for_overwrite<uint16_t[]>(fDStates->size(), *fStatus);
+    if (U_FAILURE(*fStatus)) {
         return;
     }
     for (int i = 0; i < partition->size(); ++i) {
@@ -1193,8 +1230,8 @@ void RBBITableBuilder::minimizeStates() {
             oldStateToPart[part.elementAti(j)] = i;
         }
     }
-    LocalPointer<UVector> oldStates(fDStates);
-    fDStates = LocalPointer<UVector>(new UVector(*fStatus), *fStatus).orphan();
+    auto const oldStates = prv::unique_ptr<UVector>(fDStates);
+    fDStates = prv::make_unique<UVector>(*fStatus, *fStatus).release();
     if (U_FAILURE(*fStatus)) {
         return;
     }
@@ -1471,6 +1508,157 @@ int32_t RBBITableBuilder::removeDuplicateStates() {
     const int32_t oldStateCount = fDStates->size();
     minimizeStates();
     return fDStates->size() - oldStateCount;
+}
+
+
+/*
+ * Minimizes the number of slots used by the lookaheads.
+ *
+ * When the state machine is first generated, every lookahead rule occupies a different slot, for instance,
+ * given
+ *   x / z;  # Lookahead 1 below.
+ *   y / z;  # Lookahead 2 below.
+ *   [xyz]*;
+ * the following state machine is produced,
+ *           x
+ *         x ⮏  z
+ *         → 𝑠₁ → 𝑎₁
+ *   START  x⇅y
+ *     ↻z  → 𝑠₂ → 𝑎₂
+ *         y ↻  z
+ *           y
+ *
+ * where 𝑠ᵢ sets the current position for lookahead i (assigning pᵢ=p_current), and 𝑎ᵢ accepts
+ * lookahead i if set, i.e., on state 𝑎ᵢ,the break iterator returns pᵢ if set. Because they accept
+ * different lookaheads, states 𝑎₁ and 𝑎₂ are distinct in the initial partition constructed by
+ * `minimizeStates`, and cannot be merged, and the state machine cannot be simplified.
+ *
+ * However, there is no need for lookaheads 1 and 2 to occupy different slots, i.e., there is no
+ * need for the state machine to separately store the positions set by 𝑠₁ and 𝑠₂ (for p₁ and p₂ to
+ * be distinct variables). Indeed, if state 𝑠₁ is encountered, state 𝑎₂ cannot be reached without
+ * going through state 𝑠₂, and vice versa, so if p₁ and p₂ are backed by the same variable p, the
+ * value set by p=p₁=p_current on 𝑠₁ will have been overriden by p=p₂=p_current on 𝑠₂, so that the
+ * p₁-p₂ merger has no effect.
+ *
+ * If the lookaheads are merged, states 𝑎₁ and 𝑎₂ are no longer initially distinct in
+ * `minimizeStates` (they both accept the only lookahead), and indeed the whole state machine
+ * simplifies to
+ *         [xy]     z
+ *   START   →  𝑠  →  𝑎
+ *     ↻z       ↻
+ *             [xy]
+ *
+ * Lookaheads i and j can be merged if:
+ * 1. From any state that sets lookahead i, no state that accepts lookahead j can be reached without
+ *    going through a state that sets lookahead j; and
+ * 2. From any state that sets lookahead j, no state that accepts lookahead i can be reached without
+ *    going through a state that sets lookahead i.
+ * This reachability relation defines a directed graph of lookaheads, and an optimal merging of
+ * lookaheads is then a colouring of that graph. (In the example above, the graph of lookaheads has
+ * no edges, and is thus 1-colourable; more interesting examples can be found in the test
+ * TestLookaheadPolychromy.)
+ *
+ * This function first computes the adjacency matrix of lookahead reachability, and then colours the
+ * graph of lookaheads and reassigns lookahead slots accordingly.
+ */
+void RBBITableBuilder::minimizeLookaheads() {
+    if (fLASlotsInUse == ACCEPTING_UNCONDITIONAL) {
+        return;
+    }
+    const int32_t lookaheadCount = fLASlotsInUse - ACCEPTING_UNCONDITIONAL;
+    // The last lookahead is fLASlotsInUse.
+    const int32_t firstLookahead = ACCEPTING_UNCONDITIONAL + 1;
+    const auto stateDescriptor = [this](const int32_t state) -> RBBIStateDescriptor & {
+        return *static_cast<RBBIStateDescriptor *>(fDStates->elementAt(state));
+    };
+
+    const auto lookaheadReachability =
+        prv::make_unique<bool[]>(lookaheadCount * lookaheadCount, *fStatus);
+    if (U_FAILURE(*fStatus)) {
+        return;
+    }
+    for (int32_t l = firstLookahead; l <= fLASlotsInUse; ++l) {
+        for (int32_t k = firstLookahead; k <= fLASlotsInUse; ++k) {
+            if (k != l) {
+                for (int32_t source = 1; source < fDStates->size(); ++source) {
+                    if (static_cast<int32_t>(stateDescriptor(source).fLookAhead) != l) {
+                        continue;
+                    }
+                    if (reachableByTransitions(
+                            *fDStates, source, /*isSink=*/
+                            [&](const int32_t state) {
+                                return static_cast<int32_t>(stateDescriptor(state).fAccepting) == k;
+                            },
+                            /*excludedState=*/
+                            [&](const int32_t state) {
+                                return static_cast<int32_t>(stateDescriptor(state).fLookAhead) == k;
+                            },
+                            *fStatus)) {
+                        lookaheadReachability[(l - firstLookahead) * lookaheadCount + k -
+                                              firstLookahead] = true;
+                    }
+                }
+            }
+        }
+    }
+
+    const auto colours = prv::make_unique_for_overwrite<int32_t[]>(lookaheadCount, *fStatus);
+    if (U_FAILURE(*fStatus)) {
+        return;
+    }
+    // Brute-force colouring: the number of lookaheads is in practice small, and the chromatic
+    // number is in practice 1, so this usually terminates in one iteration of the first two loops.
+    // Of course the worst case is exponential, but exponentials are everywhere in regular
+    // expressions anyway.
+    // The outer loop terminates after at most `lookaheadCount` iterations
+    // (when the chromatic number equals the number of lookaheads being coloured).
+    for (int32_t chromaticNumber = 1;; ++chromaticNumber) {
+        uprv_memset(colours.get(), 0, sizeof(int32_t) * lookaheadCount);
+        // This loop terminates after at most chromaticNumber ** lookaheadCount iterations.
+        for (;;) {
+            // Here `source` and `sink` correspond to lookaheads, not states.
+            for (int source = 0; source < lookaheadCount; ++source) {
+                for (int sink = 0; sink < lookaheadCount; ++sink) {
+                    if (lookaheadReachability[source * lookaheadCount + sink] &&
+                        colours[source] == colours[sink]) {
+                        goto nextColouring;
+                    }
+                }
+            }
+
+            // We have found a valid colouring of the graph of lookaheads.  Assign lookahead slots
+            // accordingly.
+            for (int i = 0; i < fDStates->size(); ++i) {
+                if (stateDescriptor(i).fAccepting > ACCEPTING_UNCONDITIONAL) {
+                    stateDescriptor(i).fAccepting =
+                        firstLookahead +
+                        colours[stateDescriptor(i).fAccepting - firstLookahead];
+                }
+                if (stateDescriptor(i).fLookAhead != 0) {
+                    stateDescriptor(i).fLookAhead =
+                        ACCEPTING_UNCONDITIONAL + 1 +
+                        colours[stateDescriptor(i).fLookAhead - firstLookahead];
+                }
+            }
+            fLASlotsInUse = ACCEPTING_UNCONDITIONAL + chromaticNumber;
+            return;
+
+          nextColouring:
+            // Increment the colour of the first lookahead, and then carry if we reach
+            // `chromaticNumber` (which is one more than the greatest colour).
+            ++colours[0];
+            for (int32_t i = 0; i < lookaheadCount - 1 && colours[i] == chromaticNumber;
+                 ++i) {
+                colours[i] = 0;
+                ++colours[i + 1];
+            }
+            if (colours[lookaheadCount - 1] == chromaticNumber) {
+                // We tried all assignments of colours in {0, …, chromaticNumber - 1},
+                // we need more colours.
+                break;
+            }
+        }
+    }
 }
 
 

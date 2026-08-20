@@ -983,7 +983,6 @@ cv{
         }
         "Europe:Dublin"{
             ec{"Дублин"}
-            ld{"Ирланди стандартлӑ вӑхӑчӗ"}
         }
         "Europe:Gibraltar"{
             ec{"Гибралтар"}
@@ -1020,7 +1019,6 @@ cv{
         }
         "Europe:London"{
             ec{"Лондон"}
-            ld{"Британи ҫуллахи вӑхӑчӗ"}
         }
         "Europe:Luxembourg"{
             ec{"Люксембург"}
@@ -1287,7 +1285,7 @@ cv{
             ss{"SAST"}
         }
         "meta:Africa_Western"{
-            ls{"Анӑҫ Африка вӑхӑчӗ"}
+            ls{"Анӑҫ Африка стандартлӑ вӑхӑчӗ"}
             ss{"WAT"}
         }
         "meta:Alaska"{
@@ -1297,14 +1295,6 @@ cv{
             sd{"AKDT"}
             sg{"AKT"}
             ss{"AKST"}
-        }
-        "meta:Almaty"{
-            ld{"Алматы ҫуллахи вӑхӑчӗ"}
-            lg{"Алматы вӑхӑчӗ"}
-            ls{"Алматы стандартлӑ вӑхӑчӗ"}
-            sd{"ALMT DST"}
-            sg{"ALMT"}
-            ss{"ALMT"}
         }
         "meta:Amazon"{
             ld{"Амазонка ҫуллахи вӑхӑчӗ"}
@@ -1361,22 +1351,6 @@ cv{
             sd{"SST Samoa Apia DST"}
             sg{"SST Samoa Apia"}
             ss{"SST Samoa Apia"}
-        }
-        "meta:Aqtau"{
-            ld{"Актау ҫуллахи вӑхӑчӗ"}
-            lg{"Актау вӑхӑчӗ"}
-            ls{"Актау стандартлӑ вӑхӑчӗ"}
-            sd{"ALMT Aktau DST"}
-            sg{"ALMT Aktau"}
-            ss{"ALMT Aktau"}
-        }
-        "meta:Aqtobe"{
-            ld{"Актобе ҫуллахи вӑхӑчӗ"}
-            lg{"Актобе вӑхӑчӗ"}
-            ls{"Актобе стандартлӑ вӑхӑчӗ"}
-            sd{"AQTT DST"}
-            sg{"AQTT"}
-            ss{"AQTT"}
         }
         "meta:Arabian"{
             ld{"Сауд Аравийӗ ҫуллахи вӑхӑчӗ"}
@@ -1489,6 +1463,12 @@ cv{
             sd{"BRST"}
             sg{"BRT"}
             ss{"BRT"}
+        }
+        "meta:British"{
+            ld{"Британи ҫуллахи вӑхӑчӗ"}
+            lg{"Британи вӑхӑчӗ"}
+            sd{"БСВ"}
+            sg{"БВ"}
         }
         "meta:Brunei"{
             ls{"Бруней вӑхӑчӗ"}
@@ -1690,10 +1670,6 @@ cv{
             sg{"WGT"}
             ss{"WGT"}
         }
-        "meta:Guam"{
-            ls{"Гуам стандартлӑ вӑхӑчӗ"}
-            ss{"GST Guam"}
-        }
         "meta:Gulf"{
             ls{"Перс кӳлмекӗн вӑхӑчӗ"}
             ss{"GST Gulf"}
@@ -1703,7 +1679,7 @@ cv{
             ss{"GYT"}
         }
         "meta:Hawaii"{
-            ls{"Гавайи-Алеут стандартлӑ вӑхӑчӗ"}
+            ls{"Гавайи стандартлӑ вӑхӑчӗ"}
             ss{"HST"}
         }
         "meta:Hawaii_Aleutian"{
@@ -1711,8 +1687,8 @@ cv{
             lg{"Гавайи-Алеут вӑхӑчӗ"}
             ls{"Гавайи-Алеут стандартлӑ вӑхӑчӗ"}
             sd{"HDT"}
-            sg{"HST"}
-            ss{"HST"}
+            sg{"HAT"}
+            ss{"HAST"}
         }
         "meta:Hong_Kong"{
             ld{"Гонконг ҫуллахи вӑхӑчӗ"}
@@ -1761,6 +1737,12 @@ cv{
             sd{"IRST DST"}
             sg{"IRST"}
             ss{"IRST"}
+        }
+        "meta:Irish"{
+            ld{"Ирланди стандартлӑ вӑхӑчӗ"}
+            lg{"Ирланди вӑхӑчӗ"}
+            sd{"ИСВ"}
+            sg{"ИВ"}
         }
         "meta:Irkutsk"{
             ld{"Иркутск ҫуллахи вӑхӑчӗ"}
@@ -1830,10 +1812,6 @@ cv{
             ls{"Кӑркӑстан вӑхӑчӗ"}
             ss{"KGT"}
         }
-        "meta:Lanka"{
-            ls{"Шри-Ланка вӑхӑчӗ"}
-            ss{"SLST"}
-        }
         "meta:Line_Islands"{
             ls{"Лайн утравӗсен вӑхӑчӗ"}
             ss{"LINT"}
@@ -1845,14 +1823,6 @@ cv{
             sd{"LHST Summer"}
             sg{"LHST"}
             ss{"LHST"}
-        }
-        "meta:Macau"{
-            ld{"Макао ҫуллахи вӑхӑчӗ"}
-            lg{"Макао вӑхӑчӗ"}
-            ls{"Макао стандартлӑ вӑхӑчӗ"}
-            sd{"MST Macao DST"}
-            sg{"MST Macao"}
-            ss{"MST Macao"}
         }
         "meta:Magadan"{
             ld{"Магадан ҫуллахи вӑхӑчӗ"}
@@ -1970,10 +1940,6 @@ cv{
             sg{"FNT"}
             ss{"FNT"}
         }
-        "meta:North_Mariana"{
-            ls{"Ҫур ҫӗр Мариана утравӗсен вӑхӑчӗ"}
-            ss{"ChST NMI"}
-        }
         "meta:Novosibirsk"{
             ld{"Новосибирск ҫуллахи вӑхӑчӗ"}
             lg{"Новосибирск вӑхӑчӗ"}
@@ -2054,14 +2020,6 @@ cv{
             ls{"Ҫур ҫӗр Корея вӑхӑчӗ"}
             ss{"PYT Korea"}
         }
-        "meta:Qyzylorda"{
-            ld{"Кызылорда ҫуллахи вӑхӑчӗ"}
-            lg{"Кызылорда вӑхӑчӗ"}
-            ls{"Кызылорда стандартлӑ вӑхӑчӗ"}
-            sd{"QYZT DST"}
-            sg{"QYZT"}
-            ss{"QYZT"}
-        }
         "meta:Reunion"{
             ls{"Реюньон вӑхӑчӗ"}
             ss{"RET"}
@@ -2087,12 +2045,7 @@ cv{
             ss{"SAMT"}
         }
         "meta:Samoa"{
-            ld{"Самоа ҫуллахи вӑхӑчӗ"}
-            lg{"Самоа вӑхӑчӗ"}
             ls{"Самоа стандартлӑ вӑхӑчӗ"}
-            sd{"SST Samoa DST"}
-            sg{"SST Samoa"}
-            ss{"SST Samoa"}
         }
         "meta:Seychelles"{
             ls{"Сейшел утравӗсен вӑхӑчӗ"}
@@ -2150,6 +2103,14 @@ cv{
             ls{"Чуук вӑхӑчӗ"}
             ss{"CHUT"}
         }
+        "meta:Turkey"{
+            ld{"Турци ҫуллахи вӑхӑчӗ"}
+            lg{"Турци вӑхӑчӗ"}
+            ls{"Турци стандартлӑ вӑхӑчӗ"}
+            sd{"ТÇВ"}
+            sg{"ТВ"}
+            ss{"ТСВ"}
+        }
         "meta:Turkmenistan"{
             ld{"Туркменистан ҫуллахи вӑхӑчӗ"}
             lg{"Туркменистан вӑхӑчӗ"}
@@ -2169,6 +2130,10 @@ cv{
             sd{"UYST"}
             sg{"UYT"}
             ss{"UYT"}
+        }
+        "meta:Urumqi"{
+            ls{"Урумчи вӑхӑчӗ"}
+            ss{"УВ"}
         }
         "meta:Uzbekistan"{
             ld{"Узбекистан ҫуллахи вӑхӑчӗ"}

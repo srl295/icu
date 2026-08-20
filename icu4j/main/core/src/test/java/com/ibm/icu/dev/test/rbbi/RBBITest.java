@@ -8,14 +8,10 @@
  */
 package com.ibm.icu.dev.test.rbbi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import com.ibm.icu.dev.test.CoreTestFmwk;
 import com.ibm.icu.dev.test.lang.UnicodeSetTest.ShakespeareanSymbolTable;
 import com.ibm.icu.impl.RBBIDataWrapper;
+import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.BreakIterator;
 import com.ibm.icu.text.RuleBasedBreakIterator;
 import com.ibm.icu.text.UnicodeSet;
@@ -1049,6 +1045,142 @@ public class RBBITest extends CoreTestFmwk {
         assertEquals("Wrong number of breaks found", 2, breaksFound);
     }
 
+    private String showPairAt(String text, int i) {
+        final var result = new StringBuilder();
+        if (i < 0) {
+            result.append("(sot)");
+            i = 0;
+        } else {
+            int first = text.codePointAt(i);
+            result.append(hex(first));
+            result.append(" ");
+            result.append(UCharacter.getName(first));
+            i += UCharacter.isBMP(first) ? 1 : 2;
+        }
+        result.append(", ");
+        if (i >= text.length()) {
+            result.append("(eot)");
+        } else {
+            int second = text.codePointAt(i);
+            result.append(hex(second));
+            result.append(" ");
+            result.append(UCharacter.getName(second));
+        }
+        return result.toString();
+    }
+
+    /* Regression test for ICU-23478: make sure normal text contains lots of safe positions.
+     * NOTE: For now ICU-23478 is open and this test merely records the extent of the disaster (OK
+     * for ideographic text, catastrophic elsewhere).
+     */
+    @Test
+    public void TestSafePairDensity() {
+        final var lb = (RuleBasedBreakIterator) BreakIterator.getLineInstance();
+        {
+            final String alphabeticText =
+                    "Ἄνδρα μοι ἔννεπε, Μοῦσα, πολύτροπον, ὃς μάλα πολλὰ πλάγχθη, / "
+                            + "ἐπεὶ Τροίης ἱερὸν πτολίεθρον ἔπερσε· πολλῶν δ’ ἀνθρώπων ἴδεν ἄστεα καὶ νόον ἔγνω, / "
+                            + "πολλὰ δ’ ὅ γ’ ἐν πόντῳ πάθεν ἄλγεα ὃν κατὰ θυμόν, / "
+                            + "ἀρνύμενος ἥν τε ψυχὴν καὶ νόστον ἑταίρων.";
+            lb.setText(alphabeticText);
+            for (int i = 0; ; i += Character.charCount(alphabeticText.codePointAt(i))) {
+                final int safePrevious = lb.handleSafePrevious(i);
+                int expectedSafePrevious;
+                if (i == 0) {
+                    expectedSafePrevious = -1;
+                } else {
+                    expectedSafePrevious = 0;
+                }
+                if (safePrevious != expectedSafePrevious) {
+                    errln(
+                            "alphabetic handleSafePrevious("
+                                    + i
+                                    + ")="
+                                    + safePrevious
+                                    + "; expected pair "
+                                    + showPairAt(alphabeticText, expectedSafePrevious)
+                                    + ", actual pair "
+                                    + showPairAt(alphabeticText, safePrevious));
+                }
+                if (i == alphabeticText.length()) {
+                    break;
+                }
+            }
+        }
+        {
+            final String ideographicText = "子曰：「學而時習之，不亦說乎？有朋自遠方來，不亦樂乎？人不知而不慍，不亦君子乎？」";
+            lb.setText(ideographicText);
+            for (int i = 0; ; i += Character.charCount(ideographicText.codePointAt(i))) {
+                final int safePrevious = lb.handleSafePrevious(i);
+                int expectedSafePrevious;
+                if (i == 0) {
+                    expectedSafePrevious = -1;
+                } else if (i == 1) {
+                    expectedSafePrevious = 0;
+                } else {
+                    for (expectedSafePrevious = i - 2; ; --expectedSafePrevious) {
+                        final var pairBehind =
+                                ideographicText.substring(
+                                        expectedSafePrevious, expectedSafePrevious + 2);
+                        if (pairBehind.charAt(0) == '「'
+                                || pairBehind.charAt(1) == '，'
+                                || pairBehind.charAt(1) == '：'
+                                || pairBehind.charAt(1) == '？'
+                                || pairBehind.charAt(1) == '」') {
+                            continue;
+                        }
+                        break;
+                    }
+                }
+                if (safePrevious != expectedSafePrevious) {
+                    errln(
+                            "ideographic handleSafePrevious("
+                                    + i
+                                    + ")="
+                                    + safePrevious
+                                    + "; expected pair "
+                                    + showPairAt(ideographicText, expectedSafePrevious)
+                                    + ", actual pair "
+                                    + showPairAt(ideographicText, safePrevious));
+                }
+                if (i == ideographicText.length()) {
+                    break;
+                }
+            }
+        }
+        {
+            // First line of the Calcutta-Bairat inscription, see the transliterations in
+            // https://archive.org/details/InscriptionsOfAsoka.NewEditionByE.Hultzsch/page/n349/mode/2up.
+            // The first aksara 𑀧𑁆𑀭𑀺 (pri) has two consonants joined by a virama.
+            final String aksaraText =
+                    "𑀧𑁆𑀭𑀺𑀬𑀤𑀲𑀺𑀮𑀸𑀚𑀸𑀫𑀸𑀕𑀥𑁂𑀲𑀁𑀖𑀅𑀪𑀺𑀯𑀸𑀤𑁂𑀢𑀽𑀦𑀁𑀆𑀳𑀸𑀅𑀧𑀸𑀩𑀸𑀥𑀢𑀁𑀘𑀨𑀸𑀲𑀼𑀯𑀺𑀳𑀸𑀮𑀢𑀁𑀘𑀸";
+            lb.setText(aksaraText);
+            for (int i = 0; ; i += Character.charCount(aksaraText.codePointAt(i))) {
+                final int safePrevious = lb.handleSafePrevious(i);
+                int expectedSafePrevious;
+                if (i < 2) {
+                    expectedSafePrevious = -1;
+                } else {
+                    expectedSafePrevious = 0;
+                }
+                if (safePrevious != expectedSafePrevious) {
+                    errln(
+                            "alphabetic handleSafePrevious("
+                                    + i
+                                    + ")="
+                                    + safePrevious
+                                    + "; expected pair "
+                                    + showPairAt(aksaraText, expectedSafePrevious)
+                                    + ", actual pair "
+                                    + showPairAt(aksaraText, safePrevious));
+                }
+                if (i == aksaraText.length()) {
+                    break;
+                }
+            }
+        }
+    }
+
     /* Test handling of unpaired surrogate.
      */
     @Test
@@ -1255,6 +1387,12 @@ public class RBBITest extends CoreTestFmwk {
                                 + "[x]   [y]  / [t];"
                                 + "[x]   [w]  / [u];"
                                 + ".*;");
+        assertEquals(
+                "lookaheadCherry chromatic number",
+                2,
+                lookaheadCherry.fRData.fFTable.fLookAheadResultsSize
+                        - lookaheadCherry.fRData.ACCEPTING_UNCONDITIONAL
+                        - 1);
         for (final var textAndFirstSegment :
                 new String[][] {
                     // If lookaheads 1 and 2 use the same slot, 2 stomps over 1 and we get xy
@@ -1282,8 +1420,8 @@ public class RBBITest extends CoreTestFmwk {
                                 + actual);
         }
         // The state that accepts lookahead 1 is reachable from those that set lookaheads 2 and 3,
-        // and the set that accepts lookahead 2 is reachable from the one that sets lookahead 3: the
-        // graph of lookaheads is a triangle, its chromatic number is 3; the lookaheads all need
+        // and the state that accepts lookahead 2 is reachable from the one that sets lookahead 3:
+        // the graph of lookaheads is a triangle, its chromatic number is 3; the lookaheads all need
         // different slots.
         final var lookaheadTriangle =
                 new RuleBasedBreakIterator(
@@ -1292,6 +1430,12 @@ public class RBBITest extends CoreTestFmwk {
                                 + "[x]   [y] / [z]    [2];"
                                 + "[x]   [y]   [z] /  [3];"
                                 + ".*;");
+        assertEquals(
+                "lookaheadTriangle chromatic number",
+                3,
+                lookaheadTriangle.fRData.fFTable.fLookAheadResultsSize
+                        - lookaheadTriangle.fRData.ACCEPTING_UNCONDITIONAL
+                        - 1);
         for (final var textAndFirstSegment :
                 new String[][] {
                     {"xyz1", "x"},
@@ -1322,6 +1466,12 @@ public class RBBITest extends CoreTestFmwk {
                                 + "[y]   [z] / [t]   [1];"
                                 + "[y]   [z]   [t] / [2];"
                                 + ".*;");
+        assertEquals(
+                "lookaheadPath chromatic number",
+                2,
+                lookaheadPath.fRData.fFTable.fLookAheadResultsSize
+                        - lookaheadPath.fRData.ACCEPTING_UNCONDITIONAL
+                        - 1);
         for (final var textAndFirstSegment :
                 new String[][] {
                     {"xyz1", "x"},

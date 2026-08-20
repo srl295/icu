@@ -266,7 +266,6 @@ ast{
         }
         "Europe:Dublin"{
             ec{"Dublín"}
-            ld{"Hora estándar irlandesa"}
         }
         "Europe:Gibraltar"{
             ec{"Xibraltar"}
@@ -291,7 +290,6 @@ ast{
         }
         "Europe:London"{
             ec{"Londres"}
-            ld{"Hora braniega británica"}
         }
         "Europe:Luxembourg"{
             ec{"Luxemburgu"}
@@ -381,11 +379,6 @@ ast{
             sg{"AKT"}
             ss{"AKST"}
         }
-        "meta:Almaty"{
-            ld{"hora braniega d’Almaty"}
-            lg{"Hora d’Almaty"}
-            ls{"hora estándar d’Almaty"}
-        }
         "meta:Amazon"{
             ld{"Hora braniega del Amazonas"}
             lg{"Hora del Amazonas"}
@@ -432,16 +425,6 @@ ast{
             ld{"Hora braniega d’Apia"}
             lg{"Hora d’Apia"}
             ls{"Hora estándar d’Apia"}
-        }
-        "meta:Aqtau"{
-            ld{"Hora braniega d’Aqtau"}
-            lg{"Hora d’Aqtau"}
-            ls{"Hora estándar d’Aqtau"}
-        }
-        "meta:Aqtobe"{
-            ld{"Hora braniega d’Aqtobe"}
-            lg{"Hora d’Aqtobe"}
-            ls{"Hora estándar d’Aqtobe"}
         }
         "meta:Arabian"{
             ld{"Hora braniega d’Arabia"}
@@ -516,6 +499,9 @@ ast{
             ld{"Hora braniega de Brasilia"}
             lg{"Hora de Brasilia"}
             ls{"Hora estándar de Brasilia"}
+        }
+        "meta:British"{
+            ld{"Hora braniega británica"}
         }
         "meta:Brunei"{
             ls{"Hora de Brunéi Darussalam"}
@@ -646,9 +632,6 @@ ast{
             lg{"Hora de Groenlandia occidental"}
             ls{"Hora estándar de Groenlandia occidental"}
         }
-        "meta:Guam"{
-            ls{"Hora estándar de Guam"}
-        }
         "meta:Gulf"{
             ls{"Hora estándar del Golfu"}
         }
@@ -699,6 +682,9 @@ ast{
             lg{"Hora d’Irán"}
             ls{"Hora estándar d’Irán"}
         }
+        "meta:Irish"{
+            ld{"Hora estándar irlandesa"}
+        }
         "meta:Irkutsk"{
             ld{"Hora braniega d’Irkutsk"}
             lg{"Hora d’Irkutsk"}
@@ -741,9 +727,6 @@ ast{
         "meta:Kyrgystan"{
             ls{"Hora del Kirguistán"}
         }
-        "meta:Lanka"{
-            ls{"Hora de Lanka"}
-        }
         "meta:Line_Islands"{
             ls{"Hora de les Islles Line"}
         }
@@ -751,11 +734,6 @@ ast{
             ld{"Hora braniega de Lord Howe"}
             lg{"Hora de Lord Howe"}
             ls{"Hora estándar de Lord Howe"}
-        }
-        "meta:Macau"{
-            ld{"Hora braniega de Macáu"}
-            lg{"Hora de Macáu"}
-            ls{"Hora estándar de Macáu"}
         }
         "meta:Magadan"{
             ld{"Hora braniega de Magadán"}
@@ -834,9 +812,6 @@ ast{
             lg{"Hora de Fernando de Noronha"}
             ls{"Hora estándar de Fernando de Noronha"}
         }
-        "meta:North_Mariana"{
-            ls{"Hora de les Islles Marianes del Norte"}
-        }
         "meta:Novosibirsk"{
             ld{"Hora braniega de Novosibirsk"}
             lg{"Hora de Novosibirsk"}
@@ -890,11 +865,6 @@ ast{
         "meta:Pyongyang"{
             ls{"hora de Pyongyang"}
         }
-        "meta:Qyzylorda"{
-            ld{"Hora braniega de Qyzylorda"}
-            lg{"Hora de Qyzylorda"}
-            ls{"Hora estándar de Qyzylorda"}
-        }
         "meta:Reunion"{
             ls{"Hora de Reunión"}
         }
@@ -912,8 +882,6 @@ ast{
             ls{"Hora estándar de Samara"}
         }
         "meta:Samoa"{
-            ld{"Hora braniega de Samoa"}
-            lg{"Hora de Samoa"}
             ls{"Hora estándar de Samoa"}
         }
         "meta:Seychelles"{

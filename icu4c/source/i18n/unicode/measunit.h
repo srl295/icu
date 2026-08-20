@@ -2301,6 +2301,24 @@ class U_I18N_API MeasureUnit: public UObject {
 
 #ifndef U_HIDE_DRAFT_API
     /**
+     * Returns by pointer, unit of force: dyne.
+     * Caller owns returned value and must free it.
+     * Also see {@link #getDyne()}.
+     * @param status ICU error code.
+     * @draft ICU 79
+     */
+    static MeasureUnit *createDyne(UErrorCode &status);
+
+    /**
+     * Returns by value, unit of force: dyne.
+     * Also see {@link #createDyne()}.
+     * @draft ICU 79
+     */
+    static MeasureUnit getDyne();
+#endif /* U_HIDE_DRAFT_API */
+
+#ifndef U_HIDE_DRAFT_API
+    /**
      * Returns by pointer, unit of force: kilogram-force.
      * Caller owns returned value and must free it.
      * Also see {@link #getKilogramForce()}.
@@ -2364,6 +2382,24 @@ class U_I18N_API MeasureUnit: public UObject {
      * @stable ICU 64
      */
     static MeasureUnit getPoundForce();
+
+#ifndef U_HIDE_DRAFT_API
+    /**
+     * Returns by pointer, unit of force: poundal.
+     * Caller owns returned value and must free it.
+     * Also see {@link #getPoundal()}.
+     * @param status ICU error code.
+     * @draft ICU 79
+     */
+    static MeasureUnit *createPoundal(UErrorCode &status);
+
+    /**
+     * Returns by value, unit of force: poundal.
+     * Also see {@link #createPoundal()}.
+     * @draft ICU 79
+     */
+    static MeasureUnit getPoundal();
+#endif /* U_HIDE_DRAFT_API */
 
     /**
      * Returns by pointer, unit of frequency: gigahertz.
@@ -2834,6 +2870,24 @@ class U_I18N_API MeasureUnit: public UObject {
      * @stable ICU 64
      */
     static MeasureUnit getMileScandinavian();
+
+#ifndef U_HIDE_DRAFT_API
+    /**
+     * Returns by pointer, unit of length: milliinch.
+     * Caller owns returned value and must free it.
+     * Also see {@link #getMilliinch()}.
+     * @param status ICU error code.
+     * @draft ICU 79
+     */
+    static MeasureUnit *createMilliinch(UErrorCode &status);
+
+    /**
+     * Returns by value, unit of length: milliinch.
+     * Also see {@link #createMilliinch()}.
+     * @draft ICU 79
+     */
+    static MeasureUnit getMilliinch();
+#endif /* U_HIDE_DRAFT_API */
 
     /**
      * Returns by pointer, unit of length: millimeter.

@@ -2053,8 +2053,8 @@ public class TimeZoneTest extends CoreTestFmwk {
 
         final Object[][] zoneDisplayTestData = {
             //  zone id             locale  summer          format      expected display name
-            {"Europe/London", "en", Boolean.FALSE, TZSHORT, "GMT"},
-            {"Europe/London", "en", Boolean.FALSE, TZLONG, "Greenwich Mean Time"},
+            {"Europe/London", "en", Boolean.FALSE, TZSHORT, "GMT+0"},
+            {"Europe/London", "en", Boolean.FALSE, TZLONG, "GMT+00:00"},
             {"Europe/London", "en", Boolean.TRUE, TZSHORT, "GMT+1" /*"BST"*/},
             {"Europe/London", "en", Boolean.TRUE, TZLONG, "British Summer Time"},
             {"America/Anchorage", "en", Boolean.FALSE, TZSHORT, "AKST"},
@@ -2079,7 +2079,7 @@ public class TimeZoneTest extends CoreTestFmwk {
 
             // No Summer Time, but had it before 1983.
             {"Pacific/Honolulu", "en", Boolean.FALSE, TZSHORT, "HST"},
-            {"Pacific/Honolulu", "en", Boolean.FALSE, TZLONG, "Hawaii-Aleutian Standard Time"},
+            {"Pacific/Honolulu", "en", Boolean.FALSE, TZLONG, "Hawaii Time"},
             {"Pacific/Honolulu", "en", Boolean.TRUE, TZSHORT, "GMT-10"},
             {"Pacific/Honolulu", "en", Boolean.TRUE, TZLONG, "GMT-10:00"},
 

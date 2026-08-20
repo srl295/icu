@@ -17,8 +17,6 @@ lo{
             patterns{
                 accountingFormat%alphaNextToNumber{"¤ #,##0.00;¤-#,##0.00"}
                 accountingFormat%noCurrency{"#,##0.00"}
-                currencyFormat%alphaNextToNumber{"¤ #,##0.00;¤-#,##0.00"}
-                currencyFormat%noCurrency{"#,##0.00"}
             }
             patternsLong{
                 decimalFormat{
@@ -182,11 +180,8 @@ lo{
                 atLeast{"{0}+"}
             }
             patterns{
-                accountingFormat%alphaNextToNumber{"¤ #,##0.00;¤-#,##0.00"}
-                accountingFormat%noCurrency{"#,##0.00"}
                 currencyFormat{"¤#,##0.00;¤-#,##0.00"}
                 currencyFormat%alphaNextToNumber{"¤ #,##0.00;¤-#,##0.00"}
-                currencyFormat%noCurrency{"#,##0.00"}
                 scientificFormat{"#"}
             }
             patternsLong{
@@ -644,6 +639,7 @@ lo{
                 GyMd{"d/M/GGGGG y"}
                 MEd{"E, d/M"}
                 MMMEd{"E d MMM"}
+                MMMMd{"d MMMM"}
                 MMMd{"d MMM"}
                 Md{"d/M"}
                 h{"h ໂມງa"}
@@ -698,9 +694,13 @@ lo{
                     M{"E, d-MM – E, d-MM"}
                     d{"E, d-MM – E, d-MM"}
                 }
+                MMMMd{
+                    M{"d MMMM – d MMMM"}
+                    d{"d–d MMMM"}
+                }
                 MMMd{
                     M{"d-MM – d-MM"}
-                    d{"MM-d – d"}
+                    d{"d – d MMM"}
                 }
                 Md{
                     M{"d/M – d/M"}
@@ -771,6 +771,9 @@ lo{
                 "yMMMd",
                 "yMd",
             }
+            appendItems{
+                Day-Of-Week{"{1}, {0}"}
+            }
             availableFormats{
                 EBh{"E h ໂມງa"}
                 Ed{"E, d"}
@@ -779,10 +782,14 @@ lo{
                 GyMEd{"E, G d/M/y"}
                 GyMMM{"MMM, G y"}
                 GyMMMEd{"E d MMMM, G y"}
+                GyMMMM{"MMMM G y"}
+                GyMMMMEd{"E, d MMMM, G y"}
+                GyMMMMd{"d MMMM, G y"}
                 GyMMMd{"d MMMM, G y"}
                 GyMd{"d/M/GGGGG y"}
                 MEd{"E, d/M"}
                 MMMEd{"E d MMM"}
+                MMMMEd{"E, d MMMM"}
                 MMMMW{
                     other{"ອາທິດທີ່ W ຂອງເດືອນ M"}
                 }
@@ -796,6 +803,8 @@ lo{
                 yMMM{"MMM y"}
                 yMMMEd{"E, d MMM y"}
                 yMMMM{"MMMM y"}
+                yMMMMEd{"E, d MMMM, y"}
+                yMMMMd{"d MMMM y"}
                 yMMMd{"d MMM y"}
                 yMd{"d/M/y"}
                 yQQQ{"QQQ y"}
@@ -956,6 +965,10 @@ lo{
                 MMMEd{
                     M{"E, d/MM – E, d/MM"}
                     d{"E, d/MM – E, d/MM"}
+                }
+                MMMMd{
+                    M{"d MMMM – d MMMM"}
+                    d{"d – d MMMM"}
                 }
                 MMMd{
                     M{"d/MM – d/MM"}

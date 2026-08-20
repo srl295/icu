@@ -606,7 +606,7 @@ fo{
             islamic{"islamiskur kalendari"}
             islamic-civil{"islamiskur kalendari (talvuskapaður, fólkaligt tíðarskeið)"}
             islamic-umalqura{"islamiskur kalendari (Umm al-Qura)"}
-            iso8601{"ISO-8601 kalendari"}
+            iso8601{"gregorianskur kalendari (ISO 8601 vikur)"}
             japanese{"japanskur kalendari"}
             persian{"persiskur kalendari"}
             roc{"minguo kalendari"}

@@ -65,6 +65,7 @@ en{
         ang{"Old English"}
         ann{"Obolo"}
         anp{"Angika"}
+        apw{"Western Apache"}
         ar{"Arabic"}
         ar_001{"Modern Standard Arabic"}
         arc{"Aramaic"}
@@ -380,6 +381,7 @@ en{
         lil{"Lillooet"}
         liv{"Livonian"}
         lkt{"Lakota"}
+        lld{"Ladin"}
         lmo{"Lombard"}
         ln{"Lingala"}
         lo{"Lao"}
@@ -420,6 +422,7 @@ en{
         mh{"Marshallese"}
         mi{"Māori"}
         mic{"Mi'kmaw"}
+        mid{"Mandaic"}
         min{"Minangkabau"}
         mk{"Macedonian"}
         ml{"Malayalam"}
@@ -462,6 +465,7 @@ en{
         nmg{"Kwasio"}
         nn{"Norwegian Nynorsk"}
         nnh{"Ngiemboon"}
+        nnp{"Wancho"}
         no{"Norwegian"}
         nog{"Nogai"}
         non{"Old Norse"}
@@ -521,6 +525,7 @@ en{
         raj{"Rajasthani"}
         rap{"Rapanui"}
         rar{"Rarotongan"}
+        rej{"Rejang"}
         rgn{"Romagnol"}
         rhg{"Rohingya"}
         rif{"Riffian"}
@@ -568,6 +573,9 @@ en{
         shu{"Chadian Arabic"}
         si{"Sinhala"}
         sid{"Sidamo"}
+        sjd{"Kildin Sami"}
+        sje{"Pite Sami"}
+        sju{"Ume Sami"}
         sk{"Slovak"}
         sl{"Slovenian"}
         slh{"Southern Lushootseed"}
@@ -889,6 +897,7 @@ en{
         Ougr{"Old Uyghur"}
         Palm{"Palmyrene"}
         Pauc{"Pau Cin Hau"}
+        Pcun{"Proto-Cuneiform"}
         Perm{"Old Permic"}
         Phag{"Phags-pa"}
         Phli{"Inscriptional Pahlavi"}
@@ -906,6 +915,7 @@ en{
         Sara{"Sarati"}
         Sarb{"Old South Arabian"}
         Saur{"Sourashtra"}
+        Seal{"Seal"}
         Sgnw{"SignWriting"}
         Shaw{"Shavian"}
         Shrd{"Sharada"}
@@ -1040,6 +1050,11 @@ en{
             no{"Sort Normal Case Order"}
             upper{"Sort Uppercase First"}
         }
+        colCaseFirst%core{
+            lower{"Lowercase"}
+            no{"Lowercase"}
+            upper{"Uppercase"}
+        }
         colCaseLevel{
             no{"Sort Case Insensitive"}
             yes{"Sort Case Sensitive"}
@@ -1059,12 +1074,26 @@ en{
             space{"Whitespace"}
             symbol{"Symbol"}
         }
+        colReorder%core{
+            currency{"Currency"}
+            digit{"Digits"}
+            punct{"Punctuation"}
+            space{"Whitespace"}
+            symbol{"Symbol"}
+        }
         colStrength{
             identical{"Sort All"}
             primary{"Sort Base Letters Only"}
             quaternary{"Sort Accents/Case/Width/Kana"}
             secondary{"Sort Accents"}
             tertiary{"Sort Accents/Case/Width"}
+        }
+        colStrength%core{
+            identical{"All"}
+            primary{"Base Letters Only"}
+            quaternary{"Base, Accents, Case, Variants, Kana"}
+            secondary{"Base, Accents"}
+            tertiary{"Base, Accents, Case, Variants"}
         }
         collation{
             compat{"Previous Sort Order, for compatibility"}

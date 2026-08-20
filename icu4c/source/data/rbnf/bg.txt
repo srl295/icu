@@ -6,15 +6,16 @@ bg{
         OrdinalRules{
             "%digits-ordinal-masculine:"
             "-x: \u2212>>;"
-            "0: =#,##0=-$(ordinal,zero{\u0442\u0435\u043D}one{\u0432\u0438}two{\u0440\u0438}few{\u0442\u0438}many{\u043C\u0438}other{\u0438})$;"
+            "0: =#,##0=-$(ordinal,one{\u0432\u0438}two{\u0440\u0438}few{\u0442\u0438}other{\u0438})$;"
             "%digits-ordinal-feminine:"
             "-x: \u2212>>;"
-            "0: =#,##0=-$(ordinal,zero{\u0442\u043D\u0430}one{\u0432\u0430}two{\u0440\u0430}few{\u0442\u0430}many{\u043C\u0430}other{\u0430})$;"
+            "0: =#,##0=-$(ordinal,one{\u0432\u0430}two{\u0440\u0430}few{\u0442\u0430}other{\u0430})$;"
             "%digits-ordinal-neuter:"
             "-x: \u2212>>;"
-            "0: =#,##0=-$(ordinal,zero{\u0442\u043D\u043E}one{\u0432\u043E}two{\u0440\u043E}few{\u0442\u043E}many{\u043C\u043E}other{\u043E})$;"
+            "0: =#,##0=-$(ordinal,one{\u0432\u043E}two{\u0440\u043E}few{\u0442\u043E}other{\u043E})$;"
             "%digits-ordinal:"
-            "0: =%digits-ordinal-masculine=;"
+            "-x: \u2212>>;"
+            "0: =#,##0=.;"
         }
         SpelloutRules{
             "%spellout-numbering-year:"

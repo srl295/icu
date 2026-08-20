@@ -83,6 +83,7 @@ public:
     void TestTableRedundancies();
     void TestBug13447();
     void TestReverse();
+    void TestSafePairDensity();
     void TestReverse(std::unique_ptr<RuleBasedBreakIterator>bi);
     void TestBug13692();
     void TestDebugRules();

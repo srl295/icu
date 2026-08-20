@@ -224,7 +224,6 @@ scn{
         }
         "Europe:Dublin"{
             ec{"Dubblinu"}
-            ld{"Ura sulari Irlannisi"}
         }
         "Europe:Gibraltar"{
             ec{"Gibbirterra"}
@@ -246,7 +245,6 @@ scn{
         }
         "Europe:London"{
             ec{"Lònnira"}
-            ld{"Ura ligali Britànnica"}
         }
         "Europe:Luxembourg"{
             ec{"Lussimmurgu"}
@@ -462,6 +460,9 @@ scn{
             lg{"Ura di Brasilia"}
             ls{"Ura sulari di Brasilia"}
         }
+        "meta:British"{
+            ld{"Ura ligali Britànnica"}
+        }
         "meta:Brunei"{
             ls{"Ura dû Brunei"}
         }
@@ -645,6 +646,9 @@ scn{
             ld{"Ura ligali di l’Iran"}
             lg{"Ura di l’Iran"}
             ls{"Ura sulari di l’Iran"}
+        }
+        "meta:Irish"{
+            ld{"Ura sulari Irlannisi"}
         }
         "meta:Irkutsk"{
             ld{"Ura ligali di Irtkutsk"}
@@ -836,8 +840,6 @@ scn{
             ls{"Ura sulari di Sakhalin"}
         }
         "meta:Samoa"{
-            ld{"Ura ligali dî Samoa miricani"}
-            lg{"Ura dî Samoa miricani"}
             ls{"Ura sulari dî Samoa miricani"}
         }
         "meta:Seychelles"{

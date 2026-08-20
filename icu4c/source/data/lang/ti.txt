@@ -609,6 +609,7 @@ ti{
             islamic-civil{"ሂጅሪ ዓውደ ኣዋርሕ (ሰንጠረዥ፣ ሲቪላዊ ዘመን)"}
             islamic-tbla{"ሂጅሪ (ሰንጠረዥ፣ ስነ-ፍልጠታዊ ዘመን)"}
             islamic-umalqura{"ሂጅሪ (ኡም ኣል-ቁራ)"}
+            iso8601{"ጎርጎርዮሳዊ"}
             japanese{"ጃፓናዊ"}
             persian{"ፋርስ"}
             roc{"ሪፓብሊክ ቻይና"}

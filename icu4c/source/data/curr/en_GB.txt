@@ -3,4 +3,24 @@
 // Generated using tools/cldr/cldr-to-icu/
 en_GB{
     %%Parent{"en_001"}
+    Currencies{
+        SLL{
+            "SLL",
+            "Sierra Leonean Leone (1964–2022)",
+        }
+    }
+    CurrencyPlurals{
+        BDT{
+            one{"Bangladeshi taka"}
+            other{"Bangladeshi taka"}
+        }
+        SLL{
+            one{"Sierra Leonean leone (1964–2022)"}
+            other{"Sierra Leonean leones (1964–2022)"}
+        }
+        TRY{
+            one{"Turkish lira"}
+            other{"Turkish lira"}
+        }
+    }
 }

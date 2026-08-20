@@ -13,16 +13,42 @@ en_GB{
         Hrkt{"Japanese Syllabaries"}
     }
     Types{
+        calendar%core{
+            islamic-rgsa{"Hijri, Saudi Arabia Sighting"}
+        }
+        collation%core{
+            eor{"European Rules"}
+            searchjl{"Korean Initial Consonant"}
+        }
+        kv%core{
+            currency{"Shift Spaces, Punctuation, All Symbols"}
+            punct{"Shift Spaces, Punctuation"}
+            space{"Shift Spaces, Punctuation"}
+            symbol{"Shift Spaces, Punctuation, Non-currency Symbols"}
+        }
         numbers%core{
             armnlow{"Armenian Lowercase"}
             fullwide{"Full-Width"}
             greklow{"Greek Lowercase"}
+            hanidays{"Han-Character Day-of-Month Numbering for Traditional Calendars"}
             hansfin{"Simplified Chinese Financial"}
             hantfin{"Traditional Chinese Financial"}
             jpanfin{"Japanese Financial"}
+            jpanyear{"Japanese First-Year Gannen Numbering"}
+            lanatham{"Tai Tham Tham (Ecclesiastical)"}
+            mathbold{"Mathematical Bold"}
+            mathdbl{"Mathematical Double-Struck"}
+            mathmono{"Mathematical Monospace"}
+            mathsanb{"Mathematical Sans-Serif Bold"}
+            mathsans{"Mathematical Sans Serif"}
+            mymrpao{"Myanmar Pa’O"}
             native{"Native Digits"}
             roman{"Roman Uppercase"}
             romanlow{"Roman Lowercase"}
+            traditional{"Traditional Numerals"}
+        }
+        va%core{
+            posix{"POSIX Variant"}
         }
     }
 }

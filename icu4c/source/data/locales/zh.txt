@@ -174,6 +174,9 @@ zh{
                     }
                 }
                 currencyFormat%alphaNextToNumber{
+                    1000{
+                        other{"¤ 0K"}
+                    }
                     10000{
                         other{"¤ 0万"}
                     }
@@ -879,10 +882,10 @@ zh{
                 hv{"vah时"}
                 y{"Gy年"}
                 yyyy{"Gy年"}
-                yyyyM{"Gy年M月"}
+                yyyyM{"G y/M"}
                 yyyyMEd{"G y/M/dE"}
                 yyyyMMM{"Gy年M月"}
-                yyyyMMMEd{"Gy年MM月d日E"}
+                yyyyMMMEd{"Gy年M月d日E"}
                 yyyyMMMM{"Gy年M月"}
                 yyyyMMMd{"Gy年M月d日"}
                 yyyyMd{"G y/M/d"}
@@ -954,6 +957,10 @@ zh{
                 MMMEd{
                     M{"M月d日E至M月d日E"}
                     d{"M月d日E至d日E"}
+                }
+                MMMMd{
+                    M{"M月d日–M月d日"}
+                    d{"M月d–d日"}
                 }
                 MMMd{
                     M{"M月d日至M月d日"}
@@ -1053,7 +1060,11 @@ zh{
                 "yMd",
             }
             appendItems{
-                Timezone{"{1}{0}"}
+                Date-Timezone{"{0}{1}"}
+                Day-Of-Week{"{0}{1}"}
+                Era{"{1}{0}"}
+                Time-Day-Of-Week{"{1}{0}"}
+                Timezone{"{1} {0}"}
             }
             availableFormats{
                 Bh{"Bh时"}
@@ -1073,6 +1084,9 @@ zh{
                 GyMEd{"Gy-MM-ddE"}
                 GyMMM{"Gy年M月"}
                 GyMMMEd{"Gy年M月d日E"}
+                GyMMMM{"Gy年M月"}
+                GyMMMMEd{"Gy年M月d日E"}
+                GyMMMMd{"Gy年M月d日"}
                 GyMMMd{"Gy年M月d日"}
                 GyMd{"Gy-MM-dd"}
                 H{"H时"}
@@ -1082,6 +1096,7 @@ zh{
                 M{"M月"}
                 MEd{"M/dE"}
                 MMMEd{"M月d日E"}
+                MMMMEd{"M月d日E"}
                 MMMMW{
                     other{"MMMM第W周"}
                 }
@@ -1104,6 +1119,8 @@ zh{
                 yMMM{"y年M月"}
                 yMMMEd{"y年M月d日E"}
                 yMMMM{"y年M月"}
+                yMMMMEd{"y年M月d日E"}
+                yMMMMd{"y年M月d日"}
                 yMMMd{"y年M月d日"}
                 yMd{"y/M/d"}
                 yQQQ{"y年第Q季度"}
@@ -1241,6 +1258,10 @@ zh{
                 MMMEd{
                     M{"M月d日E至M月d日E"}
                     d{"M月d日E至d日E"}
+                }
+                MMMMd{
+                    M{"M月d日–M月d日"}
+                    d{"M月d–d日"}
                 }
                 MMMd{
                     M{"M月d日至M月d日"}
@@ -1507,12 +1528,9 @@ zh{
         }
         islamic{
             availableFormats{
-                GyM{"Gy/M"}
-                GyMEd{"Gy-MM-dd E"}
+                GyMEd{"Gy/M/dE"}
                 M{"M月"}
-                MEd{"M-dE"}
                 MMM{"LLL"}
-                Md{"M-d"}
                 yyyyMEd{"Gy/M/dE"}
                 yyyyMMMEd{"Gy年M月d日E"}
                 yyyyMd{"Gy/M/d"}

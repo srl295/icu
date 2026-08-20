@@ -925,6 +925,10 @@ zh_Hant{
                 MMMM{
                     M{"LLLL至LLLL"}
                 }
+                MMMMd{
+                    M{"M月d日–M月d日"}
+                    d{"M月d日–d日"}
+                }
                 MMMd{
                     M{"M月d日至M月d日"}
                     d{"M月d日至d日"}
@@ -1011,12 +1015,6 @@ zh_Hant{
                 "{1} {0}",
                 "{1} {0}",
             }
-            DateTimePatterns%atTime{
-                "{1} {0}",
-                "{1} {0}",
-                "{1} {0}",
-                "{1} {0}",
-            }
             DateTimePatterns%relative{
                 "{1}{0}",
                 "{1}{0}",
@@ -1032,6 +1030,12 @@ zh_Hant{
                 "yMMMd",
                 "yMMMd",
                 "yMd",
+            }
+            appendItems{
+                Date-Timezone{"{1} {0}"}
+                Day-Of-Week{"{0}{1}"}
+                Era{"{1}{0}"}
+                Time-Day-Of-Week{"{1}{0}"}
             }
             availableFormats{
                 Bh{"Bh時"}
@@ -1049,6 +1053,9 @@ zh_Hant{
                 GyMEd{"Gy/M/d（E）"}
                 GyMMM{"Gy年M月"}
                 GyMMMEd{"Gy年M月d日 E"}
+                GyMMMM{"Gy年M月"}
+                GyMMMMEd{"Gy年M月d日 E"}
+                GyMMMMd{"Gy年M月d日"}
                 GyMMMd{"Gy年M月d日"}
                 GyMd{"G y/M/d"}
                 H{"H時"}
@@ -1058,6 +1065,7 @@ zh_Hant{
                 M{"M月"}
                 MEd{"M/d（E）"}
                 MMMEd{"M月d日E"}
+                MMMMEd{"M月d日E"}
                 MMMMW{
                     other{"MMMM的第W週"}
                 }
@@ -1080,6 +1088,8 @@ zh_Hant{
                 yMMM{"y年M月"}
                 yMMMEd{"y年M月d日E"}
                 yMMMM{"y年M月"}
+                yMMMMEd{"y年M月d日 E"}
+                yMMMMd{"y年M月d日"}
                 yMMMd{"y年M月d日"}
                 yMd{"y/M/d"}
                 yQQQ{"y年QQQ"}
@@ -1231,6 +1241,10 @@ zh_Hant{
                 }
                 MMMM{
                     M{"LLLL至LLLL"}
+                }
+                MMMMd{
+                    M{"M月d日至M月d日"}
+                    d{"MMMMd日–d日"}
                 }
                 MMMd{
                     M{"M月d日至M月d日"}
